@@ -37,24 +37,21 @@ chrome.runtime.onInstalled.addListener(async() => {
   });
 });
 
-/*
-TEST SCRIPT INJECTION
-*/
-chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-  if (changeInfo.url || changeInfo.status === "complete") {
-    chrome.scripting.insertCSS({
-      target: { tabId },
-      files: ['./modal/styles.css'],
-    })
-    .then(() => {
-      chrome.scripting.executeScript({
-        target: { tabId },
-        files: ['./modal/vendor/jquery-3.6.1.min.js', './content.js']
-      })
-    })
-    .catch(err => console.log(err));
-  }
-}); 
+// /*
+// TEST SCRIPT INJECTION
+// */
+// chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+//   if (changeInfo.url || changeInfo.status === "complete") {
+//     chrome.scripting.executeScript({
+//       target: { tabId },
+//       files: ['./content.js']
+//     })
+//     .then(() => {
+//       console.log('injected')
+//     })
+//     .catch(err => console.log(err));
+//   }
+// }); 
 
 /*
   EXTENSION FROM DISABLE TO ENABLE
@@ -119,6 +116,10 @@ chrome.runtime.onMessage.addListener((msg, _, sendResponse) => {
         });
       }
     });
+    return true;
+  } if (msg.hasOwnProperty('msg')) {
+    console.log(msg);
+    sendResponse({ msg: 'ok' });
     return true;
   }
 });
