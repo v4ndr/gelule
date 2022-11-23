@@ -1,0 +1,24 @@
+#gelcr23 {
+    all: initial;
+
+    width: auto;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    margin: 0;
+    padding: 0;
+    z-index: 10000;
+    background-color: white;
+    border: none;
+}
+
+#gelcr23 * {
+    all: unset;
+}
+
+#gelcr23::before,
+#gelcr23::after,
+#gelcr23 *::before,
+#gelcr23 *::after {
+  all: unset;
+}
