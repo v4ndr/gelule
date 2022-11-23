@@ -1,0 +1,134 @@
+@font-face {
+    font-family: 'SF-medium';
+    src: url("../../assets/SFProDisplay-Medium.otf") format("opentype");
+}
+
+@font-face {
+    font-family: 'SF-semibold';
+    src: url("../../assets/SFProDisplay-Semibold.otf") format("opentype");
+}
+
+html {
+    background: none;
+    background-color: transparent;
+}
+body {
+    width: 237px;
+    height: 152px;
+    margin:0px;
+    background-color: #414247;
+    border-radius: 12px;
+}
+
+.large {
+    height: 177px;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 38px;
+    background-color: rgba(255, 255, 255, 0.07);
+    box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.25);
+}
+
+.logo {
+    height: 22px;
+    width: 22px;
+    margin-left: 14px;
+    margin-right: 14px;
+}
+
+.title {
+    font-family: 'SF-semibold';
+    font-size: 17px;
+    color: white;
+}
+
+.text {
+    font-family: 'SF-medium';
+    font-size: 16px;
+    margin: 0px;
+    color:white;
+    text-align: center;
+}
+
+.content {
+    padding: 15px 21px 17px 21px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.btn-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-top: 13px;
+}
+
+.btn {
+    margin: 0px 8px 0px 8px;
+    border-radius: 10px;
+    border-style: hidden;
+    width: 50px;
+    height: 27px;
+    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.25);
+    cursor: pointer;
+}
+
+
+.btn-yes {
+    background-color: #CC444A;
+}
+
+.btn-yes:hover {
+    background-color: #cc444bb5;
+}
+
+.btn-no {
+    background-color: #53A451;
+}
+
+.btn-no:hover {
+    background-color: #52a451ae;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+input {
+    width: 18px;
+    height: 24px;
+    margin: 0px 3px;
+    border: 1px solid #333;
+    text-align: center;
+    font-family: 'SF-medium';
+    font-size: 16px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.error {
+    color:#e71717;
+    margin: 0;
+    font-family: 'SF-medium';
+    font-size: 15px;
+    text-align: center;
+}

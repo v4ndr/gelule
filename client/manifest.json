@@ -1,0 +1,28 @@
+{
+  "name": "Gélule",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "description": "Gélule collecte les données de navigation de médecins volontaires à des fins de recherche.",
+  "icons": {
+    "512": "assets/logo512.png"
+  },
+  "action": {
+    "default_icon": "assets/disabled128.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "web_accessible_resources": [{
+    "resources": ["/modal/assets/*", "*.woff"],
+    "matches": ["<all_urls>"]
+  }],
+  "permissions": [
+    "tabs",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+   "<all_urls>"
+  ]
+}

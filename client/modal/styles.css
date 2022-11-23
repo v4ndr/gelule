@@ -1,0 +1,203 @@
+@font-face {
+    font-family: 'Abel';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Abel'), url('chrome-extension://lhnafjaglgkdmiklbnhgjdjkaopfdbeo/modal/assets/Abel-Regular.woff') format('woff');
+    
+}
+.gelCR23-container {
+    display:flex;
+    flex-direction:row;
+    box-sizing: content-box;
+}
+
+.gelCR23-title{
+    color:black;
+    font-family: 'Abel', sans-serif;
+    font-size: 16px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    text-align: left;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.gelCR23-subtitle{
+    color:black;
+    font-family: 'Abel', sans-serif;
+    font-size: 16px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    text-align: left;
+}
+
+.gelCR23-button {
+    background: white;
+    height: 56px;
+    width: 56px;
+    border-radius: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 12px;
+    cursor: pointer;
+}
+
+.gelCR23-modal-container {
+    background: white;
+    height: 56px;
+    width: 56px;
+    min-width: 56px;
+    border-radius: 28px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
+    padding: 0px 0px 0px 0px;
+    transition: width .3s ease-out;
+    cursor: pointer;
+    box-sizing: content-box;
+}
+
+.gelCR23-modal-container.gelCR23-ask{
+    padding: 0px 0px 0px 12px;
+    width:325px;
+    cursor:default;
+}
+
+.gelCR23-modal-container.gelCR23-success{
+    padding: 0px 12px 0px 12px;
+    width:190px;
+    cursor:default;
+}
+
+.gelCR23-modal-container.gelCR23-locked{
+    padding: 0px 12px 0px 12px;
+    width:280px;
+    cursor:default;
+}
+
+.gelCR23-modal-container.gelCR23-unlocked{
+    padding: 0px 12px 0px 12px;
+    width:220px;
+    cursor:default;
+}
+
+.gelCR23-ask .gelCR23-title {
+    margin: 0px 12px 0px 12px;
+}
+
+.gelCR23-hidden-text{
+    overflow: hidden;
+    max-height: 0px;
+    max-width: 0px;
+    line-height: normal;
+    opacity:0;
+    white-space: nowrap;
+    transition: opacity .4s linear, max-width .2s ease-out, max-height .2s ease-out, margin .1s ease-out;
+}
+
+.gelCR23-lock-text {
+    margin: 0px 8px 0px 16px;
+    line-height: normal;
+}
+
+.gelCR23-unlock-text {
+    display: none;
+    margin: 0px 8px 0px 16px;
+}
+
+.gelCR23-disabled-text {
+    display: none;
+}
+
+.gelCR23-enabled-text {
+    display: none;
+    line-height: normal;
+}
+
+.gelCR23-success-text {
+    display: none;
+    margin: 0px 0px 0px 12px;
+}
+
+.gelCR23-button.gelCR23-ask {
+    display: none;
+}
+
+.gelCR23-ask-text{
+    display: none;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.gelCR23-modal-container.gelCR23-inactive.gelCR23-hover{
+    padding: 0px 0px 0px 12;
+    width: 218px;
+}
+
+.gelCR23-modal-container.gelCR23-active.gelCR23-hover{
+    padding: 0px 0px 0px 12;
+    width: 244px;
+}
+
+.gelCR23-modal-container.gelCR23-hover > .gelCR23-hidden-text{
+    opacity: 1;
+    max-height: 500px;
+    max-width: 500px;
+    margin: 0px 14px 0px 16px;
+}
+
+@keyframes spin {
+    0%, 10%    { transform: rotate(0deg); }
+    90%, 100%  { transform: rotate(720deg); }
+}
+
+.gelCR23-img {
+    height: 30px;
+    margin: 0px 0px 0px 0px;
+}
+
+.gelCR23-logo {
+    height: 30px;
+    margin: 0px 0px 0px 0px;
+}
+
+.gelCR23-logo.gelCR23-spinning {
+    animation: spin 1.2s ease infinite;
+}
+
+.gelCR23-subtitle{
+    font-size: 11;
+    color:#6B6C6E;
+}
+
+.gelCR23-form {
+    display: flex;
+    justify-content: center;
+    margin: 0px 8px 0px 8px;
+}
+
+input.gelCR23-input { 
+    box-sizing: border-box !important;
+    width: 18px !important;
+    height: 24px !important;
+    margin: 0px 3px !important;
+    padding: 1px 2px !important;
+    margin: 0px 3px !important;
+    border: 1px solid #333 !important;
+    text-align: center !important;
+    font-family: 'Abel', sans-serif !important;
+    font-size: 16px !important;
+    background-color: white !important;
+}
+
+.gelCR23-input::-webkit-outer-spin-button,
+.gelCR23-input::-webkit-inner-spin-button {
+    appearance: none;
+  -webkit-appearance: none;
+  margin: 0px;
+}
