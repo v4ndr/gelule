@@ -10,6 +10,7 @@ import uuid from './utils/uuid.js';
 import submitSession from './utils/submitSession.js';
 import authDevice from './utils/authDevice.js';
 
+//import whitelist in scope
 const whitelistDomains = whitelist
   .reduce((acc, curr) => {
     acc.push(curr.domain);
@@ -37,22 +38,6 @@ chrome.runtime.onInstalled.addListener(async() => {
   });
 });
 
-// /*
-// TEST SCRIPT INJECTION
-// */
-// chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-//   if (changeInfo.url || changeInfo.status === "complete") {
-//     chrome.scripting.executeScript({
-//       target: { tabId },
-//       files: ['./content.js']
-//     })
-//     .then(() => {
-//       console.log('injected')
-//     })
-//     .catch(err => console.log(err));
-//   }
-// }); 
-
 /*
   EXTENSION FROM DISABLE TO ENABLE
 */
@@ -78,8 +63,29 @@ chrome.action.onClicked.addListener(
     - pinCode : pin verification with server to authentificate
     the user
 */
+
+/*
+  EXTENSION STATES :
+  - Locked : first state before certification, if error stay at locked if success : unlocked
+  - Unlocked : state with unlocked success message and delay before inactive and not hover
+  - Inactive : rec is inactive 
+  - Active : rec is active (animation and message updated)
+  - Hover : width increase and display hidden elements, width depends of state (inactive / active)
+  - Not Hover : juste the icon but animation or not depends of state (inactive / active)
+
+  1) LOCKED
+  2) UNLOCKED delay and
+  3) INACTIVE / NOT HOVER
+  4) INACTIVE / HOVER
+  5) ACTIVE / HOVER
+  6) ACTIVE / NOT HOVER
+  7) ASK delay and
+  8) SUCCESS
+
+*/
+
 // eslint-disable-next-line consistent-return
-chrome.runtime.onMessage.addListener((msg, _, sendResponse) => {
+chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
   // ASK FOR SATISFACTION
   if (msg.hasOwnProperty('userResponse')) {
     const { userResponse } = msg;
@@ -116,10 +122,6 @@ chrome.runtime.onMessage.addListener((msg, _, sendResponse) => {
         });
       }
     });
-    return true;
-  } if (msg.hasOwnProperty('msg')) {
-    console.log(msg);
-    sendResponse({ msg: 'ok' });
     return true;
   }
 });

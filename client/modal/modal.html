@@ -1,37 +1,48 @@
-<div class="gelCR23-container">
-    <div class="gelCR23-modal-container gelCR23-locked gelCR23-fixed">
-        <img class="gelCR23-logo" src="lock.png" alt="logo" height="30px">
-        <div class="gelCR23-lock-text">
-            <p class="gelCR23-title" >Entrez votre code</p>
-            <p class="gelCR23-title" >de sécurité :</p>
+<html>
+    <head>
+        <title>gelule-modal</title>
+        <link rel="stylesheet" href="./styles.css">
+        <meta charset="UTF-8">
+        <script src="./vendor/jquery-3.6.1.min.js"></script>
+        <script type="text/javascript" src="script.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="modal-container locked fixed">
+                <img class="logo" src="./assets/lock.png" alt="logo" height="30px">
+                <div class="lock-text">
+                    <p class="title" >Entrez votre code</p>
+                    <p class="title" >de sécurité :</p>
+                </div>
+                <form class="form">
+                    <input class="input" type="number" maxlength="1"/>
+                    <input class="input" type="number" maxlength="1"/>
+                    <input class="input" type="number" maxlength="1"/>
+                    <input class="input" type="number" maxlength="1"/>
+                </form>
+                <div class="unlock-text">
+                    <p class="title" >Authentification réussie !</p>
+                </div>
+                <div class="hidden-text disabled-text">
+                    <p class="title" >Je fais une recherche !</p>
+                </div>
+                <div class="hidden-text enabled-text">
+                    <p class="title" >Enregistrement en cours ...</p>
+                    <p class="subtitle">Cliquer pour arrêter l'enregistrement.</p>
+                </div>
+                <div class="ask-text">
+                    <p class="title" >Êtes-vous satisfait de votre recherche ?</p>
+                </div>
+                <div class="success-text">
+                    <p class="title" >Recherche terminée !</p>
+                </div>
+            </div>
+            <div class="button ask">
+                <img class="img" src="./assets/yes.png" alt="logo" height="30px">
+            </div>
+            <div class="button ask">
+                <img class="img" src="./assets/no.png" alt="logo" height="30px">
+            </div>
         </div>
-        <form class="gelCR23-form">
-            <input class="gelCR23-input" type="number" maxlength="1"/>
-            <input class="gelCR23-input" type="number" maxlength="1"/>
-            <input class="gelCR23-input" type="number" maxlength="1"/>
-            <input class="gelCR23-input" type="number" maxlength="1"/>
-        </form>
-        <div class="gelCR23-unlock-text">
-            <p class="gelCR23-title" >Authentification réussie !</p>
-        </div>
-        <div class="gelCR23-hidden-text gelCR23-disabled-text">
-            <p class="gelCR23-title" >Je fais une recherche !</p>
-        </div>
-        <div class="gelCR23-hidden-text gelCR23-enabled-text">
-            <p class="gelCR23-title" >Enregistrement en cours ...</p>
-            <p class="gelCR23-subtitle">Cliquer pour arrêter l'enregistrement.</p>
-        </div>
-        <div class="gelCR23-ask-text">
-            <p class="gelCR23-title" >Êtes-vous satisfait de votre recherche ?</p>
-        </div>
-        <div class="gelCR23-success-text">
-            <p class="gelCR23-title" >Recherche terminée.</p>
-        </div>
-    </div>
-    <div class="gelCR23-button gelCR23-ask">
-        <img class="gelCR23-img" src="yes.png" alt="logo" height="30px">
-    </div>
-    <div class="gelCR23-button gelCR23-ask">
-        <img class="gelCR23-img" src="no.png" alt="logo" height="30px">
-    </div>
-</div>
+    </body>
+</html>

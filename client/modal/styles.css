@@ -1,3 +1,5 @@
+:root {color-scheme: light dark} body {color-scheme: light dark} 
+
 @font-face {
     font-family: 'Abel';
     font-style: normal;
@@ -5,13 +7,24 @@
     src: local('Abel'), url('chrome-extension://lhnafjaglgkdmiklbnhgjdjkaopfdbeo/modal/assets/Abel-Regular.woff') format('woff');
     
 }
-.gelCR23-container {
+html {
+    background-color: transparent;
+}
+body {
+    padding: 0 5 0 5;
+    margin: 0;
+    background-color: transparent;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.container {
     display:flex;
     flex-direction:row;
     box-sizing: content-box;
 }
 
-.gelCR23-title{
+.title{
     color:black;
     font-family: 'Abel', sans-serif;
     font-size: 16px;
@@ -22,7 +35,7 @@
     white-space: nowrap;
 }
 
-.gelCR23-subtitle{
+.subtitle{
     color:black;
     font-family: 'Abel', sans-serif;
     font-size: 16px;
@@ -31,7 +44,7 @@
     text-align: left;
 }
 
-.gelCR23-button {
+.button {
     background: white;
     height: 56px;
     width: 56px;
@@ -45,7 +58,7 @@
     cursor: pointer;
 }
 
-.gelCR23-modal-container {
+.modal-container {
     background: white;
     height: 56px;
     width: 56px;
@@ -54,7 +67,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
     padding: 0px 0px 0px 0px;
     transition: width .3s ease-out;
@@ -62,35 +75,7 @@
     box-sizing: content-box;
 }
 
-.gelCR23-modal-container.gelCR23-ask{
-    padding: 0px 0px 0px 12px;
-    width:325px;
-    cursor:default;
-}
-
-.gelCR23-modal-container.gelCR23-success{
-    padding: 0px 12px 0px 12px;
-    width:190px;
-    cursor:default;
-}
-
-.gelCR23-modal-container.gelCR23-locked{
-    padding: 0px 12px 0px 12px;
-    width:280px;
-    cursor:default;
-}
-
-.gelCR23-modal-container.gelCR23-unlocked{
-    padding: 0px 12px 0px 12px;
-    width:220px;
-    cursor:default;
-}
-
-.gelCR23-ask .gelCR23-title {
-    margin: 0px 12px 0px 12px;
-}
-
-.gelCR23-hidden-text{
+.hidden-text{
     overflow: hidden;
     max-height: 0px;
     max-width: 0px;
@@ -100,88 +85,108 @@
     transition: opacity .4s linear, max-width .2s ease-out, max-height .2s ease-out, margin .1s ease-out;
 }
 
-.gelCR23-lock-text {
+.modal-container.inactive.hover{
+    width: 240px;
+}
+
+.modal-container.active.hover{
+    width: 265px;
+}
+
+.modal-container.hover > .hidden-text{
+    opacity: 1;
+    max-height: 500px;
+    max-width: 500px;
+    margin: 0px 0px 0px 10px;
+}
+
+.modal-container.ask{
+    width:365px;
+    cursor:default;
+}
+
+.modal-container.success{
+    width:224px;
+    cursor:default;
+}
+
+.modal-container.locked{
+    width:320px;
+    cursor:default;
+}
+
+.modal-container.unlocked{
+    width:250px;
+    cursor:default;
+}
+
+.ask .title {
+    margin: 0px 12px 0px 12px;
+}
+
+
+.lock-text {
     margin: 0px 8px 0px 16px;
     line-height: normal;
 }
 
-.gelCR23-unlock-text {
+.unlock-text {
     display: none;
     margin: 0px 8px 0px 16px;
 }
 
-.gelCR23-disabled-text {
+.disabled-text {
     display: none;
 }
 
-.gelCR23-enabled-text {
+.enabled-text {
     display: none;
     line-height: normal;
 }
 
-.gelCR23-success-text {
+.success-text {
     display: none;
     margin: 0px 0px 0px 12px;
 }
 
-.gelCR23-button.gelCR23-ask {
+.button.ask {
     display: none;
 }
 
-.gelCR23-ask-text{
+.ask-text{
     display: none;
     overflow: hidden;
     white-space: nowrap;
 }
 
-.gelCR23-modal-container.gelCR23-inactive.gelCR23-hover{
-    padding: 0px 0px 0px 12;
-    width: 218px;
-}
-
-.gelCR23-modal-container.gelCR23-active.gelCR23-hover{
-    padding: 0px 0px 0px 12;
-    width: 244px;
-}
-
-.gelCR23-modal-container.gelCR23-hover > .gelCR23-hidden-text{
-    opacity: 1;
-    max-height: 500px;
-    max-width: 500px;
-    margin: 0px 14px 0px 16px;
-}
 
 @keyframes spin {
     0%, 10%    { transform: rotate(0deg); }
     90%, 100%  { transform: rotate(720deg); }
 }
 
-.gelCR23-img {
+.logo {
     height: 30px;
-    margin: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 13px;
+    transition: margin .2s ease;
 }
 
-.gelCR23-logo {
-    height: 30px;
-    margin: 0px 0px 0px 0px;
-}
-
-.gelCR23-logo.gelCR23-spinning {
+.logo.spinning {
     animation: spin 1.2s ease infinite;
 }
 
-.gelCR23-subtitle{
+.subtitle{
     font-size: 11;
     color:#6B6C6E;
 }
 
-.gelCR23-form {
+.form {
     display: flex;
     justify-content: center;
     margin: 0px 8px 0px 8px;
 }
 
-input.gelCR23-input { 
+input.input { 
     box-sizing: border-box !important;
     width: 18px !important;
     height: 24px !important;
@@ -191,12 +196,13 @@ input.gelCR23-input {
     border: 1px solid #333 !important;
     text-align: center !important;
     font-family: 'Abel', sans-serif !important;
+    color: black;
     font-size: 16px !important;
     background-color: white !important;
 }
 
-.gelCR23-input::-webkit-outer-spin-button,
-.gelCR23-input::-webkit-inner-spin-button {
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
     appearance: none;
   -webkit-appearance: none;
   margin: 0px;
