@@ -7,7 +7,7 @@
     "512": "assets/logo512.png"
   },
   "action": {
-    "default_icon": "assets/disabled128.png"
+    "default_icon": "assets/logo512.png"
   },
   "background": {
     "service_worker": "background.js",
@@ -21,7 +21,7 @@
     {
       "matches": ["<all_urls>"],
       "js": ["./content.js"],
-      "css": ["./content.css"]
+      "css": ["./modal/styles.css"]
     }
   ],
   "permissions": [

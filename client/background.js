@@ -63,27 +63,6 @@ chrome.action.onClicked.addListener(
     - pinCode : pin verification with server to authentificate
     the user
 */
-
-/*
-  EXTENSION STATES :
-  - Locked : first state before certification, if error stay at locked if success : unlocked
-  - Unlocked : state with unlocked success message and delay before inactive and not hover
-  - Inactive : rec is inactive 
-  - Active : rec is active (animation and message updated)
-  - Hover : width increase and display hidden elements, width depends of state (inactive / active)
-  - Not Hover : juste the icon but animation or not depends of state (inactive / active)
-
-  1) LOCKED
-  2) UNLOCKED delay and
-  3) INACTIVE / NOT HOVER
-  4) INACTIVE / HOVER
-  5) ACTIVE / HOVER
-  6) ACTIVE / NOT HOVER
-  7) ASK delay and
-  8) SUCCESS
-
-*/
-
 // eslint-disable-next-line consistent-return
 chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
   // ASK FOR SATISFACTION
