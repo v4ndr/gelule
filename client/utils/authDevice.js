@@ -9,8 +9,6 @@ const authDevice = (pinCode, deviceId, callback) => {
     body: raw,
     redirect: 'follow',
   };
-
-  // fetch('https://www.data-doc.fr/doctracker/auth/query_pin', requestOptions)
   fetch('http://localhost:3001/auth/query_pin', requestOptions)
     .then((response) => response.text())
     .then((result) => callback(result))

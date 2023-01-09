@@ -81,14 +81,17 @@ chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
   // ASK FOR CERTIFICATION
   } if (msg.hasOwnProperty('pinCode')) {
     const { pinCode } = msg;
+    const senderId = sender.tab?.id;
     chrome.storage.local.get(['deviceId'], (result) => {
       const { deviceId } = result;
       let certified = false;
       if (deviceId) {
         authDevice(pinCode, deviceId, (res) => {
           certified = JSON.parse(res).auth;
-          chrome.storage.local.set({ certified }, () => {
-            sendResponse({ certified });
+          chrome.storage.local.set({ certified }, async () => {
+            if(senderId) {
+              await chrome.tabs.sendMessage(senderId, { certified });
+            }
             if (certified) {
               chrome.tabs.create({ url: 'http://www.google.fr' });
               chrome.action.setPopup({ popup: '' });
@@ -96,8 +99,10 @@ chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
           });
         });
       } else {
-        chrome.storage.local.set({ certified: false }, () => {
-          sendResponse({ certified: false });
+        chrome.storage.local.set({ certified: false }, async () => {
+          if(senderId) {
+            await chrome.tabs.sendMessage(senderId, { certified: false });
+          }
         });
       }
     });
@@ -105,9 +110,8 @@ chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
   }
 });
 
-/*
-  TRACKER
-*/
+
+//Tracking
 chrome.tabs.onUpdated.addListener(
   (_, changeInfo) => {
     if (changeInfo.url) {
