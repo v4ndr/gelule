@@ -10,7 +10,7 @@ import uuid from './utils/uuid.js';
 import submitSession from './utils/submitSession.js';
 import authDevice from './utils/authDevice.js';
 
-//import whitelist in scope
+// import whitelist in scope
 const whitelistDomains = whitelist
   .reduce((acc, curr) => {
     acc.push(curr.domain);
@@ -20,7 +20,7 @@ const whitelistDomains = whitelist
 /*
   ON EXTENSION INSTALLATION
 */
-chrome.runtime.onInstalled.addListener(async() => {
+chrome.runtime.onInstalled.addListener(async () => {
   let certified = null;
   chrome.storage.local.clear();
   chrome.storage.local.set({ active: false });
@@ -57,14 +57,50 @@ chrome.action.onClicked.addListener(
 );
 
 /*
-  RECEIVE MESSAGES FROM POPUP
+RECEIVE MESSAGES FROM FRONT
+    - pinCode : pin verification with server to authentificate
     - userResponse : answer to satisfaction in the end of the session,
     cause the end and upload of the session
-    - pinCode : pin verification with server to authentificate
-    the user
 */
+
 // eslint-disable-next-line consistent-return
 chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
+  // ASK FOR CERTIFICATION
+  if (msg.hasOwnProperty('pinCode')) {
+    const { pinCode } = msg;
+    const senderId = sender.tab?.id;
+    // get device Id to authorize
+    chrome.storage.local.get(['deviceId'], (result) => {
+      const { deviceId } = result;
+      let certified = false;
+      if (deviceId) {
+        // query authentification to back
+        authDevice(pinCode, deviceId, (res) => {
+          certified = JSON.parse(res).auth;
+          // store result to locale storage and send it to front
+          chrome.storage.local.set({ certified }, async () => {
+            if (senderId) {
+              await chrome.tabs.sendMessage(senderId, { certified });
+            }
+            // if authentified : open landing page
+            // if (certified) {
+            //   chrome.tabs.create({ url: 'http://www.google.fr' });
+            //   chrome.action.setPopup({ popup: '' });
+            // }
+          });
+        });
+      // if failed to get device id set to certified false and send error to front
+      } else {
+        chrome.storage.local.set({ certified: false }, async () => {
+          if (senderId) {
+            await chrome.tabs.sendMessage(senderId, { certified: false });
+          }
+        });
+      }
+    });
+    return true;
+  }
+
   // ASK FOR SATISFACTION
   if (msg.hasOwnProperty('userResponse')) {
     const { userResponse } = msg;
@@ -78,40 +114,10 @@ chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
       });
     });
     return true;
-  // ASK FOR CERTIFICATION
-  } if (msg.hasOwnProperty('pinCode')) {
-    const { pinCode } = msg;
-    const senderId = sender.tab?.id;
-    chrome.storage.local.get(['deviceId'], (result) => {
-      const { deviceId } = result;
-      let certified = false;
-      if (deviceId) {
-        authDevice(pinCode, deviceId, (res) => {
-          certified = JSON.parse(res).auth;
-          chrome.storage.local.set({ certified }, async () => {
-            if(senderId) {
-              await chrome.tabs.sendMessage(senderId, { certified });
-            }
-            if (certified) {
-              chrome.tabs.create({ url: 'http://www.google.fr' });
-              chrome.action.setPopup({ popup: '' });
-            }
-          });
-        });
-      } else {
-        chrome.storage.local.set({ certified: false }, async () => {
-          if(senderId) {
-            await chrome.tabs.sendMessage(senderId, { certified: false });
-          }
-        });
-      }
-    });
-    return true;
   }
 });
 
-
-//Tracking
+// Tracking
 chrome.tabs.onUpdated.addListener(
   (_, changeInfo) => {
     if (changeInfo.url) {

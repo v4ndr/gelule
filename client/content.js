@@ -1,14 +1,17 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-undef */
 if (typeof init === 'undefined') {
-    const inject = () => { 
-        //assets absolute path
-        const lock = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/modal/assets/lock.png'
-        const no = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/modal/assets/no.png'
-        const yes = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/modal/assets/yes.png'
+  const inject = () => {
+    // assets absolute path
+    const lock = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/modal/assets/lock.png';
+    const no = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/modal/assets/no.png';
+    const yes = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/modal/assets/yes.png';
+    const logo = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/modal/assets/logo.png';
 
-        //html injection
-        var modal = document.createElement('div');
-        modal.className = 'container';
-        modal.innerHTML = `
+    // html injection
+    const modal = document.createElement('div');
+    modal.className = 'container';
+    modal.innerHTML = `
             <!DOCTYPE html>
             <style>
                 @font-face {
@@ -190,18 +193,18 @@ if (typeof init === 'undefined') {
                 }
                 
                 input.input { 
-                    box-sizing: border-box !important;
-                    width: 18px !important;
-                    height: 24px !important;
-                    margin: 0px 3px !important;
-                    padding: 1px 2px !important;
-                    margin: 0px 3px !important;
-                    border: 1px solid #333 !important;
-                    text-align: center !important;
-                    font-family: 'Abel', sans-serif !important;
+                    box-sizing: border-box;
+                    width: 18px;
+                    height: 24px;
+                    margin: 0px 3px;
+                    padding: 1px 2px;
+                    margin: 0px 3px;
+                    border: 1px solid #333;
+                    text-align: center;
+                    font-family: 'Abel', sans-serif;
                     color: black;
-                    font-size: 16px !important;
-                    background-color: white !important;
+                    font-size: 16px;
+                    background-color: white;
                 }
                 
                 .input::-webkit-outer-spin-button,
@@ -246,32 +249,96 @@ if (typeof init === 'undefined') {
             <div class="button ask">
                 <img class="img" src=${no} alt="logo" height="30px">
             </div>
-        `
+        `;
 
-        //shadow root injection
-        const sRoot = document.createElement('div');
-        sRoot.className = "sRoot";
-        sRoot.attachShadow({mode: "open"});
+    // shadow root injection
+    const sRoot = document.createElement('div');
+    sRoot.className = 'sRoot';
+    sRoot.attachShadow({ mode: 'open' });
 
-        //inject JS in shadow dom
-        if(sRoot?.shadowRoot){
-            sRoot.shadowRoot.appendChild(modal);
-            var modalJs = document.createElement('script');
-            modalJs.src = chrome.runtime.getURL('modal/script.js');
-            sRoot.shadowRoot.appendChild(modalJs);
-        }
-        const body = document.querySelector('body');
-        body?.appendChild(sRoot)
-        //messages handler
-        document.addEventListener('gelCR23Evt', (evt)=>{
-            const {pinCode} = evt.detail;
-            (async () => {
-                await chrome.runtime.sendMessage({pinCode});
-            })();
-        })
-        chrome.runtime.onMessage.addListener((msg)=> {
-            alert(msg.certified);
-        })
+    /*
+        inject JS in shadow dom
+    */
+    if (sRoot?.shadowRoot) {
+      sRoot.shadowRoot.appendChild(modal);
+      const modalJs = document.createElement('script');
+      modalJs.src = chrome.runtime.getURL('modal/script.js');
+      sRoot.shadowRoot.appendChild(modalJs);
     }
-    inject();
+    const body = document.querySelector('body');
+    body?.appendChild(sRoot);
+
+    // messages handler
+    // from injected script (user interaction)
+    document.addEventListener('gelCR23Evt', (evt) => {
+      const { pinCode } = evt.detail;
+      (async () => {
+        await chrome.runtime.sendMessage({ pinCode });
+      })();
+    });
+
+    // message passing with background script
+    const r = sRoot.shadowRoot;
+
+    const changeStatusTo = (status) => {
+      switch (status) {
+        case 'AUTH_ERROR':
+          r.querySelector('.logo').setAttribute('src', no);
+          r.querySelectorAll('.input').forEach((input) => {
+            input.style.border = '1px solid red';
+            input.blur();
+            input.value = '';
+          });
+          break;
+        case 'AUTH_SUCCESS':
+          r.querySelector('.logo').setAttribute('src', yes);
+          r.querySelector('.form').style.display = 'none';
+          r.querySelector('.lock-text').style.display = 'none';
+          r.querySelector('.unlock-text').style.display = 'block';
+          r.querySelector('.modal-container').classList.remove('locked');
+          r.querySelector('.modal-container').classList.add('unlocked');
+          setTimeout(() => {
+            r.querySelector('.modal-container').classList.remove('unlocked');
+            r.querySelector('.modal-container').classList.remove('fixed');
+            r.querySelector('.unlock-text').style.display = 'none';
+            r.querySelector('.modal-container').classList.add('inactive');
+            r.querySelector('.disabled-text').style.display = 'block';
+            r.querySelector('.logo').setAttribute('src', logo);
+          }, 4000);
+          break;
+        case 'INACTIVE':
+          break;
+        default:
+          break;
+      }
+    };
+
+    chrome.runtime.onMessage.addListener((msg) => {
+      const { certified } = msg;
+      if (!certified) {
+        changeStatusTo('AUTH_ERROR');
+      } else {
+        changeStatusTo('AUTH_SUCCESS');
+      }
+    });
+  };
+  inject();
 }
+
+// sucess autb
+/*
+r.querySelector('.logo').setAttribute('src', yes);
+          r.querySelector('.form').style.display = 'none';
+          r.querySelector('.lock-text').style.display = 'none';
+          r.querySelector('.unlock-text').style.display = 'block';
+          r.querySelector('.modal-container').classList.remove('locked');
+          r.querySelector('.modal-container').classList.add('unlocked');
+          setTimeout(() => {
+            r.querySelector('.modal-container').classList.remove('unlocked');
+            r.querySelector('.modal-container').classList.remove('fixed');
+            r.querySelector('.modal-container').classList.add('inactive');
+            r.querySelector('.unlock-text').style.display = 'none';
+            r.querySelector('.disabled-text').style.display = 'block';
+            r.querySelector('.logo').setAttribute('src', logo);
+          }, 4000);
+*/
