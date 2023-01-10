@@ -3,10 +3,10 @@
 if (typeof init === 'undefined') {
   const inject = () => {
     // assets absolute path
-    const lock = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/modal/assets/lock.png';
-    const no = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/modal/assets/no.png';
-    const yes = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/modal/assets/yes.png';
-    const logo = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/modal/assets/logo.png';
+    const lock = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/assets/lock.png';
+    const no = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/assets/no.png';
+    const yes = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/assets/yes.png';
+    const logo = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/assets/logo.png';
 
     // html injection
     const modal = document.createElement('div');
@@ -61,7 +61,7 @@ if (typeof init === 'undefined') {
                     height: 56px;
                     width: 56px;
                     border-radius: 28px;
-                    display: flex;
+                    display: none;
                     align-items: center;
                     justify-content: center;
                     box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
@@ -160,11 +160,7 @@ if (typeof init === 'undefined') {
                     display: none;
                     margin: 0px 0px 0px 12px;
                 }
-                
-                .button.ask {
-                    display: none;
-                }
-                
+        
                 .ask-text{
                     display: none;
                     overflow: hidden;
@@ -243,10 +239,10 @@ if (typeof init === 'undefined') {
                     <p class="title" >Recherche terminée !</p>
                 </div>
             </div>
-            <div class="button ask">
+            <div class="button">
                 <img class="img" src=${yes} alt="logo" height="30px">
             </div>
-            <div class="button ask">
+            <div class="button">
                 <img class="img" src=${no} alt="logo" height="30px">
             </div>
         `;
@@ -255,35 +251,31 @@ if (typeof init === 'undefined') {
     const sRoot = document.createElement('div');
     sRoot.className = 'sRoot';
     sRoot.attachShadow({ mode: 'open' });
-
-    /*
-        inject JS in shadow dom
-    */
-    if (sRoot?.shadowRoot) {
-      sRoot.shadowRoot.appendChild(modal);
-      const modalJs = document.createElement('script');
-      modalJs.src = chrome.runtime.getURL('modal/script.js');
-      sRoot.shadowRoot.appendChild(modalJs);
-    }
+    const r = sRoot?.shadowRoot;
+    r.appendChild(modal);
     const body = document.querySelector('body');
     body?.appendChild(sRoot);
 
-    // messages handler
-    // from injected script (user interaction)
-    document.addEventListener('gelCR23Evt', (evt) => {
-      const { pinCode } = evt.detail;
-      (async () => {
-        await chrome.runtime.sendMessage({ pinCode });
-      })();
-    });
+    /*
+    front logic :
+        user interaction send message to background responses from the background
+        are received in the receiver and dispatchs dom changes
+    */
+    const modalContainer = r.querySelector('.modal-container');
+    const unlockText = r.querySelector('.unlock-text');
+    const lockText = r.querySelector('.lock-text');
+    const formEle = r.querySelector('.form');
+    const logoEle = r.querySelector('.logo');
+    const disabledText = r.querySelector('.disabled-text');
+    const enabledText = r.querySelector('.enabled-text');
+    const askText = r.querySelector('.ask-text');
+    const successText = r.querySelector('.success-text');
+    const buttons = r.querySelectorAll('.button');
 
-    // message passing with background script
-    const r = sRoot.shadowRoot;
-
-    const changeStatusTo = (status) => {
+    const changeFrontStateTo = (status) => {
       switch (status) {
         case 'AUTH_ERROR':
-          r.querySelector('.logo').setAttribute('src', no);
+          logoEle.setAttribute('src', no);
           r.querySelectorAll('.input').forEach((input) => {
             input.style.border = '1px solid red';
             input.blur();
@@ -291,54 +283,157 @@ if (typeof init === 'undefined') {
           });
           break;
         case 'AUTH_SUCCESS':
-          r.querySelector('.logo').setAttribute('src', yes);
-          r.querySelector('.form').style.display = 'none';
-          r.querySelector('.lock-text').style.display = 'none';
-          r.querySelector('.unlock-text').style.display = 'block';
-          r.querySelector('.modal-container').classList.remove('locked');
-          r.querySelector('.modal-container').classList.add('unlocked');
+          logoEle.setAttribute('src', yes);
+          formEle.style.display = 'none';
+          lockText.style.display = 'none';
+          unlockText.style.display = 'block';
+          modalContainer.classList.remove('locked');
+          modalContainer.classList.add('unlocked');
           setTimeout(() => {
-            r.querySelector('.modal-container').classList.remove('unlocked');
-            r.querySelector('.modal-container').classList.remove('fixed');
-            r.querySelector('.unlock-text').style.display = 'none';
-            r.querySelector('.modal-container').classList.add('inactive');
-            r.querySelector('.disabled-text').style.display = 'block';
-            r.querySelector('.logo').setAttribute('src', logo);
+            modalContainer.classList.remove('unlocked');
+            modalContainer.classList.remove('fixed');
+            unlockText.style.display = 'none';
+            modalContainer.classList.add('inactive');
+            disabledText.style.display = 'block';
+            logoEle.setAttribute('src', logo);
+          }, 4000);
+          break;
+        case 'ACTIVE':
+          modalContainer.classList.add('active');
+          modalContainer.classList.remove('inactive');
+          logoEle.classList.add('spinning');
+          disabledText.style.display = 'none';
+          enabledText.style.display = 'block';
+          modalContainer.classList.remove('hover');
+          break;
+        case 'ASK':
+          modalContainer.classList.add('ask');
+          modalContainer.classList.add('fixed');
+          modalContainer.classList.remove('hover');
+          modalContainer.classList.remove('active');
+          logoEle.classList.remove('spinning');
+          enabledText.style.display = 'none';
+          askText.style.display = 'block';
+          buttons.forEach((btn) => {
+            btn.style.display = 'flex';
+          });
+          break;
+        case 'ASK_SUCCESS':
+          modalContainer.classList.remove('ask');
+          modalContainer.classList.add('success');
+          askText.style.display = 'none';
+          successText.style.display = 'block';
+          buttons.forEach((btn) => {
+            btn.style.display = 'none';
+          });
+          logoEle.setAttribute('src', yes);
+          setTimeout(() => {
+            modalContainer.classList.remove('success');
+            modalContainer.classList.remove('fixed');
+            modalContainer.classList.add('inactive');
+            successText.style.display = 'none';
+            disabledText.style.display = 'block';
+            logoEle.setAttribute('src', logo);
           }, 4000);
           break;
         case 'INACTIVE':
+          modalContainer.className = 'modal-container';
+          modalContainer.classList.add('inactive');
+          successText.style.display = 'none';
+          enabledText.style.display = 'none';
+          askText.style.display = 'none';
+          unlockText.style.display = 'none';
+          lockText.style.display = 'none';
+          formEle.style.display = 'none';
+          buttons.forEach((btn) => {
+            btn.style.display = 'none';
+          });
+          disabledText.style.display = 'block';
+          logoEle.setAttribute('src', logo);
           break;
         default:
           break;
       }
     };
 
-    chrome.runtime.onMessage.addListener((msg) => {
-      const { certified } = msg;
-      if (!certified) {
-        changeStatusTo('AUTH_ERROR');
-      } else {
-        changeStatusTo('AUTH_SUCCESS');
+    // auto input focus
+    const inputs = r.querySelectorAll('.input');
+    inputs.forEach((input, key) => {
+      input.addEventListener('keyup', (e) => {
+        if (input.value) {
+          if (key === 3) {
+            if (e.code !== 'ShiftRight' && e.code !== 'ShiftLeft' && e.code !== 'CapsLock') {
+              const pinCode = [...inputs].map((pin) => pin.value).join('');
+              (async () => {
+                await chrome.runtime.sendMessage({ type: 'AUTH', detail: { pinCode } });
+              })();
+            }
+          } else {
+            inputs[key + 1].focus();
+          }
+        }
+      });
+    });
+
+    // hover effects
+    modalContainer.addEventListener('mouseenter', () => {
+      if (!modalContainer.classList.contains('fixed')) {
+        modalContainer.classList.add('hover');
       }
     });
+    modalContainer.addEventListener('mouseleave', () => {
+      if (!modalContainer.classList.contains('fixed')) {
+        modalContainer.classList.remove('hover');
+      }
+    });
+
+    // on click events
+    modalContainer.addEventListener('click', () => {
+      if (modalContainer.classList.contains('inactive')) {
+        (async () => {
+          await chrome.runtime.sendMessage({ type: 'SET_STATUS', detail: { status: 'ACTIVE' } });
+        })();
+        changeFrontStateTo('ACTIVE');
+      } else if (modalContainer.classList.contains('active')) {
+        (async () => {
+          await chrome.runtime.sendMessage({ type: 'SET_STATUS', detail: { status: 'ASK' } });
+        })();
+        changeFrontStateTo('ASK');
+      }
+    });
+    buttons.forEach((btn, key) => {
+      btn.addEventListener('click', () => {
+        let satisfaction;
+        if (key === 0) {
+          satisfaction = true;
+        } else if (key === 1) {
+          satisfaction = false;
+        }
+        (async () => {
+          await chrome.runtime.sendMessage({ type: 'END_SESSION', detail: { satisfaction } });
+        })();
+        changeFrontStateTo('ASK_SUCCESS'); // then inactive
+      });
+    });
+
+    // messages receiver
+    chrome.runtime.onMessage.addListener((msg) => {
+      const { type, detail } = msg;
+      switch (type) {
+        case 'AUTH':
+          changeFrontStateTo(detail.certified ? 'AUTH_SUCCESS' : 'AUTH_ERROR');
+          break;
+        case 'STATUS':
+          changeFrontStateTo(detail.status);
+          break;
+        default:
+          break;
+      }
+    });
+
+    (async () => {
+      await chrome.runtime.sendMessage({ type: 'GET_STATUS' });
+    })();
   };
   inject();
 }
-
-// sucess autb
-/*
-r.querySelector('.logo').setAttribute('src', yes);
-          r.querySelector('.form').style.display = 'none';
-          r.querySelector('.lock-text').style.display = 'none';
-          r.querySelector('.unlock-text').style.display = 'block';
-          r.querySelector('.modal-container').classList.remove('locked');
-          r.querySelector('.modal-container').classList.add('unlocked');
-          setTimeout(() => {
-            r.querySelector('.modal-container').classList.remove('unlocked');
-            r.querySelector('.modal-container').classList.remove('fixed');
-            r.querySelector('.modal-container').classList.add('inactive');
-            r.querySelector('.unlock-text').style.display = 'none';
-            r.querySelector('.disabled-text').style.display = 'block';
-            r.querySelector('.logo').setAttribute('src', logo);
-          }, 4000);
-*/
