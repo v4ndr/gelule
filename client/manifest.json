@@ -14,7 +14,7 @@
     "type": "module"
   },
   "web_accessible_resources": [{
-    "resources": ["*.woff", "*.html", "*.png", "*.js"],
+    "resources": ["*.woff", "*.png", "*.js"],
     "matches": ["<all_urls>"]
   }],
   "content_scripts": [
