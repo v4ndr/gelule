@@ -12,6 +12,7 @@ import whitelist from './utils/whitelist.js';
 
 let status = 'unknown';
 let session = {};
+let timeoutId = null;
 
 const whitelistDomains = whitelist
   .reduce((acc, curr) => {
@@ -60,6 +61,12 @@ chrome.runtime.onMessage.addListener(async (msg, sender) => {
         chrome.storage.local.get(['deviceId', 'certified'], (result) => {
           const { deviceId, certified } = result;
           if (certified) {
+            timeoutId = setTimeout(() => {
+              session = {};
+              status = 'INACTIVE';
+              chrome.tabs.sendMessage(senderId, { type: 'STATUS', detail: { status } });
+              timeoutId = null;
+            }, 900000);
             session = initSession(deviceId);
           }
         });
@@ -94,6 +101,8 @@ chrome.runtime.onMessage.addListener(async (msg, sender) => {
       submitSession(closeSession(session, detail.satisfaction), (res) => {
         console.log(res);
       });
+      clearTimeout(timeoutId);
+      timeoutId = null;
       break;
 
     default:
