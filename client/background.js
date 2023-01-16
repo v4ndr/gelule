@@ -28,11 +28,7 @@ chrome.storage.local.get(['certified'], (res) => {
   }
 });
 
-chrome.runtime.onInstalled.addListener(async (details) => {
-  // chrome.runtime.setUninstallURL(
-  //   'https://www.facebook.com',
-  // );
-  console.log(details.reason);
+chrome.runtime.onInstalled.addListener(async () => {
   let certified = null;
   chrome.storage.local.clear();
   chrome.storage.local.get(['deviceId', 'certified'], (res) => {
@@ -109,6 +105,9 @@ chrome.runtime.onMessage.addListener(async (msg, sender) => {
 chrome.tabs.onUpdated.addListener(
   (_, changeInfo) => {
     if (changeInfo.url) {
+      if (changeInfo.url === 'chrome://newtab/') {
+        chrome.tabs.update({ url: 'https://www.google.fr/' });
+      }
       if (status === 'ACTIVE') {
         const { url } = changeInfo;
         session = handleEntry(whitelist, whitelistDomains, url, session);
