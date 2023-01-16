@@ -25,8 +25,8 @@ const parseQuery = (url, domain, whitelist, whitelistDomains) => {
 };
 
 const handleEntry = (whitelist, whitelistDomains, url, session) => {
-  const domain = new URL(url).hostname;
   session.rawHistory.push(url);
+  const domain = new URL(url).hostname;
   if (!domainIsDumb(domain)) {
     if (domainIsUnique(domain, session)) {
       session.visitedDomains.push(domain);

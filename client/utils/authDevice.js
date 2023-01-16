@@ -1,8 +1,11 @@
 const authDevice = (pinCode, deviceId, callback) => {
   const cred = { pinCode, deviceId };
+
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
+
   const raw = JSON.stringify(cred);
+
   const requestOptions = {
     method: 'POST',
     headers: myHeaders,

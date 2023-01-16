@@ -1,27 +1,36 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 /* eslint-disable import/extensions */
-// import handleEntry from './utils/handleEntry.js';
-// import initSession from './utils/initSession.js';
-// import whitelist from './utils/whitelist.js';
-import closeSession from './utils/closeSession.js';
-import toggleTracker from './utils/toggleTracker.js';
+
 import uuid from './utils/uuid.js';
-import submitSession from './utils/submitSession.js';
 import authDevice from './utils/authDevice.js';
+import initSession from './utils/initSession.js';
+import closeSession from './utils/closeSession.js';
+import submitSession from './utils/submitSession.js';
+import handleEntry from './utils/handleEntry.js';
+import whitelist from './utils/whitelist.js';
 
 let status = 'unknown';
+let session = {};
 
-// const whitelistDomains = whitelist
-//   .reduce((acc, curr) => {
-//     acc.push(curr.domain);
-//     return acc;
-//   }, []);
+const whitelistDomains = whitelist
+  .reduce((acc, curr) => {
+    acc.push(curr.domain);
+    return acc;
+  }, []);
+
+chrome.storage.local.get(['certified'], (res) => {
+  if (res.hasOwnProperty('certified')) {
+    status = res.certified ? 'INACTIVE' : 'AUTH';
+  } else {
+    chrome.storage.local.set({ deviceId: uuid() });
+    status = 'AUTH';
+  }
+});
 
 chrome.runtime.onInstalled.addListener(async () => {
   let certified = null;
   chrome.storage.local.clear();
-  chrome.storage.local.set({ active: false });
   chrome.storage.local.get(['deviceId', 'certified'], (res) => {
     if (!res.hasOwnProperty('deviceId')) {
       chrome.storage.local.set({ deviceId: uuid() });
@@ -37,16 +46,25 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 // eslint-disable-next-line consistent-return
-chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener(async (msg, sender) => {
   const senderId = sender.tab?.id;
   const { type, detail } = msg;
   switch (type) {
     case 'GET_STATUS':
       await chrome.tabs.sendMessage(senderId, { type: 'STATUS', detail: { status } });
+      console.log('status sent: ', status);
       break;
 
     case 'SET_STATUS':
       status = detail.status;
+      if (detail.status === 'ACTIVE') {
+        chrome.storage.local.get(['deviceId', 'certified'], (result) => {
+          const { deviceId, certified } = result;
+          if (certified) {
+            session = initSession(deviceId);
+          }
+        });
+      }
       break;
 
     case 'AUTH':
@@ -74,52 +92,24 @@ chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
 
     case 'END_SESSION':
       status = 'INACTIVE';
-      chrome.storage.local.get(['active', 'session'], (res) => {
-        const { active, session } = res;
-        toggleTracker(active);
-        const closedSession = closeSession(session, detail.satisfaction);
-        chrome.storage.local.set({ session: closedSession }, () => {
-          submitSession(closedSession);
-          sendResponse({ submited: true });
-        });
+      submitSession(closeSession(session, detail.satisfaction), (res) => {
+        console.log(res);
       });
       break;
 
     default:
       break;
   }
-
-  // chrome.action.onClicked.addListener(
-  //   () => {
-  //     chrome.storage.local.get(['active', 'deviceId', 'certified'], (result) => {
-  //       const { active, deviceId, certified } = result;
-  //       if (certified) {
-  //         toggleTracker(active);
-  //         if (!active) {
-  //           chrome.storage.local.set({ session: initSession(deviceId) }, () => {
-  //           });
-  //         }
-  //       }
-  //     });
-  //   },
-  // );
-
-  // chrome.tabs.onUpdated.addListener(
-  //   (_, changeInfo) => {
-  //     if (changeInfo.url) {
-  //       chrome.storage.local.get(['active'], (result) => {
-  //         const { active } = result;
-  //         if (active) {
-  //           const { url } = changeInfo;
-  //           chrome.storage.local.get(['session'], (res) => {
-  //             const { session } = res;
-  //             chrome.storage.local.set({
-  //               session: handleEntry(whitelist, whitelistDomains, url, session),
-  //             });
-  //           });
-  //         }
-  //       });
-  //     }
-  //   },
-  // );
 });
+
+// watch activity (tracking), only if status is ACTIVE
+chrome.tabs.onUpdated.addListener(
+  (_, changeInfo) => {
+    if (changeInfo.url) {
+      if (status === 'ACTIVE') {
+        const { url } = changeInfo;
+        session = handleEntry(whitelist, whitelistDomains, url, session);
+      }
+    }
+  },
+);

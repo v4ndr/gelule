@@ -1,4 +1,4 @@
-const submitSession = (session) => {
+const submitSession = (session, callback) => {
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
 
@@ -11,11 +11,10 @@ const submitSession = (session) => {
     redirect: 'follow',
   };
 
-  // fetch('https://www.data-doc.fr/doctracker/tracking/submit_session', requestOptions)
   fetch('http://localhost:3001/tracking/submit_session', requestOptions)
     .then((response) => response.text())
-    .then((result) => console.log(result))
-    .catch((error) => console.log('error', error));
+    .then((result) => callback(result))
+    .catch((error) => callback(error));
 };
 
 export default submitSession;

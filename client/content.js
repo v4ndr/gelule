@@ -76,7 +76,7 @@ if (typeof init === 'undefined') {
                     width: 56px;
                     min-width: 56px;
                     border-radius: 28px;
-                    display: flex;
+                    display: none;
                     flex-direction: row;
                     align-items: center;
                     justify-content: center;
@@ -210,8 +210,8 @@ if (typeof init === 'undefined') {
                 margin: 0px;
                 }
             </style>
-            <div class="modal-container locked fixed">
-                <img class="logo" src=${lock} alt="logo" height="30px">
+            <div class="modal-container">
+                <img class="logo" src="" alt="logo" height="30px">
                 <div class="lock-text">
                     <p class="title" >Entrez votre code</p>
                     <p class="title" >de sécurité :</p>
@@ -256,11 +256,7 @@ if (typeof init === 'undefined') {
     const body = document.querySelector('body');
     body?.appendChild(sRoot);
 
-    /*
-    front logic :
-        user interaction send message to background responses from the background
-        are received in the receiver and dispatchs dom changes
-    */
+    // front state managment
     const modalContainer = r.querySelector('.modal-container');
     const unlockText = r.querySelector('.unlock-text');
     const lockText = r.querySelector('.lock-text');
@@ -273,7 +269,65 @@ if (typeof init === 'undefined') {
     const buttons = r.querySelectorAll('.button');
 
     const changeFrontStateTo = (status) => {
+      const initFront = () => {
+        logoEle.setAttribute('src', logo);
+        logoEle.className = 'logo';
+        modalContainer.className = 'modal-container';
+        modalContainer.style.display = 'flex';
+        successText.style.display = 'none';
+        disabledText.style.display = 'none';
+        enabledText.style.display = 'none';
+        askText.style.display = 'none';
+        unlockText.style.display = 'none';
+        lockText.style.display = 'none';
+        formEle.style.display = 'none';
+        buttons.forEach((btn) => {
+          btn.style.display = 'none';
+        });
+      };
+
       switch (status) {
+        case 'AUTH':
+          initFront();
+          modalContainer.classList.add('locked', 'fixed');
+          logoEle.setAttribute('src', lock);
+          lockText.style.display = 'block';
+          formEle.style.display = 'flex';
+          break;
+        case 'INACTIVE':
+          initFront();
+          modalContainer.classList.add('inactive');
+          disabledText.style.display = 'block';
+          break;
+        case 'ACTIVE':
+          initFront();
+          modalContainer.classList.add('active');
+          logoEle.classList.add('spinning');
+          enabledText.style.display = 'block';
+          break;
+        case 'ASK':
+          initFront();
+          modalContainer.classList.add('ask', 'fixed');
+          askText.style.display = 'block';
+          buttons.forEach((btn) => {
+            btn.style.display = 'flex';
+          });
+          break;
+        case 'AUTH_SUCCESS':
+          modalContainer.classList.remove('locked');
+          modalContainer.classList.add('unlocked');
+          logoEle.setAttribute('src', yes);
+          formEle.style.display = 'none';
+          lockText.style.display = 'none';
+          unlockText.style.display = 'block';
+          setTimeout(() => {
+            modalContainer.classList.remove('unlocked', 'fixed');
+            modalContainer.classList.add('inactive');
+            logoEle.setAttribute('src', logo);
+            unlockText.style.display = 'none';
+            disabledText.style.display = 'block';
+          }, 4000);
+          break;
         case 'AUTH_ERROR':
           logoEle.setAttribute('src', no);
           r.querySelectorAll('.input').forEach((input) => {
@@ -282,74 +336,22 @@ if (typeof init === 'undefined') {
             input.value = '';
           });
           break;
-        case 'AUTH_SUCCESS':
-          logoEle.setAttribute('src', yes);
-          formEle.style.display = 'none';
-          lockText.style.display = 'none';
-          unlockText.style.display = 'block';
-          modalContainer.classList.remove('locked');
-          modalContainer.classList.add('unlocked');
-          setTimeout(() => {
-            modalContainer.classList.remove('unlocked');
-            modalContainer.classList.remove('fixed');
-            unlockText.style.display = 'none';
-            modalContainer.classList.add('inactive');
-            disabledText.style.display = 'block';
-            logoEle.setAttribute('src', logo);
-          }, 4000);
-          break;
-        case 'ACTIVE':
-          modalContainer.classList.add('active');
-          modalContainer.classList.remove('inactive');
-          logoEle.classList.add('spinning');
-          disabledText.style.display = 'none';
-          enabledText.style.display = 'block';
-          modalContainer.classList.remove('hover');
-          break;
-        case 'ASK':
-          modalContainer.classList.add('ask');
-          modalContainer.classList.add('fixed');
-          modalContainer.classList.remove('hover');
-          modalContainer.classList.remove('active');
-          logoEle.classList.remove('spinning');
-          enabledText.style.display = 'none';
-          askText.style.display = 'block';
-          buttons.forEach((btn) => {
-            btn.style.display = 'flex';
-          });
-          break;
         case 'ASK_SUCCESS':
-          modalContainer.classList.remove('ask');
           modalContainer.classList.add('success');
+          modalContainer.classList.remove('ask');
+          logoEle.setAttribute('src', yes);
           askText.style.display = 'none';
           successText.style.display = 'block';
           buttons.forEach((btn) => {
             btn.style.display = 'none';
           });
-          logoEle.setAttribute('src', yes);
           setTimeout(() => {
-            modalContainer.classList.remove('success');
-            modalContainer.classList.remove('fixed');
             modalContainer.classList.add('inactive');
+            modalContainer.classList.remove('success', 'fixed');
+            logoEle.setAttribute('src', logo);
             successText.style.display = 'none';
             disabledText.style.display = 'block';
-            logoEle.setAttribute('src', logo);
           }, 4000);
-          break;
-        case 'INACTIVE':
-          modalContainer.className = 'modal-container';
-          modalContainer.classList.add('inactive');
-          successText.style.display = 'none';
-          enabledText.style.display = 'none';
-          askText.style.display = 'none';
-          unlockText.style.display = 'none';
-          lockText.style.display = 'none';
-          formEle.style.display = 'none';
-          buttons.forEach((btn) => {
-            btn.style.display = 'none';
-          });
-          disabledText.style.display = 'block';
-          logoEle.setAttribute('src', logo);
           break;
         default:
           break;
@@ -412,7 +414,7 @@ if (typeof init === 'undefined') {
         (async () => {
           await chrome.runtime.sendMessage({ type: 'END_SESSION', detail: { satisfaction } });
         })();
-        changeFrontStateTo('ASK_SUCCESS'); // then inactive
+        changeFrontStateTo('ASK_SUCCESS');
       });
     });
 
@@ -431,6 +433,7 @@ if (typeof init === 'undefined') {
       }
     });
 
+    // at injection get actual state from backgroud script
     (async () => {
       await chrome.runtime.sendMessage({ type: 'GET_STATUS' });
     })();

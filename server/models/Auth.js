@@ -5,8 +5,8 @@ class Auth {
     const db = connection.getDb();
     const validPins = await db.collection('pinCodes').find({ valid: true }).toArray();
     if (validPins.some((e) => e.code === userPin)) {
-      // await db.collection('pinCodes').updateOne({ code: userPin }, { $set: { valid: false } });
-      // console.log(`Valid pin : ${userPin} is set to valid:false`);
+      await db.collection('pinCodes').updateOne({ code: userPin }, { $set: { valid: false } });
+      console.log(`Valid pin : ${userPin} is set to valid:false`);
       callback(true);
     } else {
       callback(false);
