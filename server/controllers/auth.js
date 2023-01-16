@@ -7,7 +7,7 @@ exports.queryPin = (req, res) => {
   if (deviceId) {
     Auth.queryPin(userPin, (valid) => {
       if (valid) {
-        Auth.addDeviceId(deviceId, (response) => {
+        Auth.addDeviceId(deviceId, userPin, (response) => {
           console.log(`Device with ID ${deviceId} has been authorized, added to db with insertedId ${response.insertedId}`);
           res.status(200).json({ auth: true });
         });

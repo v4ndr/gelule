@@ -28,24 +28,17 @@ class Auth {
     callback(pin);
   }
 
-  static async addDeviceId(deviceId, callback) {
+  static async addDeviceId(deviceId, userPin, callback) {
     const db = connection.getDb();
-    const result = await db.collection('authorizedIds').insertOne({ deviceId });
+    const result = await db.collection('authorizedIds').insertOne({ deviceId, userPin });
     callback(result);
   }
 
-  static async getAuthorizedDeviceIds(callback) {
+  static async getAuthorizedIds(callback) {
     const db = connection.getDb();
     const results = await db.collection('authorizedIds').find().toArray();
-    callback(results);
-  }
-
-  // DEV ONLY
-  static async getValidPins(callback) {
-    const db = connection.getDb();
-    let results = await db.collection('pinCodes').find({ valid: true }).toArray();
-    results = results.map((e) => e.code);
-    callback(results);
+    const authorizedIds = results.map((e) => e.deviceId);
+    callback(authorizedIds);
   }
 }
 

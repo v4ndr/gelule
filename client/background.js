@@ -28,7 +28,11 @@ chrome.storage.local.get(['certified'], (res) => {
   }
 });
 
-chrome.runtime.onInstalled.addListener(async () => {
+chrome.runtime.onInstalled.addListener(async (details) => {
+  // chrome.runtime.setUninstallURL(
+  //   'https://www.facebook.com',
+  // );
+  console.log(details.reason);
   let certified = null;
   chrome.storage.local.clear();
   chrome.storage.local.get(['deviceId', 'certified'], (res) => {
@@ -52,7 +56,6 @@ chrome.runtime.onMessage.addListener(async (msg, sender) => {
   switch (type) {
     case 'GET_STATUS':
       await chrome.tabs.sendMessage(senderId, { type: 'STATUS', detail: { status } });
-      console.log('status sent: ', status);
       break;
 
     case 'SET_STATUS':
