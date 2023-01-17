@@ -85,6 +85,9 @@ chrome.runtime.onMessage.addListener(async (msg, sender) => {
                 status = certified ? 'INACTIVE' : 'AUTH';
                 await chrome.tabs.sendMessage(senderId, { type: 'AUTH', detail: { certified } });
               }
+              if (certified) {
+                chrome.tabs.create({ url: 'https://www.gelule.vandr.fr/landing.html' });
+              }
             });
           });
         } else {
