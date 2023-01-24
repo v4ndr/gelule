@@ -3,10 +3,10 @@
 if (typeof init === 'undefined') {
   const inject = () => {
     // assets absolute path
-    const lock = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/assets/lock.png';
-    const no = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/assets/no.png';
-    const yes = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/assets/yes.png';
-    const logo = 'chrome-extension://mamgocnnbmopjdogbmdipfnenankpoce/assets/logo.png';
+    const lock = chrome.runtime.getURL('./assets/lock.png');
+    const no = chrome.runtime.getURL('./assets/no.png');
+    const yes = chrome.runtime.getURL('./assets/yes.png');
+    const logo = chrome.runtime.getURL('./assets/logo512.png');
 
     // html injection
     const modal = document.createElement('div');
