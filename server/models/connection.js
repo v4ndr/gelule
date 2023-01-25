@@ -1,20 +1,12 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
 require('dotenv').config();
-
-let db;
-const url = process.env.DB_URI;
+const { Pool } = require('pg');
 
 module.exports = {
-  connectToServer: (callback) => {
-    const client = new MongoClient(
-      url,
-      { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 },
-    );
-    client.connect(async (err) => {
-      db = client.db('gelule');
-      return callback(err);
-    });
-  },
-
-  getDb: () => db,
+  getDb: () => new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+  }),
 };

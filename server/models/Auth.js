@@ -1,44 +1,57 @@
+/* eslint-disable no-loop-func */
 const connection = require('./connection');
 
 class Auth {
-  static async queryPin(userPin, callback) {
+  static queryPin(userPin, callback, next) {
     const db = connection.getDb();
-    const validPins = await db.collection('pinCodes').find({ valid: true }).toArray();
-    if (validPins.some((e) => e.code === userPin)) {
-      await db.collection('pinCodes').updateOne({ code: userPin }, { $set: { valid: false } });
-      console.log(`Valid pin : ${userPin} is set to valid:false`);
-      callback(true);
-    } else {
-      callback(false);
-    }
+    db.query('SELECT pin FROM auth WHERE device IS NULL', (err, res) => {
+      if (err) { next(err); } else {
+        const validPins = res.rows.map((e) => e.pin);
+        if (validPins.some((e) => e === userPin)) {
+          callback(true);
+        } else {
+          callback(false);
+        }
+      }
+    });
   }
 
-  static async genPin(callback) {
+  static genPin(callback, next) {
     const db = connection.getDb();
-    let pin = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
-    const existingPins = await db.collection('pinCodes').find().toArray();
-    // eslint-disable-next-line no-loop-func
-    while (existingPins.some((e) => e.code === pin)) {
-      // eslint-disable-next-line no-const-assign
-      console.log('pin already exists, regenerating one');
-      pin = (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
-    }
-    await db.collection('pinCodes').insertOne({ code: pin, valid: true });
-    console.log(`pin ${pin} generated with valid true`);
-    callback(pin);
+    const genRandomPin = () => (Math.floor(Math.random() * 10000) + 10000).toString().substring(1);
+    let pin = genRandomPin();
+    db.query('SELECT pin FROM auth', (err, res) => {
+      if (err) { next(err); } else {
+        const existingPins = res.rows.map((e) => e.pin);
+        while (existingPins.some((e) => e === pin)) {
+          pin = genRandomPin();
+        }
+        db.query('INSERT INTO auth (pin) VALUES ($1)', [pin], (error) => {
+          if (error) { next(error); } else {
+            callback(pin);
+          }
+        });
+      }
+    });
   }
 
-  static async addDeviceId(deviceId, userPin, callback) {
+  static addDeviceId(deviceId, userPin, callback, next) {
     const db = connection.getDb();
-    const result = await db.collection('authorizedIds').insertOne({ deviceId, userPin });
-    callback(result);
+    db.query('UPDATE auth SET device = $1 WHERE pin = $2', [deviceId, userPin], (err) => {
+      if (err) { next(err); } else {
+        callback();
+      }
+    });
   }
 
-  static async getAuthorizedIds(callback) {
+  static getAuthorizedIds(callback, next) {
     const db = connection.getDb();
-    const results = await db.collection('authorizedIds').find().toArray();
-    const authorizedIds = results.map((e) => e.deviceId);
-    callback(authorizedIds);
+    db.query('SELECT device FROM auth', (err, res) => {
+      if (err) { next(err); } else {
+        const authorizedIds = res.rows.map((e) => e.device);
+        callback(authorizedIds);
+      }
+    });
   }
 }
 
