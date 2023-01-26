@@ -30,6 +30,7 @@ chrome.storage.local.get(['certified'], (res) => {
 });
 
 chrome.runtime.onInstalled.addListener(async () => {
+  chrome.tabs.create({ url: 'https://www.gelule.vandr.fr/landing.html' });
   let certified = null;
   chrome.storage.local.clear();
   chrome.storage.local.get(['deviceId', 'certified'], (res) => {
@@ -84,9 +85,6 @@ chrome.runtime.onMessage.addListener(async (msg, sender) => {
               if (senderId) {
                 status = certified ? 'INACTIVE' : 'AUTH';
                 await chrome.tabs.sendMessage(senderId, { type: 'AUTH', detail: { certified } });
-              }
-              if (certified) {
-                chrome.tabs.create({ url: 'https://www.gelule.vandr.fr/landing.html' });
               }
             });
           });
