@@ -269,44 +269,38 @@ if (typeof init === 'undefined') {
     const buttons = r.querySelectorAll('.button');
 
     const changeFrontStateTo = (status) => {
-      const initFront = () => {
-        logoEle.setAttribute('src', logo);
-        logoEle.className = 'logo';
-        modalContainer.className = 'modal-container';
-        modalContainer.style.display = 'flex';
-        successText.style.display = 'none';
-        disabledText.style.display = 'none';
-        enabledText.style.display = 'none';
-        askText.style.display = 'none';
-        unlockText.style.display = 'none';
-        lockText.style.display = 'none';
-        formEle.style.display = 'none';
-        buttons.forEach((btn) => {
-          btn.style.display = 'none';
-        });
-      };
+      logoEle.setAttribute('src', logo);
+      logoEle.className = 'logo';
+      modalContainer.className = 'modal-container';
+      modalContainer.style.display = 'flex';
+      successText.style.display = 'none';
+      disabledText.style.display = 'none';
+      enabledText.style.display = 'none';
+      askText.style.display = 'none';
+      unlockText.style.display = 'none';
+      lockText.style.display = 'none';
+      formEle.style.display = 'none';
+      buttons.forEach((btn) => {
+        btn.style.display = 'none';
+      });
 
       switch (status) {
         case 'AUTH':
-          initFront();
           modalContainer.classList.add('locked', 'fixed');
           logoEle.setAttribute('src', lock);
           lockText.style.display = 'block';
           formEle.style.display = 'flex';
           break;
         case 'INACTIVE':
-          initFront();
           modalContainer.classList.add('inactive');
           disabledText.style.display = 'block';
           break;
         case 'ACTIVE':
-          initFront();
           modalContainer.classList.add('active');
           logoEle.classList.add('spinning');
           enabledText.style.display = 'block';
           break;
         case 'ASK':
-          initFront();
           modalContainer.classList.add('ask', 'fixed');
           askText.style.display = 'block';
           buttons.forEach((btn) => {
@@ -314,21 +308,14 @@ if (typeof init === 'undefined') {
           });
           break;
         case 'AUTH_SUCCESS':
-          modalContainer.classList.remove('locked');
-          modalContainer.classList.add('unlocked');
+          modalContainer.classList.add('unlocked', 'fixed');
           logoEle.setAttribute('src', yes);
-          formEle.style.display = 'none';
-          lockText.style.display = 'none';
           unlockText.style.display = 'block';
-          setTimeout(() => {
-            modalContainer.classList.remove('unlocked', 'fixed');
-            modalContainer.classList.add('inactive');
-            logoEle.setAttribute('src', logo);
-            unlockText.style.display = 'none';
-            disabledText.style.display = 'block';
-          }, 4000);
           break;
         case 'AUTH_ERROR':
+          modalContainer.classList.add('locked', 'fixed');
+          lockText.style.display = 'block';
+          formEle.style.display = 'flex';
           logoEle.setAttribute('src', no);
           r.querySelectorAll('.input').forEach((input) => {
             input.style.border = '1px solid red';
@@ -338,20 +325,8 @@ if (typeof init === 'undefined') {
           break;
         case 'ASK_SUCCESS':
           modalContainer.classList.add('success');
-          modalContainer.classList.remove('ask');
           logoEle.setAttribute('src', yes);
-          askText.style.display = 'none';
           successText.style.display = 'block';
-          buttons.forEach((btn) => {
-            btn.style.display = 'none';
-          });
-          setTimeout(() => {
-            modalContainer.classList.add('inactive');
-            modalContainer.classList.remove('success', 'fixed');
-            logoEle.setAttribute('src', logo);
-            successText.style.display = 'none';
-            disabledText.style.display = 'block';
-          }, 4000);
           break;
         default:
           break;
@@ -395,12 +370,10 @@ if (typeof init === 'undefined') {
         (async () => {
           await chrome.runtime.sendMessage({ type: 'SET_STATUS', detail: { status: 'ACTIVE' } });
         })();
-        changeFrontStateTo('ACTIVE');
       } else if (modalContainer.classList.contains('active')) {
         (async () => {
           await chrome.runtime.sendMessage({ type: 'SET_STATUS', detail: { status: 'ASK' } });
         })();
-        changeFrontStateTo('ASK');
       }
     });
     buttons.forEach((btn, key) => {
@@ -412,28 +385,21 @@ if (typeof init === 'undefined') {
           satisfaction = false;
         }
         (async () => {
+          await chrome.runtime.sendMessage({ type: 'SET_STATUS', detail: { status: 'ASK_SUCCESS' } });
           await chrome.runtime.sendMessage({ type: 'END_SESSION', detail: { satisfaction } });
         })();
-        changeFrontStateTo('ASK_SUCCESS');
       });
     });
 
-    // messages receiver
+    // status change handler (from background script)
     chrome.runtime.onMessage.addListener((msg) => {
       const { type, detail } = msg;
-      switch (type) {
-        case 'AUTH':
-          changeFrontStateTo(detail.certified ? 'AUTH_SUCCESS' : 'AUTH_ERROR');
-          break;
-        case 'STATUS':
-          changeFrontStateTo(detail.status);
-          break;
-        default:
-          break;
+      if (type === 'STATUS') {
+        changeFrontStateTo(detail.status);
       }
     });
 
-    // at injection get actual state from backgroud script
+    // at injection get actual state from background script
     (async () => {
       await chrome.runtime.sendMessage({ type: 'GET_STATUS' });
     })();

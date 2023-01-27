@@ -12,8 +12,8 @@ const authDevice = (pinCode, deviceId, callback) => {
     body: raw,
     redirect: 'follow',
   };
-  // fetch('https://www.gelule.vandr.fr/api/auth/query_pin', requestOptions)
-  fetch('http://localhost:3001/auth/query_pin', requestOptions)
+  fetch('https://www.gelule.vandr.fr/api/auth/query_pin', requestOptions)
+  // fetch('http://localhost:3001/auth/query_pin', requestOptions)
     .then((response) => response.text())
     .then((result) => callback(result))
     .catch((error) => callback(error));

@@ -1,4 +1,4 @@
-const submitSession = (session, callback) => {
+const submitSession = (session) => {
   const myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
 
@@ -11,11 +11,8 @@ const submitSession = (session, callback) => {
     redirect: 'follow',
   };
 
-  // fetch('https://www.gelule.vandr.fr/api/tracking/submit_session', requestOptions)
-  fetch('http://localhost:3001/tracking/submit_session', requestOptions)
-    .then((response) => response.text())
-    .then((result) => callback(result))
-    .catch((error) => callback(error));
+  fetch('https://www.gelule.vandr.fr/api/tracking/submit_session', requestOptions);
+  // fetch('http://localhost:3001/tracking/submit_session', requestOptions);
 };
 
 export default submitSession;

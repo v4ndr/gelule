@@ -9,9 +9,11 @@ import closeSession from './utils/closeSession.js';
 import submitSession from './utils/submitSession.js';
 import handleEntry from './utils/handleEntry.js';
 import whitelist from './utils/whitelist.js';
+import sendStatusToAllTabs from './utils/sendStatusToAllTabs.js';
 
 let status = 'unknown';
 let session = {};
+const injectedTabs = [];
 let timeoutId = null;
 
 const whitelistDomains = whitelist
@@ -47,6 +49,13 @@ chrome.runtime.onInstalled.addListener(async () => {
   });
 });
 
+chrome.tabs.onRemoved.addListener((tabId) => {
+  const index = injectedTabs.indexOf(tabId);
+  if (index > -1) {
+    injectedTabs.splice(index, 1);
+  }
+});
+
 // eslint-disable-next-line consistent-return
 chrome.runtime.onMessage.addListener(async (msg, sender) => {
   const senderId = sender.tab?.id;
@@ -54,10 +63,12 @@ chrome.runtime.onMessage.addListener(async (msg, sender) => {
   switch (type) {
     case 'GET_STATUS':
       await chrome.tabs.sendMessage(senderId, { type: 'STATUS', detail: { status } });
+      injectedTabs.push(senderId);
       break;
 
     case 'SET_STATUS':
       status = detail.status;
+      sendStatusToAllTabs(injectedTabs, status);
       if (detail.status === 'ACTIVE') {
         chrome.storage.local.get(['deviceId', 'certified'], (result) => {
           const { deviceId, certified } = result;
@@ -71,6 +82,11 @@ chrome.runtime.onMessage.addListener(async (msg, sender) => {
             session = initSession(deviceId);
           }
         });
+      } else if (detail.status === 'ASK_SUCCESS') {
+        setTimeout(() => {
+          status = 'INACTIVE';
+          sendStatusToAllTabs(injectedTabs, 'INACTIVE');
+        }, 4000);
       }
       break;
 
@@ -83,25 +99,28 @@ chrome.runtime.onMessage.addListener(async (msg, sender) => {
             certified = JSON.parse(res).auth;
             chrome.storage.local.set({ certified }, async () => {
               if (senderId) {
-                status = certified ? 'INACTIVE' : 'AUTH';
-                await chrome.tabs.sendMessage(senderId, { type: 'AUTH', detail: { certified } });
+                status = certified ? 'AUTH_SUCCESS' : 'AUTH_ERROR';
+                sendStatusToAllTabs(injectedTabs, status);
+                if (status === 'AUTH_SUCCESS') {
+                  setTimeout(() => {
+                    status = 'INACTIVE';
+                    sendStatusToAllTabs(injectedTabs, 'INACTIVE');
+                  }, 4000);
+                }
               }
             });
           });
         } else {
           chrome.storage.local.set({ certified: false }, async () => {
-            status = 'AUTH';
-            await chrome.tabs.sendMessage(senderId, { type: 'AUTH', detail: { certified: false } });
+            status = 'AUTH_ERROR';
+            sendStatusToAllTabs(injectedTabs, 'AUTH_ERROR');
           });
         }
       });
       break;
 
     case 'END_SESSION':
-      status = 'INACTIVE';
-      submitSession(closeSession(session, detail.satisfaction), (res) => {
-        console.log(res);
-      });
+      await submitSession(closeSession(session, detail.satisfaction));
       clearTimeout(timeoutId);
       timeoutId = null;
       break;
