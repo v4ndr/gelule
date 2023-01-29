@@ -1,12 +1,4 @@
-@font-face {
-    font-family: 'Abel';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Abel'), url('./assets/Abel-Regular.woff') format('woff');    
-}
-
 body {
-    font-family: 'Abel', sans-serif;
     width: 1000px;
     margin-left: auto;
     margin-right: auto;
