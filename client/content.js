@@ -15,10 +15,10 @@ if (typeof init === 'undefined') {
             <!DOCTYPE html>
             <style>
                 @font-face {
-                    font-family: 'Abel';
+                    font-family: 'Abel-gel';
                     font-style: normal;
                     font-weight: 400;
-                    src: local('Abel'), url('chrome-extension://lhnafjaglgkdmiklbnhgjdjkaopfdbeo/modal/assets/Abel-Regular.woff') format('woff');    
+                    src: url('chrome-extension://lhnafjaglgkdmiklbnhgjdjkaopfdbeo/modal/assets/Abel-Regular.woff') format('woff');    
                 }
                 
                 .container {
@@ -38,7 +38,7 @@ if (typeof init === 'undefined') {
                 
                 .title{
                     color:black;
-                    font-family: 'Abel', sans-serif;
+                    font-family: 'Abel-gel', sans-serif;
                     font-size: 16px;
                     margin: 0px 0px 0px 0px;
                     padding: 0px 0px 0px 0px;
@@ -49,7 +49,7 @@ if (typeof init === 'undefined') {
                 
                 .subtitle{
                     color:#6B6C6E;
-                    font-family: 'Abel', sans-serif;
+                    font-family: 'Abel-gel', sans-serif;
                     font-size: 11px;
                     margin: 0px 0px 0px 0px;
                     padding: 0px 0px 0px 0px;
@@ -396,6 +396,13 @@ if (typeof init === 'undefined') {
       const { type, detail } = msg;
       if (type === 'STATUS') {
         changeFrontStateTo(detail.status);
+        if (detail.status === 'AUTH_SUCCESS') {
+          const authSuccess = new CustomEvent('auth_success', {
+            bubbles: true,
+            composed: true,
+          });
+          r.dispatchEvent(authSuccess);
+        }
       }
     });
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gélule | Bienvenue</title>
+        <link rel="stylesheet" href="landing.css">
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Bienvenue sur <span class="gelule">Gélule</span></h1>
+        <h2 class="title2">Pour commencer,<br>entrez le code reçu par mail</h2>
+        <svg class="arrow" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="15" 
+                refX="7.5" refY="7.5" orient="0" markerUnits="userSpaceOnUse">
+                    <polyline 
+                        fill="none" 
+                        stroke="black" 
+                        stroke-width="3" 
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        points="0 0, 8.5 7.5, 0 15" 
+                    />
+                </marker>
+            </defs>
+            <line x1="0" y1="50" x2="2000" y2="50" stroke="black" 
+            stroke-width="3" marker-end="url(#arrowhead)" />
+        </svg>
+        <!-- <video autoplay loop muted playsinline src="./assets/demo.m4v"></video> -->
+    </body>
+</html>
+
+<script>
+    document.addEventListener('auth_success', (e) => {
+        window.location.href = "guide.html";
+    });
+</script>
