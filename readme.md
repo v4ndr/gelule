@@ -1,15 +1,4 @@
-## STATE MANAGMENT
+Gélule collecte les données de navigation de médecins volontaires à des fins de recherche.
+Gelule est une extension web conçue à des fins de recherche dans le cadre d'un travail de thèse d'exercice en médecine. L'extension a pour but de collecter les données de navigation des médecins volontaires l'utilisant sur une période donnée. Ces données ne sont collectées que quand l'extension est activée par l'utilisateur.
 
-State managment is essential to maintain consistency between front and back logic. The possibility of ressearchs on multiple tabs make state managment moreover important.
-
-4 main states are :
-    * AUTH : at first launch *gelule* asks for a pin code, on front side there 2 more sub states :
-        * AUTH_SUCCESS
-        * AUTH_ERROR
-    * INACTIVE : when the extension is inactive
-    * ACTIVE : when activity is beeing watched
-    * ASK : at the end of a session *gelule* ask the use if he found his answer, the answer to this question ends the session, on front side, there is one more sub state :
-        * ASK_SUCCESS
-
-The background page keeps track of the state and communicate it to the front as needed. At every reload / url change the front code of *gelule* is injected in the web page visited, and it sends a message to "GET_STATUS".
-The front on its side, handle user interaction and fires "SET_STATUS" to the background page if needed. A minimal front logic exists to handle transition betwwen states on front side, it is why sub state (AUTH_SUCCESS, AUTH_ERROR and ASK_SUCCESS) exists
+Cette extension est non repertoriée, ce qui signifie qu'elle n'est accessible qu'aux personnes ayant connaissance du lien de téléchargement. Son accès est protégé par code afin de restreindre son utilisation aux participants de l'étude.
