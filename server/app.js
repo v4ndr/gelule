@@ -7,7 +7,10 @@ const app = express();
 const server = http.createServer(app);
 const trackingRoutes = require('./routes/tracking');
 const authRoutes = require('./routes/auth');
+const dashboardRoutes = require('./routes/dashboard');
 
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(
   express.urlencoded({
@@ -20,6 +23,7 @@ app.use(cors({
 
 app.use('/tracking', trackingRoutes);
 app.use('/auth', authRoutes);
+app.use('/dashboard', dashboardRoutes);
 app.use((req, res) => {
   res.setHeader('Content-Type', 'text/plain');
   res.status(404).send('FORBIDDEN');
