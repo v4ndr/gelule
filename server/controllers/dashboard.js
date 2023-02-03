@@ -5,7 +5,8 @@ const Auth = require('../models/Auth');
 
 exports.monit = (req, res, next) => {
   Auth.getAuthorizedIds((authorizedIds) => {
-    const numberOfConnections = authorizedIds.length;
+    const nonNullAuthorizedIds = authorizedIds.filter((e) => e !== null);
+    const numberOfConnections = nonNullAuthorizedIds.length;
     Dashboard.getSessionsData((sessionsData) => {
       const numberOfSessions = sessionsData.length;
 
