@@ -54,6 +54,11 @@ body {
     display: none;
 }
 
+.table-container {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;  
+  }
+
 h2 {
     font-size: 24px;
     font-weight: 300;
