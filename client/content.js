@@ -1,7 +1,27 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-undef */
+
+/*
+  EXTENSION STATES :
+  - REGISTER : user is not registered
+    - REGISTER_SUCCESS : user has just registered
+  - ASK : satisfaction survey is displayed
+    - ASK_SUCCESS : user has just answered the satisfaction survey
+  - INACTIVE : user is authenticated and disabled
+  - ACTIVE : user is authenticated and enabled
+*/
+
 if (typeof init === 'undefined') {
   const inject = () => {
+    // handle extension disconnect
+    chrome.runtime.connect().onDisconnect.addListener(() => {
+      (async () => {
+        await chrome.runtime.sendMessage({ type: 'DISCONNECT_TAB' });
+      })();
+      // eslint-disable-next-line no-restricted-globals
+      location.reload();
+    });
+
     // assets absolute path
     const lock = chrome.runtime.getURL('./assets/lock.png');
     const no = chrome.runtime.getURL('./assets/no.png');
@@ -13,14 +33,10 @@ if (typeof init === 'undefined') {
     modal.className = 'container';
     modal.innerHTML = `
             <!DOCTYPE html>
-            <style>
-                @font-face {
-                    font-family: 'Abel-gel';
-                    font-style: normal;
-                    font-weight: 400;
-                    src: url('chrome-extension://lhnafjaglgkdmiklbnhgjdjkaopfdbeo/modal/assets/Abel-Regular.woff') format('woff');    
-                }
-                
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+            <style>   
                 .container {
                     all: initial;
                     display: flex;
@@ -38,7 +54,7 @@ if (typeof init === 'undefined') {
                 
                 .title{
                     color:black;
-                    font-family: 'Abel-gel', sans-serif;
+                    font-family: 'Abel', sans-serif;
                     font-size: 16px;
                     margin: 0px 0px 0px 0px;
                     padding: 0px 0px 0px 0px;
@@ -49,7 +65,7 @@ if (typeof init === 'undefined') {
                 
                 .subtitle{
                     color:#6B6C6E;
-                    font-family: 'Abel-gel', sans-serif;
+                    font-family: 'Abel', sans-serif;
                     font-size: 11px;
                     margin: 0px 0px 0px 0px;
                     padding: 0px 0px 0px 0px;
@@ -123,7 +139,7 @@ if (typeof init === 'undefined') {
                 }
                 
                 .modal-container.locked{
-                    width:320px;
+                    width:380px;
                     cursor:default;
                 }
                 
@@ -213,17 +229,19 @@ if (typeof init === 'undefined') {
             <div class="modal-container">
                 <img class="logo" src="" alt="logo" height="30px">
                 <div class="lock-text">
-                    <p class="title" >Entrez votre code</p>
-                    <p class="title" >de sécurité :</p>
+                    <p class="title" >Entrez votre numéro</p>
+                    <p class="title" >d'anonymat :</p>
                 </div>
                 <form class="form" tabindex="0">
                     <input class="input" type="number" maxlength="1"/>
                     <input class="input" type="number" maxlength="1"/>
                     <input class="input" type="number" maxlength="1"/>
                     <input class="input" type="number" maxlength="1"/>
+                    <input class="input" type="number" maxlength="1"/>
+                    <input class="input" type="number" maxlength="1"/>
                 </form>
                 <div class="unlock-text">
-                    <p class="title" >Authentification réussie !</p>
+                    <p class="title" >Enregistrement réussie !</p>
                 </div>
                 <div class="hidden-text disabled-text">
                     <p class="title" >Je fais une recherche !</p>
@@ -285,7 +303,7 @@ if (typeof init === 'undefined') {
       });
 
       switch (status) {
-        case 'AUTH':
+        case 'REGISTER':
           modalContainer.classList.add('locked', 'fixed');
           logoEle.setAttribute('src', lock);
           lockText.style.display = 'block';
@@ -307,21 +325,10 @@ if (typeof init === 'undefined') {
             btn.style.display = 'flex';
           });
           break;
-        case 'AUTH_SUCCESS':
+        case 'REGISTER_SUCCESS':
           modalContainer.classList.add('unlocked', 'fixed');
           logoEle.setAttribute('src', yes);
           unlockText.style.display = 'block';
-          break;
-        case 'AUTH_ERROR':
-          modalContainer.classList.add('locked', 'fixed');
-          lockText.style.display = 'block';
-          formEle.style.display = 'flex';
-          logoEle.setAttribute('src', no);
-          r.querySelectorAll('.input').forEach((input) => {
-            input.style.border = '1px solid red';
-            input.blur();
-            input.value = '';
-          });
           break;
         case 'ASK_SUCCESS':
           modalContainer.classList.add('success');
@@ -338,11 +345,11 @@ if (typeof init === 'undefined') {
     inputs.forEach((input, key) => {
       input.addEventListener('keyup', (e) => {
         if (input.value) {
-          if (key === 3) {
+          if (key === 5) {
             if (e.code !== 'ShiftRight' && e.code !== 'ShiftLeft' && e.code !== 'CapsLock') {
-              const pinCode = [...inputs].map((pin) => pin.value).join('');
+              const anonId = [...inputs].map((pin) => pin.value).join('');
               (async () => {
-                await chrome.runtime.sendMessage({ type: 'AUTH', detail: { pinCode } });
+                await chrome.runtime.sendMessage({ type: 'REGISTER', detail: { anonId } });
               })();
             }
           } else {
@@ -396,12 +403,12 @@ if (typeof init === 'undefined') {
       const { type, detail } = msg;
       if (type === 'STATUS') {
         changeFrontStateTo(detail.status);
-        if (detail.status === 'AUTH_SUCCESS') {
-          const authSuccess = new CustomEvent('auth_success', {
+        if (detail.status === 'REGISTER_SUCCESS') {
+          const registerSuccess = new CustomEvent('register_success', {
             bubbles: true,
             composed: true,
           });
-          r.dispatchEvent(authSuccess);
+          r.dispatchEvent(registerSuccess); // send event for landing page to transition
         }
       }
     });

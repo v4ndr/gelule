@@ -11,16 +11,6 @@ class Dashboard {
       }
     });
   }
-
-  static getValidPins(callback, next) {
-    const db = connection.getDb();
-    db.query('SELECT pin FROM auth WHERE device IS NULL', (err, res) => {
-      if (err) { next(err); } else {
-        const validPins = res.rows.map((e) => e.pin);
-        callback(validPins);
-      }
-    });
-  }
 }
 
 module.exports = Dashboard;

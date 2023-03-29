@@ -9,11 +9,11 @@ class Tracking {
     const dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
     dateObject.setMilliseconds(dateObject.getMilliseconds() - tzoffset);
     db.query(
-      'INSERT INTO sessions (date, duration, device, engines, queries, domains, raw, satisfaction) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+      'INSERT INTO sessions (date, duration, anon_id, engines, queries, domains, raw, satisfaction) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
       [
         dateObject.toISOString().slice(0, 19).replace('T', ' '),
         data.duration,
-        data.deviceId,
+        data.anonId,
         data.query.map((e) => e.domain),
         data.query.map((e) => e.keywords),
         data.visitedDomains,

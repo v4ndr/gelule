@@ -7,7 +7,6 @@ const path = require('path');
 const app = express();
 const server = http.createServer(app);
 const trackingRoutes = require('./routes/tracking');
-const authRoutes = require('./routes/auth');
 const dashboardRoutes = require('./routes/dashboard');
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -23,7 +22,6 @@ app.use(cors({
 }));
 
 app.use('/tracking', trackingRoutes);
-app.use('/auth', authRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use((req, res) => {
   res.setHeader('Content-Type', 'text/plain');

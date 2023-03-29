@@ -4,7 +4,7 @@ const validateSession = (session) => {
     query: (val) => Array.isArray(val),
     satisfaction: (val) => val === true || val === false,
     timestamp: (val) => typeof val === 'string',
-    deviceId: (val) => typeof val === 'string',
+    anonId: (val) => typeof val === 'string',
     visitedDomains: (val) => Array.isArray(val),
   };
 

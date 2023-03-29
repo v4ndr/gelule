@@ -11,8 +11,8 @@ const submitSession = (session) => {
     redirect: 'follow',
   };
 
-  fetch('https://www.gelule.vandr.fr/api/tracking/submit_session', requestOptions);
-  // fetch('http://localhost:3001/tracking/submit_session', requestOptions);
+  // fetch('https://www.gelule.vandr.fr/api/tracking/submit_session', requestOptions);
+  fetch('http://localhost:3001/tracking/submit_session', requestOptions);
 };
 
 export default submitSession;

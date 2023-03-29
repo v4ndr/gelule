@@ -1,8 +1,8 @@
-const initSession = (deviceId) => {
+const initSession = (anonId) => {
   const session = {
     timestamp: new Date().getTime(),
     duration: 0,
-    deviceId,
+    anonId,
     query: [],
     visitedDomains: [],
     rawHistory: [],
