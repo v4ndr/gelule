@@ -1,0 +1,32 @@
+body {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50px;
+    padding-bottom: 100px;
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+video {
+    width: 100%;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: black;
+    margin: -150px;
+}
+
+.red {
+    font-weight: bold;
+    color: red;
+}
+
+.bold {
+    font-weight: bold;
+}

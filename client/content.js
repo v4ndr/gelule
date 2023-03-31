@@ -17,6 +17,7 @@ if (typeof init === 'undefined') {
     chrome.runtime.connect().onDisconnect.addListener(() => {
       (async () => {
         await chrome.runtime.sendMessage({ type: 'DISCONNECT_TAB' });
+        await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: 'tab disconnected' } });
       })();
       // eslint-disable-next-line no-restricted-globals
       location.reload();
@@ -287,6 +288,9 @@ if (typeof init === 'undefined') {
     const buttons = r.querySelectorAll('.button');
 
     const changeFrontStateTo = (status) => {
+      (async () => {
+        await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: `change front status to : ${status}` } });
+      })();
       logoEle.setAttribute('src', logo);
       logoEle.className = 'logo';
       modalContainer.className = 'modal-container';
@@ -350,6 +354,7 @@ if (typeof init === 'undefined') {
               const anonId = [...inputs].map((pin) => pin.value).join('');
               (async () => {
                 await chrome.runtime.sendMessage({ type: 'REGISTER', detail: { anonId } });
+                await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: `attempt to register with anonId ${anonId}` } });
               })();
             }
           } else {
@@ -373,13 +378,24 @@ if (typeof init === 'undefined') {
 
     // on click events
     modalContainer.addEventListener('click', () => {
+      (async () => {
+        await chrome.runtime.sendMessage({
+          type: 'LOG',
+          detail: {
+            log: `click on modal =
+            modal-container classList : ${modalContainer.classList}, logoEle classlist : ${logoEle.classList}, logoEle src : ${logoEle.getAttribute('src')}, modalContainer style.display : ${modalContainer.style.display}, successText style.display : ${successText.style.display}, disabledText style.display : ${disabledText.style.display}, enabledText style.display : ${enabledText.style.display}, askText style.display : ${askText.style.display}, unlockText style.display : ${unlockText.style.display}, lockText style.display : ${lockText.style.display}, formEle style.display : ${formEle.style.display}`,
+          },
+        });
+      })();
       if (modalContainer.classList.contains('inactive')) {
         (async () => {
           await chrome.runtime.sendMessage({ type: 'SET_STATUS', detail: { status: 'ACTIVE' } });
+          await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: 'status send to background script : ACTIVE' } });
         })();
       } else if (modalContainer.classList.contains('active')) {
         (async () => {
           await chrome.runtime.sendMessage({ type: 'SET_STATUS', detail: { status: 'ASK' } });
+          await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: 'status send to background script : ASK' } });
         })();
       }
     });
@@ -394,6 +410,7 @@ if (typeof init === 'undefined') {
         (async () => {
           await chrome.runtime.sendMessage({ type: 'SET_STATUS', detail: { status: 'ASK_SUCCESS' } });
           await chrome.runtime.sendMessage({ type: 'END_SESSION', detail: { satisfaction } });
+          await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: 'status send to background script : ASK_SUCCESS and END_SESSION' } });
         })();
       });
     });
@@ -402,6 +419,9 @@ if (typeof init === 'undefined') {
     chrome.runtime.onMessage.addListener((msg) => {
       const { type, detail } = msg;
       if (type === 'STATUS') {
+        (async () => {
+          await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: `change status received from background script, status : ${detail.status}` } });
+        })();
         changeFrontStateTo(detail.status);
         if (detail.status === 'REGISTER_SUCCESS') {
           const registerSuccess = new CustomEvent('register_success', {
