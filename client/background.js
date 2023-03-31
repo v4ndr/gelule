@@ -70,7 +70,9 @@ chrome.storage.local.get(['anonId'], (res) => {
     switch (type) {
       case 'GET_STATUS':
         await chrome.tabs.sendMessage(senderId, { type: 'STATUS', detail: { status } });
-        injectedTabs.push(senderId);
+        if (!injectedTabs.includes(senderId)) {
+          injectedTabs.push(senderId);
+        }
         saveLog(`status asked by content script, status <${status}> sent to tab ${senderId} and added to injectedTabs (${injectedTabs})`);
         break;
 
