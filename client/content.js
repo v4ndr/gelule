@@ -382,8 +382,18 @@ if (typeof init === 'undefined') {
         await chrome.runtime.sendMessage({
           type: 'LOG',
           detail: {
-            log: `click on modal =
-            modal-container classList : ${modalContainer.classList}, logoEle classlist : ${logoEle.classList}, logoEle src : ${logoEle.getAttribute('src')}, modalContainer style.display : ${modalContainer.style.display}, successText style.display : ${successText.style.display}, disabledText style.display : ${disabledText.style.display}, enabledText style.display : ${enabledText.style.display}, askText style.display : ${askText.style.display}, unlockText style.display : ${unlockText.style.display}, lockText style.display : ${lockText.style.display}, formEle style.display : ${formEle.style.display}`,
+            log: 'click on modal',
+            // modal-container classList : ${modalContainer.classList},
+            // logoEle classlist : ${logoEle.classList}, logoEle src :
+            //  ${logoEle.getAttribute('src')}, modalContainer style.display :
+            //  ${modalContainer.style.display}, successText style.display :
+            //  ${successText.style.display}, disabledText style.display :
+            //  ${disabledText.style.display}, enabledText style.display :
+            //  ${enabledText.style.display}, askText style.display :
+            //  ${askText.style.display}, unlockText style.display :
+            //  ${unlockText.style.display}, lockText style.display :
+            //  ${lockText.style.display}, formEle style.display :
+            //  ${formEle.style.display}`,
           },
         });
       })();

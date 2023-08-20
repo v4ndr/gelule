@@ -35,7 +35,6 @@ const whitelistDomains = whitelist
 // chrome.storage.local.clear(); // DEV ONLY
 
 saveLog(`background.js loaded with status ${status} and anonId ${anonId}`);
-saveLog(`injectedTabs : ${injectedTabs}`);
 
 chrome.runtime.onInstalled.addListener(async () => {
   chrome.tabs.create({ url: 'https://www.gelule.vandr.fr/landing.html' });

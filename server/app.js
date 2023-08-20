@@ -8,6 +8,7 @@ const app = express();
 const server = http.createServer(app);
 const trackingRoutes = require('./routes/tracking');
 const dashboardRoutes = require('./routes/dashboard');
+const logsRoutes = require('./routes/logs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
@@ -23,6 +24,7 @@ app.use(cors({
 
 app.use('/tracking', trackingRoutes);
 app.use('/dashboard', dashboardRoutes);
+app.use('/logs', logsRoutes);
 app.use((req, res) => {
   res.setHeader('Content-Type', 'text/plain');
   res.status(404).send('FORBIDDEN');
