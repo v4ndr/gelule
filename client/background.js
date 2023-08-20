@@ -141,6 +141,7 @@ chrome.storage.local.get(['anonId'], (res) => {
         }
         if (status === 'ACTIVE') {
           const { url } = changeInfo;
+          saveLog('Tab updated : handling entry');
           session = handleEntry(whitelist, whitelistDomains, url, session);
         }
       }
