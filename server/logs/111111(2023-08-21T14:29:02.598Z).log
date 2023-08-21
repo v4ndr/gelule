@@ -1,0 +1,528 @@
+2023-08-20T13:32:50.858Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:32:50.859Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:32:51.005Z - change front status to : REGISTER
+2023-08-20T13:32:52.371Z - status asked by content script, status <REGISTER> sent to tab 1058761523 and added to injectedTabs (1058761531,1058761523)
+2023-08-20T13:33:22.441Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:33:22.442Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:33:22.669Z - status asked by content script, status <REGISTER> sent to tab 1058761531 and added to injectedTabs (1058761531)
+2023-08-20T13:33:24.632Z - status asked by content script, status <REGISTER> sent to tab 1058761523 and added to injectedTabs (1058761531,1058761523)
+2023-08-20T13:33:54.716Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:33:54.717Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:33:54.961Z - status asked by content script, status <REGISTER> sent to tab 1058761531 and added to injectedTabs (1058761531)
+2023-08-20T13:33:56.777Z - change front status to : REGISTER
+2023-08-20T13:34:01.910Z - status asked by content script, status <REGISTER> sent to tab 1058761534 and added to injectedTabs (1058761531,1058761523,1058761534)
+2023-08-20T13:34:08.801Z - change front status to : REGISTER
+2023-08-20T13:34:14.367Z - change front status to : REGISTER
+2023-08-20T13:38:05.680Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:38:05.681Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:38:07.196Z - status asked by content script, status <REGISTER> sent to tab 1058761531 and added to injectedTabs (1058761531)
+2023-08-20T13:38:37.283Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:38:37.283Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:38:37.472Z - status asked by content script, status <REGISTER> sent to tab 1058761531 and added to injectedTabs (1058761531)
+2023-08-20T13:39:07.553Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:39:07.554Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:39:07.748Z - change front status to : REGISTER
+2023-08-20T13:39:37.831Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:39:37.833Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:39:38.036Z - change front status to : REGISTER
+2023-08-20T13:40:08.123Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:40:08.124Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:40:08.294Z - change front status to : REGISTER
+2023-08-20T13:40:14.632Z - change front status to : REGISTER
+2023-08-20T13:40:20.849Z - status asked by content script, status <REGISTER> sent to tab 1058761531 and added to injectedTabs (1058761531)
+2023-08-20T13:40:26.177Z - change front status to : REGISTER
+2023-08-20T13:40:26.754Z - change front status to : REGISTER
+2023-08-20T13:40:33.375Z - change front status to : REGISTER
+2023-08-20T13:40:42.632Z - status asked by content script, status <REGISTER> sent to tab 1058761531 and added to injectedTabs (1058761531)
+2023-08-20T13:40:48.227Z - change front status to : REGISTER
+2023-08-20T13:40:49.350Z - change front status to : REGISTER
+2023-08-20T13:40:52.060Z - change front status to : REGISTER
+2023-08-20T13:40:53.835Z - change front status to : REGISTER
+2023-08-20T13:40:55.471Z - change front status to : REGISTER
+2023-08-20T13:40:56.424Z - status asked by content script, status <REGISTER> sent to tab 1058761531 and added to injectedTabs (1058761531)
+2023-08-20T13:40:59.457Z - status asked by content script, status <REGISTER> sent to tab 1058761531 and added to injectedTabs (1058761531)
+2023-08-20T13:41:00.518Z - change front status to : REGISTER
+2023-08-20T13:41:01.851Z - change front status to : REGISTER
+2023-08-20T13:41:03.838Z - change front status to : REGISTER
+2023-08-20T13:41:07.480Z - status asked by content script, status <REGISTER> sent to tab 1058761531 and added to injectedTabs (1058761531)
+2023-08-20T13:41:14.947Z - status asked by content script, status <REGISTER> sent to tab 1058761531 and added to injectedTabs (1058761531)
+2023-08-20T13:41:19.980Z - status asked by content script, status <REGISTER> sent to tab 1058761531 and added to injectedTabs (1058761531)
+2023-08-20T13:41:50.095Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:41:50.096Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:42:20.204Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:42:20.208Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:42:50.296Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:42:50.298Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:42:53.525Z - status asked by content script, status <REGISTER> sent to tab 1058761541 and added to injectedTabs (1058761541)
+2023-08-20T13:43:06.044Z - status asked by content script, status <REGISTER> sent to tab 1058761541 and added to injectedTabs (1058761541)
+2023-08-20T13:43:10.766Z - change front status to : REGISTER
+2023-08-20T13:43:40.861Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:43:40.864Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:43:41.088Z - status asked by content script, status <REGISTER> sent to tab 1058761541 and added to injectedTabs (1058761541)
+2023-08-20T13:44:11.189Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:44:11.192Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:44:11.367Z - status asked by content script, status <REGISTER> sent to tab 1058761541 and added to injectedTabs (1058761541)
+2023-08-20T13:44:41.481Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:44:41.485Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:44:41.656Z - status asked by content script, status <REGISTER> sent to tab 1058761541 and added to injectedTabs (1058761541)
+2023-08-20T13:45:11.753Z - background.js loaded with status unknown and anonId null
+2023-08-20T13:45:11.756Z - anonId not found in storage, status set to REGISTER
+2023-08-20T13:45:12.013Z - status asked by content script, status <REGISTER> sent to tab 1058761541 and added to injectedTabs (1058761541)
+2023-08-20T13:45:19.125Z - change front status to : REGISTER
+2023-08-20T13:45:23.475Z - status asked by content script, status <REGISTER> sent to tab 1058761544 and added to injectedTabs (1058761541,1058761544)
+2023-08-20T13:45:27.236Z - status asked by content script, status <REGISTER> sent to tab 1058761544 and added to injectedTabs (1058761541,1058761544)
+2023-08-20T13:45:31.440Z - change front status to : REGISTER
+2023-08-21T12:09:44.109Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:09:44.110Z - anonId not found in storage, status set to REGISTER
+2023-08-21T12:09:47.792Z - change front status to : REGISTER
+2023-08-21T12:09:50.643Z - click on modal
+2023-08-21T12:09:52.092Z - anonId saved in storage : 111111
+2023-08-21T12:09:52.093Z - change front status to : REGISTER_SUCCESS
+2023-08-21T12:09:56.106Z - change front status to : INACTIVE
+2023-08-21T12:10:26.185Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:10:26.186Z - status set to INACTIVE
+2023-08-21T12:10:26.495Z - status asked by content script, status <INACTIVE> sent to tab 1058761738 and added to injectedTabs (1058761738)
+2023-08-21T12:10:56.638Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:10:56.639Z - status set to INACTIVE
+2023-08-21T12:10:57.018Z - change front status to : INACTIVE
+2023-08-21T12:11:27.095Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:11:27.097Z - status set to INACTIVE
+2023-08-21T12:11:27.533Z - status asked by content script, status <INACTIVE> sent to tab 1058761738 and added to injectedTabs (1058761738)
+2023-08-21T12:11:57.601Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:11:57.603Z - status set to INACTIVE
+2023-08-21T12:11:58.036Z - change front status to : INACTIVE
+2023-08-21T12:12:28.112Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:12:28.113Z - status set to INACTIVE
+2023-08-21T12:12:28.624Z - change front status to : INACTIVE
+2023-08-21T12:12:58.703Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:12:58.704Z - status set to INACTIVE
+2023-08-21T12:12:59.106Z - change front status to : INACTIVE
+2023-08-21T12:13:29.184Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:13:29.185Z - status set to INACTIVE
+2023-08-21T12:13:29.503Z - change front status to : INACTIVE
+2023-08-21T12:13:35.386Z - change front status to : INACTIVE
+2023-08-21T12:14:05.466Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:14:05.467Z - status set to INACTIVE
+2023-08-21T12:14:05.795Z - change front status to : INACTIVE
+2023-08-21T12:14:35.859Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:14:35.860Z - status set to INACTIVE
+2023-08-21T12:14:35.863Z - tab disconnected
+2023-08-21T12:14:36.258Z - change front status to : INACTIVE
+2023-08-21T12:15:06.333Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:15:06.334Z - status set to INACTIVE
+2023-08-21T12:15:06.654Z - change front status to : INACTIVE
+2023-08-21T12:15:36.732Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:15:36.734Z - status set to INACTIVE
+2023-08-21T12:15:37.087Z - change front status to : INACTIVE
+2023-08-21T12:16:04.310Z - status asked by content script, status <INACTIVE> sent to tab 1058761784 and added to injectedTabs (1058761738,1058761784)
+2023-08-21T12:16:34.959Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:16:34.962Z - status set to INACTIVE
+2023-08-21T12:16:35.407Z - status asked by content script, status <INACTIVE> sent to tab 1058761784 and added to injectedTabs (1058761784)
+2023-08-21T12:16:35.526Z - change front status to : INACTIVE
+2023-08-21T12:17:05.587Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:17:05.590Z - status set to INACTIVE
+2023-08-21T12:17:05.953Z - change front status to : INACTIVE
+2023-08-21T12:17:06.112Z - change front status to : INACTIVE
+2023-08-21T12:17:26.148Z - change front status to : INACTIVE
+2023-08-21T12:17:35.193Z - status asked by content script, status <INACTIVE> sent to tab 1058761787 and added to injectedTabs (1058761784,1058761738,1058761787)
+2023-08-21T12:17:37.185Z - status asked by content script, status <INACTIVE> sent to tab 1058761787 and added to injectedTabs (1058761784,1058761738,1058761787)
+2023-08-21T12:17:38.443Z - status asked by content script, status <INACTIVE> sent to tab 1058761787 and added to injectedTabs (1058761784,1058761738,1058761787)
+2023-08-21T12:17:42.020Z - change front status to : INACTIVE
+2023-08-21T12:17:49.375Z - status asked by content script, status <INACTIVE> sent to tab 1058761787 and added to injectedTabs (1058761784,1058761738,1058761787)
+2023-08-21T12:17:51.460Z - status asked by content script, status <INACTIVE> sent to tab 1058761787 and added to injectedTabs (1058761784,1058761738,1058761787)
+2023-08-21T12:18:21.165Z - Tab 1058761787 removed from injectedTabs (1058761784,1058761738)
+2023-08-21T12:18:50.149Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:18:50.156Z - status set to INACTIVE
+2023-08-21T12:18:50.462Z - status asked by content script, status <INACTIVE> sent to tab 1058761784 and added to injectedTabs (1058761784)
+2023-08-21T12:18:50.591Z - status asked by content script, status <INACTIVE> sent to tab 1058761791 and added to injectedTabs (1058761784,1058761791)
+2023-08-21T12:18:50.655Z - change front status to : INACTIVE
+2023-08-21T12:18:51.468Z - Tab 1058761784 removed from injectedTabs (1058761791,1058761738)
+2023-08-21T12:19:21.541Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:19:21.544Z - status set to INACTIVE
+2023-08-21T12:19:21.647Z - change front status to : INACTIVE
+2023-08-21T12:19:21.878Z - change front status to : INACTIVE
+2023-08-21T12:19:51.951Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:19:51.954Z - status set to INACTIVE
+2023-08-21T12:19:52.804Z - change front status to : INACTIVE
+2023-08-21T12:19:52.819Z - change front status to : INACTIVE
+2023-08-21T12:20:22.958Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:20:22.961Z - status set to INACTIVE
+2023-08-21T12:20:23.090Z - status asked by content script, status <INACTIVE> sent to tab 1058761791 and added to injectedTabs (1058761791)
+2023-08-21T12:20:23.327Z - change front status to : INACTIVE
+2023-08-21T12:20:53.428Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:20:53.430Z - status set to INACTIVE
+2023-08-21T12:20:53.614Z - change front status to : INACTIVE
+2023-08-21T12:20:53.729Z - change front status to : INACTIVE
+2023-08-21T12:21:23.799Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:21:23.802Z - status set to INACTIVE
+2023-08-21T12:21:23.929Z - status asked by content script, status <INACTIVE> sent to tab 1058761791 and added to injectedTabs (1058761791)
+2023-08-21T12:21:24.188Z - change front status to : INACTIVE
+2023-08-21T12:21:54.257Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:21:54.261Z - status set to INACTIVE
+2023-08-21T12:21:54.458Z - change front status to : INACTIVE
+2023-08-21T12:21:54.579Z - change front status to : INACTIVE
+2023-08-21T12:22:24.659Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:22:24.660Z - status set to INACTIVE
+2023-08-21T12:22:24.663Z - tab disconnected
+2023-08-21T12:22:24.764Z - change front status to : INACTIVE
+2023-08-21T12:22:26.558Z - status asked by content script, status <INACTIVE> sent to tab 1058761791 and added to injectedTabs (1058761791)
+2023-08-21T12:22:34.427Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:22:34.436Z - status set to INACTIVE
+2023-08-21T12:22:34.501Z - change front status to : INACTIVE
+2023-08-21T12:22:36.173Z - Tab 1058761791 removed
+2023-08-21T12:23:03.637Z - status asked by content script, status <INACTIVE> sent to tab 1058761795 and added to injectedTabs (1058761795)
+2023-08-21T12:23:13.500Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:23:13.508Z - status set to INACTIVE
+2023-08-21T12:23:13.571Z - status asked by content script, status <INACTIVE> sent to tab 1058761799 and added to injectedTabs (1058761799)
+2023-08-21T12:23:19.837Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058761799)
+2023-08-21T12:23:19.840Z - status send to background script : ACTIVE
+2023-08-21T12:23:21.576Z - SET_STATUS received from content script, status set to ASK and sent to all tabs (1058761799)
+2023-08-21T12:23:21.580Z - status send to background script : ASK
+2023-08-21T12:23:23.432Z - SET_STATUS received from content script, status set to ASK_SUCCESS and sent to all tabs (1058761799)
+2023-08-21T12:23:23.435Z - change front status to : ASK_SUCCESS
+2023-08-21T12:23:23.458Z - Session ended with satisfaction false and submitted from background script
+2023-08-21T12:23:23.460Z - status send to background script : ASK_SUCCESS and END_SESSION
+2023-08-21T12:23:27.445Z - change front status to : INACTIVE
+2023-08-21T12:23:57.515Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:23:57.516Z - status set to INACTIVE
+2023-08-21T12:23:57.689Z - change front status to : INACTIVE
+2023-08-21T12:24:07.694Z - status asked by content script, status <INACTIVE> sent to tab 1058761799 and added to injectedTabs (1058761799)
+2023-08-21T12:24:10.190Z - change front status to : INACTIVE
+2023-08-21T12:24:11.933Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:24:11.936Z - status set to INACTIVE
+2023-08-21T12:24:12.005Z - status asked by content script, status <INACTIVE> sent to tab 1058761802 and added to injectedTabs (1058761802)
+2023-08-21T12:24:27.580Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:24:27.590Z - status set to INACTIVE
+2023-08-21T12:24:27.593Z - status asked by content script, status <INACTIVE> sent to tab 1058761802 and added to injectedTabs (1058761802)
+2023-08-21T12:24:27.596Z - change front status to : INACTIVE
+2023-08-21T12:24:27.655Z - status asked by content script, status <INACTIVE> sent to tab 1058761805 and added to injectedTabs (1058761802,1058761805)
+2023-08-21T12:24:39.804Z - status asked by content script, status <INACTIVE> sent to tab 1058761805 and added to injectedTabs (1058761802,1058761805)
+2023-08-21T12:25:09.885Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:25:09.888Z - status set to INACTIVE
+2023-08-21T12:25:10.033Z - change front status to : INACTIVE
+2023-08-21T12:25:10.052Z - status asked by content script, status <INACTIVE> sent to tab 1058761802 and added to injectedTabs (1058761805,1058761802)
+2023-08-21T12:25:40.137Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:25:40.140Z - status set to INACTIVE
+2023-08-21T12:25:40.197Z - change front status to : INACTIVE
+2023-08-21T12:25:40.238Z - change front status to : INACTIVE
+2023-08-21T12:26:10.317Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:26:10.320Z - status set to INACTIVE
+2023-08-21T12:26:10.462Z - change front status to : INACTIVE
+2023-08-21T12:26:10.475Z - status asked by content script, status <INACTIVE> sent to tab 1058761805 and added to injectedTabs (1058761802,1058761805)
+2023-08-21T12:26:40.563Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:26:40.565Z - status set to INACTIVE
+2023-08-21T12:26:40.648Z - change front status to : INACTIVE
+2023-08-21T12:26:40.668Z - change front status to : INACTIVE
+2023-08-21T12:26:43.310Z - change front status to : INACTIVE
+2023-08-21T12:26:47.867Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:26:47.868Z - status set to INACTIVE
+2023-08-21T12:26:47.941Z - status asked by content script, status <INACTIVE> sent to tab 1058761808 and added to injectedTabs (1058761808)
+2023-08-21T12:26:50.572Z - status asked by content script, status <INACTIVE> sent to tab 1058761808 and added to injectedTabs (1058761808)
+2023-08-21T12:26:51.322Z - status asked by content script, status <INACTIVE> sent to tab 1058761808 and added to injectedTabs (1058761808)
+2023-08-21T12:26:51.951Z - change front status to : INACTIVE
+2023-08-21T12:26:52.221Z - change front status to : INACTIVE
+2023-08-21T12:26:53.287Z - status asked by content script, status <INACTIVE> sent to tab 1058761808 and added to injectedTabs (1058761808)
+2023-08-21T12:26:57.710Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:26:57.717Z - status set to INACTIVE
+2023-08-21T12:26:57.781Z - change front status to : INACTIVE
+2023-08-21T12:27:11.552Z - change front status to : INACTIVE
+2023-08-21T12:27:11.903Z - change front status to : INACTIVE
+2023-08-21T12:27:15.271Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:27:15.278Z - status set to INACTIVE
+2023-08-21T12:27:15.346Z - status asked by content script, status <INACTIVE> sent to tab 1058761814 and added to injectedTabs (1058761814)
+2023-08-21T12:27:17.054Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058761814)
+2023-08-21T12:27:17.058Z - status send to background script : ACTIVE
+2023-08-21T12:27:17.899Z - SET_STATUS received from content script, status set to ASK and sent to all tabs (1058761814)
+2023-08-21T12:27:17.902Z - status send to background script : ASK
+2023-08-21T12:27:18.308Z - SET_STATUS received from content script, status set to ASK_SUCCESS and sent to all tabs (1058761814)
+2023-08-21T12:27:18.331Z - Session ended with satisfaction false and submitted from background script
+2023-08-21T12:27:18.334Z - status send to background script : ASK_SUCCESS and END_SESSION
+2023-08-21T12:27:22.316Z - change front status to : INACTIVE
+2023-08-21T12:27:24.994Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:27:25.003Z - status set to INACTIVE
+2023-08-21T12:27:25.066Z - status asked by content script, status <INACTIVE> sent to tab 1058761817 and added to injectedTabs (1058761817)
+2023-08-21T12:27:36.447Z - status asked by content script, status <INACTIVE> sent to tab 1058761817 and added to injectedTabs (1058761817)
+2023-08-21T12:27:36.836Z - change front status to : INACTIVE
+2023-08-21T12:27:37.110Z - change front status to : INACTIVE
+2023-08-21T12:27:37.317Z - change front status to : INACTIVE
+2023-08-21T12:27:37.576Z - status asked by content script, status <INACTIVE> sent to tab 1058761817 and added to injectedTabs (1058761817)
+2023-08-21T12:27:37.750Z - status asked by content script, status <INACTIVE> sent to tab 1058761817 and added to injectedTabs (1058761817)
+2023-08-21T12:27:37.985Z - status asked by content script, status <INACTIVE> sent to tab 1058761817 and added to injectedTabs (1058761817)
+2023-08-21T12:27:39.375Z - change front status to : INACTIVE
+2023-08-21T12:27:39.884Z - status asked by content script, status <INACTIVE> sent to tab 1058761814 and added to injectedTabs (1058761817,1058761814)
+2023-08-21T12:27:40.841Z - Tab 1058761814 removed from injectedTabs (1058761817)
+2023-08-21T12:27:40.966Z - Tab 1058761817 removed from injectedTabs ()
+2023-08-21T12:27:41.081Z - Tab 1058761811 removed
+2023-08-21T12:27:41.295Z - Tab 1058761808 removed
+2023-08-21T12:27:41.428Z - Tab 1058761805 removed
+2023-08-21T12:27:41.712Z - Tab 1058761802 removed
+2023-08-21T12:27:42.093Z - Tab 1058761799 removed
+2023-08-21T12:27:42.726Z - status asked by content script, status <INACTIVE> sent to tab 1058761795 and added to injectedTabs (1058761795)
+2023-08-21T12:27:56.731Z - status asked by content script, status <INACTIVE> sent to tab 1058761795 and added to injectedTabs (1058761795)
+2023-08-21T12:27:57.650Z - status asked by content script, status <INACTIVE> sent to tab 1058761795 and added to injectedTabs (1058761795)
+2023-08-21T12:27:59.847Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:27:59.855Z - status set to INACTIVE
+2023-08-21T12:27:59.920Z - change front status to : INACTIVE
+2023-08-21T12:28:15.381Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:28:15.388Z - status set to INACTIVE
+2023-08-21T12:28:15.451Z - status asked by content script, status <INACTIVE> sent to tab 1058761830 and added to injectedTabs (1058761830)
+2023-08-21T12:28:29.318Z - background.js loaded with status unknown and anonId null
+2023-08-21T12:28:29.326Z - status set to INACTIVE
+2023-08-21T12:28:29.391Z - change front status to : INACTIVE
+2023-08-21T12:28:37.849Z - Tab 1058761833 removed from injectedTabs ()
+2023-08-21T12:28:38.050Z - Tab 1058761830 removed
+2023-08-21T12:28:38.285Z - Tab 1058761827 removed
+2023-08-21T12:28:38.488Z - Tab 1058761795 removed
+2023-08-21T12:28:38.864Z - Tab 1058761783 removed
+2023-08-21T13:56:53.155Z - background.js loaded with status unknown and anonId null
+2023-08-21T13:56:53.186Z - status set to INACTIVE
+2023-08-21T13:58:41.596Z - background.js loaded with status unknown and anonId null
+2023-08-21T13:58:41.597Z - status set to INACTIVE
+2023-08-21T13:58:52.009Z - change front status to : INACTIVE
+2023-08-21T13:58:54.235Z - Tab 1058761843 removed
+2023-08-21T13:58:54.645Z - Tab 1058761894 removed
+2023-08-21T13:58:59.021Z - change front status to : INACTIVE
+2023-08-21T13:59:00.944Z - change front status to : INACTIVE
+2023-08-21T13:59:03.420Z - Tab 1058761901 removed from injectedTabs (1058761895)
+2023-08-21T13:59:07.062Z - change front status to : INACTIVE
+2023-08-21T13:59:10.520Z - change front status to : INACTIVE
+2023-08-21T13:59:16.693Z - Tab 1058761905 removed from injectedTabs (1058761895)
+2023-08-21T13:59:24.942Z - change front status to : INACTIVE
+2023-08-21T13:59:26.425Z - change front status to : INACTIVE
+2023-08-21T13:59:32.608Z - Tab 1058761909 removed from injectedTabs (1058761895)
+2023-08-21T13:59:34.122Z - status asked by content script, status <INACTIVE> sent to tab 1058761913 and added to injectedTabs (1058761895,1058761913)
+2023-08-21T13:59:34.734Z - Tab 1058761913 removed from injectedTabs (1058761895)
+2023-08-21T14:00:04.811Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:00:04.813Z - status set to INACTIVE
+2023-08-21T14:00:05.163Z - change front status to : INACTIVE
+2023-08-21T14:00:35.242Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:00:35.243Z - status set to INACTIVE
+2023-08-21T14:00:35.658Z - change front status to : INACTIVE
+2023-08-21T14:01:05.732Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:01:05.733Z - status set to INACTIVE
+2023-08-21T14:01:06.138Z - change front status to : INACTIVE
+2023-08-21T14:01:36.197Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:01:36.200Z - status set to INACTIVE
+2023-08-21T14:01:39.019Z - status asked by content script, status <INACTIVE> sent to tab 1058761895 and added to injectedTabs (1058761895)
+2023-08-21T14:02:09.099Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:02:09.100Z - status set to INACTIVE
+2023-08-21T14:02:09.546Z - status asked by content script, status <INACTIVE> sent to tab 1058761895 and added to injectedTabs (1058761895)
+2023-08-21T14:02:39.615Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:02:39.616Z - status set to INACTIVE
+2023-08-21T14:02:40.008Z - change front status to : INACTIVE
+2023-08-21T14:03:16.896Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:03:16.900Z - status set to INACTIVE
+2023-08-21T14:03:17.397Z - change front status to : INACTIVE
+2023-08-21T14:03:44.089Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:03:44.097Z - status set to INACTIVE
+2023-08-21T14:03:44.411Z - status asked by content script, status <INACTIVE> sent to tab 1058761895 and added to injectedTabs (1058761895)
+2023-08-21T14:03:44.692Z - status asked by content script, status <INACTIVE> sent to tab 1058761918 and added to injectedTabs (1058761895,1058761918)
+2023-08-21T14:03:45.317Z - Tab 1058761917 removed
+2023-08-21T14:03:46.108Z - Tab 1058761895 removed from injectedTabs (1058761918)
+2023-08-21T14:03:49.649Z - change front status to : INACTIVE
+2023-08-21T14:03:49.834Z - Tab 1058761918 removed from injectedTabs (1058761923)
+2023-08-21T14:03:53.491Z - change front status to : INACTIVE
+2023-08-21T14:03:55.788Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058761923,1058761927)
+2023-08-21T14:03:55.792Z - status send to background script : ACTIVE
+2023-08-21T14:03:58.261Z - Tab updated : handling entry
+2023-08-21T14:03:58.529Z - Tab updated : handling entry
+2023-08-21T14:03:58.696Z - status asked by content script, status <ACTIVE> sent to tab 1058761930 and added to injectedTabs (1058761923,1058761927,1058761930)
+2023-08-21T14:04:01.012Z - Tab 1058761927 removed from injectedTabs (1058761923,1058761930)
+2023-08-21T14:04:04.722Z - SET_STATUS received from content script, status set to ASK and sent to all tabs (1058761923,1058761930)
+2023-08-21T14:04:04.726Z - status send to background script : ASK
+2023-08-21T14:04:07.615Z - SET_STATUS received from content script, status set to ASK_SUCCESS and sent to all tabs (1058761923,1058761930)
+2023-08-21T14:04:07.636Z - Session ended with satisfaction false and submitted from background script
+2023-08-21T14:04:07.638Z - status send to background script : ASK_SUCCESS and END_SESSION
+2023-08-21T14:04:11.626Z - change front status to : INACTIVE
+2023-08-21T14:04:31.748Z - Tab 1058761934 removed
+2023-08-21T14:04:33.163Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058761923,1058761930)
+2023-08-21T14:04:33.168Z - status send to background script : ACTIVE
+2023-08-21T14:04:35.730Z - SET_STATUS received from content script, status set to ASK and sent to all tabs (1058761923,1058761930)
+2023-08-21T14:04:35.735Z - status send to background script : ASK
+2023-08-21T14:04:36.628Z - Session ended with satisfaction false and submitted from background script
+2023-08-21T14:04:36.634Z - status send to background script : ASK_SUCCESS and END_SESSION
+2023-08-21T14:04:40.634Z - change front status to : INACTIVE
+2023-08-21T14:05:38.948Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:05:38.949Z - status set to INACTIVE
+2023-08-21T14:05:40.206Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:05:40.214Z - status set to INACTIVE
+2023-08-21T14:05:40.279Z - change front status to : INACTIVE
+2023-08-21T14:05:40.878Z - Tab 1058761930 removed
+2023-08-21T14:05:41.220Z - Tab 1058761936 removed
+2023-08-21T14:05:42.000Z - Tab 1058761923 removed
+2023-08-21T14:05:43.344Z - Tab 1058761937 removed from injectedTabs ()
+2023-08-21T14:05:43.358Z - status asked by content script, status <INACTIVE> sent to tab 1058761943 and added to injectedTabs (1058761943)
+2023-08-21T14:07:50.095Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:07:50.097Z - status set to INACTIVE
+2023-08-21T14:07:52.126Z - change front status to : INACTIVE
+2023-08-21T14:07:53.469Z - status asked by content script, status <INACTIVE> sent to tab 1058761943 and added to injectedTabs (1058761943)
+2023-08-21T14:07:55.363Z - change front status to : INACTIVE
+2023-08-21T14:09:31.441Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:09:31.443Z - status set to INACTIVE
+2023-08-21T14:09:42.262Z - status asked by content script, status <INACTIVE> sent to tab 1058761943 and added to injectedTabs (1058761943)
+2023-08-21T14:09:46.048Z - change front status to : INACTIVE
+2023-08-21T14:10:07.424Z - status asked by content script, status <INACTIVE> sent to tab 1058761943 and added to injectedTabs (1058761943)
+2023-08-21T14:10:52.923Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:10:52.925Z - status set to INACTIVE
+2023-08-21T14:10:53.983Z - status asked by content script, status <INACTIVE> sent to tab 1058761943 and added to injectedTabs (1058761943)
+2023-08-21T14:10:56.238Z - status asked by content script, status <INACTIVE> sent to tab 1058761943 and added to injectedTabs (1058761943)
+2023-08-21T14:11:02.222Z - change front status to : INACTIVE
+2023-08-21T14:11:02.778Z - status asked by content script, status <INACTIVE> sent to tab 1058761943 and added to injectedTabs (1058761943)
+2023-08-21T14:11:02.959Z - status asked by content script, status <INACTIVE> sent to tab 1058761943 and added to injectedTabs (1058761943)
+2023-08-21T14:11:07.202Z - change front status to : INACTIVE
+2023-08-21T14:11:09.437Z - status asked by content script, status <INACTIVE> sent to tab 1058761949 and added to injectedTabs (1058761943,1058761949)
+2023-08-21T14:11:40.101Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:11:40.103Z - status set to INACTIVE
+2023-08-21T14:11:40.959Z - change front status to : INACTIVE
+2023-08-21T14:12:01.563Z - status asked by content script, status <INACTIVE> sent to tab 1058761949 and added to injectedTabs (1058761949)
+2023-08-21T14:12:03.864Z - change front status to : INACTIVE
+2023-08-21T14:12:07.439Z - change front status to : INACTIVE
+2023-08-21T14:12:07.821Z - change front status to : INACTIVE
+2023-08-21T14:12:12.361Z - change front status to : INACTIVE
+2023-08-21T14:12:12.929Z - change front status to : INACTIVE
+2023-08-21T14:12:25.397Z - change front status to : INACTIVE
+2023-08-21T14:12:25.941Z - change front status to : INACTIVE
+2023-08-21T14:12:26.203Z - change front status to : INACTIVE
+2023-08-21T14:12:27.907Z - Tab 1058761952 removed from injectedTabs (1058761949)
+2023-08-21T14:12:28.121Z - Tab 1058761955 removed
+2023-08-21T14:12:28.324Z - Tab 1058761949 removed from injectedTabs ()
+2023-08-21T14:13:17.154Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:13:17.156Z - status set to INACTIVE
+2023-08-21T14:13:17.518Z - change front status to : INACTIVE
+2023-08-21T14:13:26.434Z - Tab 1058761943 removed from injectedTabs ()
+2023-08-21T14:13:36.895Z - change front status to : INACTIVE
+2023-08-21T14:14:54.769Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:14:54.772Z - status set to INACTIVE
+2023-08-21T14:14:54.829Z - status asked by content script, status <INACTIVE> sent to tab 1058761968 and added to injectedTabs (1058761968)
+2023-08-21T14:14:55.448Z - change front status to : INACTIVE
+2023-08-21T14:15:11.928Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:15:11.936Z - status set to INACTIVE
+2023-08-21T14:15:12.285Z - change front status to : INACTIVE
+2023-08-21T14:18:27.296Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:18:27.302Z - status set to INACTIVE
+2023-08-21T14:18:27.315Z - status asked by content script, status <INACTIVE> sent to tab 1058761973 and added to injectedTabs (1058761973)
+2023-08-21T14:18:45.239Z - change front status to : INACTIVE
+2023-08-21T14:18:46.095Z - change front status to : INACTIVE
+2023-08-21T14:18:47.711Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:18:47.719Z - status set to INACTIVE
+2023-08-21T14:18:47.787Z - change front status to : INACTIVE
+2023-08-21T14:18:50.066Z - Tab 1058761973 removed
+2023-08-21T14:18:54.253Z - change front status to : INACTIVE
+2023-08-21T14:18:55.231Z - change front status to : INACTIVE
+2023-08-21T14:18:58.350Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:18:58.359Z - status set to INACTIVE
+2023-08-21T14:18:58.431Z - change front status to : INACTIVE
+2023-08-21T14:19:01.964Z - Tab 1058761976 removed
+2023-08-21T14:19:37.888Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:19:37.895Z - status set to INACTIVE
+2023-08-21T14:19:37.961Z - status asked by content script, status <INACTIVE> sent to tab 1058761984 and added to injectedTabs (1058761984)
+2023-08-21T14:20:08.732Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:20:08.741Z - status set to INACTIVE
+2023-08-21T14:20:08.825Z - change front status to : INACTIVE
+2023-08-21T14:20:16.582Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:20:16.591Z - status set to INACTIVE
+2023-08-21T14:20:16.960Z - status asked by content script, status <INACTIVE> sent to tab 1058761990 and added to injectedTabs (1058761990)
+2023-08-21T14:20:20.304Z - status asked by content script, status <INACTIVE> sent to tab 1058761993 and added to injectedTabs (1058761990,1058761993)
+2023-08-21T14:20:28.488Z - change front status to : INACTIVE
+2023-08-21T14:20:30.399Z - change front status to : INACTIVE
+2023-08-21T14:20:44.213Z - Tab 1058761980 removed
+2023-08-21T14:20:44.497Z - Tab 1058761984 removed
+2023-08-21T14:20:44.806Z - Tab 1058761987 removed
+2023-08-21T14:20:45.193Z - Tab 1058761990 removed from injectedTabs (1058761993)
+2023-08-21T14:20:45.550Z - Tab 1058761993 removed from injectedTabs ()
+2023-08-21T14:20:46.763Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:20:46.773Z - status set to INACTIVE
+2023-08-21T14:20:46.841Z - change front status to : INACTIVE
+2023-08-21T14:20:58.197Z - change front status to : INACTIVE
+2023-08-21T14:21:05.112Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:21:05.122Z - status set to INACTIVE
+2023-08-21T14:21:05.189Z - status asked by content script, status <INACTIVE> sent to tab 1058762004 and added to injectedTabs (1058762004)
+2023-08-21T14:21:15.109Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:21:15.118Z - status set to INACTIVE
+2023-08-21T14:21:15.185Z - change front status to : INACTIVE
+2023-08-21T14:21:40.157Z - change front status to : INACTIVE
+2023-08-21T14:22:51.538Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:22:51.541Z - status set to INACTIVE
+2023-08-21T14:22:51.565Z - change front status to : INACTIVE
+2023-08-21T14:23:13.506Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:23:13.517Z - status set to INACTIVE
+2023-08-21T14:23:13.584Z - status asked by content script, status <INACTIVE> sent to tab 1058762012 and added to injectedTabs (1058762012)
+2023-08-21T14:23:56.894Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:23:56.904Z - status set to INACTIVE
+2023-08-21T14:23:57.144Z - change front status to : INACTIVE
+2023-08-21T14:23:57.174Z - status asked by content script, status <INACTIVE> sent to tab 1058762015 and added to injectedTabs (1058762012,1058762015)
+2023-08-21T14:24:02.232Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058762012,1058762015)
+2023-08-21T14:24:02.238Z - status send to background script : ACTIVE
+2023-08-21T14:24:27.498Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:24:27.507Z - status set to INACTIVE
+2023-08-21T14:24:27.567Z - change front status to : INACTIVE
+2023-08-21T14:24:29.222Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058762018)
+2023-08-21T14:24:29.228Z - status send to background script : ACTIVE
+2023-08-21T14:24:37.187Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:24:37.196Z - status set to INACTIVE
+2023-08-21T14:24:37.267Z - change front status to : INACTIVE
+2023-08-21T14:24:38.504Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058762021)
+2023-08-21T14:24:38.510Z - status send to background script : ACTIVE
+2023-08-21T14:24:51.857Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:24:51.868Z - status set to INACTIVE
+2023-08-21T14:24:51.935Z - change front status to : INACTIVE
+2023-08-21T14:24:52.982Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058762024)
+2023-08-21T14:24:52.988Z - status send to background script : ACTIVE
+2023-08-21T14:24:56.987Z - SET_STATUS received from content script, status set to ASK and sent to all tabs (1058762024)
+2023-08-21T14:24:56.993Z - status send to background script : ASK
+2023-08-21T14:25:07.792Z - change front status to : ASK
+2023-08-21T14:25:10.990Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:25:11.001Z - status set to INACTIVE
+2023-08-21T14:25:11.067Z - status asked by content script, status <INACTIVE> sent to tab 1058762027 and added to injectedTabs (1058762027)
+2023-08-21T14:25:12.347Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058762027)
+2023-08-21T14:25:12.354Z - status send to background script : ACTIVE
+2023-08-21T14:25:14.587Z - SET_STATUS received from content script, status set to ASK and sent to all tabs (1058762027)
+2023-08-21T14:25:14.593Z - status send to background script : ASK
+2023-08-21T14:26:23.556Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:26:23.567Z - status set to INACTIVE
+2023-08-21T14:26:24.006Z - status asked by content script, status <INACTIVE> sent to tab 1058762030 and added to injectedTabs (1058762030)
+2023-08-21T14:26:25.626Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058762030)
+2023-08-21T14:26:25.631Z - status send to background script : ACTIVE
+2023-08-21T14:26:26.880Z - click on modal
+2023-08-21T14:26:26.886Z - status send to background script : ASK
+2023-08-21T14:27:42.475Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:27:42.486Z - status set to INACTIVE
+2023-08-21T14:27:42.555Z - status asked by content script, status <INACTIVE> sent to tab 1058762033 and added to injectedTabs (1058762033)
+2023-08-21T14:27:44.301Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058762033)
+2023-08-21T14:27:44.307Z - status send to background script : ACTIVE
+2023-08-21T14:27:46.377Z - SET_STATUS received from content script, status set to ASK and sent to all tabs (1058762033)
+2023-08-21T14:27:46.383Z - status send to background script : ASK
+2023-08-21T14:27:48.453Z - SET_STATUS received from content script, status set to ASK_SUCCESS and sent to all tabs (1058762033)
+2023-08-21T14:27:48.474Z - Session ended with satisfaction true and submitted from background script
+2023-08-21T14:27:48.477Z - status send to background script : ASK_SUCCESS and END_SESSION
+2023-08-21T14:27:52.462Z - change front status to : INACTIVE
+2023-08-21T14:28:31.903Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:28:31.912Z - status set to INACTIVE
+2023-08-21T14:28:31.984Z - change front status to : INACTIVE
+2023-08-21T14:28:33.097Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058762036)
+2023-08-21T14:28:33.103Z - status send to background script : ACTIVE
+2023-08-21T14:28:34.531Z - SET_STATUS received from content script, status set to ASK and sent to all tabs (1058762036)
+2023-08-21T14:28:34.537Z - status send to background script : ASK
+2023-08-21T14:28:35.827Z - SET_STATUS received from content script, status set to ASK_SUCCESS and sent to all tabs (1058762036)
+2023-08-21T14:28:35.852Z - Session ended with satisfaction true and submitted from background script
+2023-08-21T14:28:35.855Z - status send to background script : ASK_SUCCESS and END_SESSION
+2023-08-21T14:28:39.835Z - change front status to : INACTIVE
+2023-08-21T14:28:43.609Z - background.js loaded with status unknown and anonId null
+2023-08-21T14:28:43.620Z - status set to INACTIVE
+2023-08-21T14:28:43.694Z - status asked by content script, status <INACTIVE> sent to tab 1058762039 and added to injectedTabs (1058762039)
+2023-08-21T14:28:44.611Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058762039)
+2023-08-21T14:28:44.617Z - status send to background script : ACTIVE
+2023-08-21T14:28:46.039Z - SET_STATUS received from content script, status set to ASK and sent to all tabs (1058762039)
+2023-08-21T14:28:46.044Z - status send to background script : ASK
+2023-08-21T14:28:47.020Z - change front status to : ASK_SUCCESS
+2023-08-21T14:28:47.037Z - Session ended with satisfaction true and submitted from background script
+2023-08-21T14:28:47.039Z - status send to background script : ASK_SUCCESS and END_SESSION
+2023-08-21T14:28:51.028Z - change front status to : INACTIVE
+2023-08-21T14:28:53.002Z - SET_STATUS received from content script, status set to ACTIVE and sent to all tabs (1058762039)
+2023-08-21T14:28:53.009Z - status send to background script : ACTIVE
+2023-08-21T14:28:54.184Z - SET_STATUS received from content script, status set to ASK and sent to all tabs (1058762039)
+2023-08-21T14:28:54.189Z - status send to background script : ASK
+2023-08-21T14:28:55.127Z - SET_STATUS received from content script, status set to ASK_SUCCESS and sent to all tabs (1058762039)
+2023-08-21T14:28:55.134Z - Session ended with satisfaction false and submitted from background script
+2023-08-21T14:28:55.137Z - status send to background script : ASK_SUCCESS and END_SESSION
+2023-08-21T14:28:59.137Z - change front status to : INACTIVE

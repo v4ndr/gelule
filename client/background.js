@@ -64,7 +64,7 @@ chrome.storage.local.get(['anonId'], (res) => {
 
   chrome.runtime.onMessage.addListener(async (msg, sender) => {
     const senderId = sender.tab?.id;
-    let tabIndex = null;
+    // const tabIndex = null;
     const { type, detail } = msg;
     switch (type) {
       case 'GET_STATUS':
@@ -116,13 +116,14 @@ chrome.storage.local.get(['anonId'], (res) => {
         timeoutId = null;
         break;
 
-      case 'DISCONNECT_TAB':
-        tabIndex = injectedTabs.indexOf(senderId);
-        if (index > -1) {
-          injectedTabs.splice(tabIndex, 1);
-          saveLog(`Tab ${senderId} disconneced and removed from injectedTabs (${injectedTabs})`);
-        }
-        break;
+        // case 'DISCONNECT_TAB':
+        //   tabIndex = injectedTabs.indexOf(senderId);
+        //   if (index > -1) {
+        //     injectedTabs.splice(tabIndex, 1);
+        //     saveLog(`Tab ${senderId} disconneced and removed
+        // from injectedTabs (${injectedTabs})`);
+        //   }
+        //   break;
 
       case 'LOG':
         saveLog(detail.log);

@@ -14,14 +14,14 @@
 if (typeof init === 'undefined') {
   const inject = () => {
     // handle extension disconnect
-    chrome.runtime.connect().onDisconnect.addListener(() => {
-      (async () => {
-        await chrome.runtime.sendMessage({ type: 'DISCONNECT_TAB' });
-        await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: 'tab disconnected' } });
-      })();
-      // eslint-disable-next-line no-restricted-globals
-      location.reload();
-    });
+    // chrome.runtime.connect().onDisconnect.addListener(() => {
+    // (async () => {
+    //   await chrome.runtime.sendMessage({ type: 'DISCONNECT_TAB' });
+    //   await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: 'tab disconnected' } });
+    // })();
+    // eslint-disable-next-line no-restricted-globals
+    // location.reload();
+    // });
 
     // assets absolute path
     const lock = chrome.runtime.getURL('./assets/lock.png');
@@ -31,7 +31,7 @@ if (typeof init === 'undefined') {
 
     // html injection
     const modal = document.createElement('div');
-    modal.className = 'container';
+    modal.className = 'container right';
     modal.innerHTML = `
             <!DOCTYPE html>
             <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,6 +51,11 @@ if (typeof init === 'undefined') {
                     margin: 0;
                     padding: 0;
                     z-index: 2147483647 !important; 
+                }
+
+                .container.left {
+                    left: 30px;
+                    right: auto;
                 }
                 
                 .title{
@@ -96,10 +101,10 @@ if (typeof init === 'undefined') {
                     display: none;
                     flex-direction: row;
                     align-items: center;
-                    justify-content: center;
+                    justify-content: space-between;
                     box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.25);
                     padding: 0px 0px 0px 0px;
-                    transition: width .3s ease-out;
+                    transition: width .3s ease-in-out;
                     cursor: pointer;
                     box-sizing: content-box;
                 }
@@ -107,61 +112,53 @@ if (typeof init === 'undefined') {
                 .hidden-text{
                     overflow: hidden;
                     max-height: 0px;
-                    max-width: 0px;
                     line-height: normal;
                     opacity:0;
                     white-space: nowrap;
-                    transition: opacity .4s linear, max-width .2s ease-out, max-height .2s ease-out, margin .1s ease-out;
+                    margin-right: 20px;
+                    transition: opacity .4s linear, max-width .2s ease-out, max-height .2s ease-out, margin .2s linear;
                 }
                 
                 .modal-container.inactive.hover{
-                    width: 240px;
+                    width: 210px;
                 }
                 
                 .modal-container.active.hover{
-                    width: 265px;
+                    width: 236px;
                 }
                 
                 .modal-container.hover > .hidden-text{
                     opacity: 1;
                     max-height: 500px;
-                    max-width: 500px;
-                    margin: 0px 0px 0px 10px;
                 }
                 
                 .modal-container.ask{
-                    width:365px;
+                    width:318px;
                     cursor:default;
                 }
                 
                 .modal-container.success{
-                    width:224px;
+                    width:200px;
                     cursor:default;
                 }
                 
                 .modal-container.locked{
-                    width:380px;
+                    width:350px;
                     cursor:default;
                 }
                 
                 .modal-container.unlocked{
-                    width:250px;
+                    width:220px;
                     cursor:default;
-                }
-                
-                .ask .title {
-                    margin: 0px 12px 0px 12px;
-                }
-                
+                }      
                 
                 .lock-text {
-                    margin: 0px 8px 0px 16px;
                     line-height: normal;
                 }
                 
                 .unlock-text {
                     display: none;
-                    margin: 0px 8px 0px 16px;
+                    padding-right: 36px;
                 }
                 
                 .disabled-text {
@@ -175,13 +172,14 @@ if (typeof init === 'undefined') {
                 
                 .success-text {
                     display: none;
-                    margin: 0px 0px 0px 12px;
+                    padding-right:36px;
                 }
         
                 .ask-text{
                     display: none;
                     overflow: hidden;
                     white-space: nowrap;
+                    padding-right:36px;
                 }
                 
                 @keyframes spin {
@@ -192,7 +190,8 @@ if (typeof init === 'undefined') {
                 .logo {
                     height: 30px;
                     margin: 0;
-                    transition: margin .2s ease;
+                    padding-left:12px;
+                    padding-right:12px;
                 }
                 
                 .logo.spinning {
@@ -203,6 +202,7 @@ if (typeof init === 'undefined') {
                     display: flex;
                     justify-content: center;
                     margin: 0px 8px 0px 8px;
+                    padding-right: 36px;
                 }
                 
                 input.input { 
@@ -286,6 +286,18 @@ if (typeof init === 'undefined') {
     const askText = r.querySelector('.ask-text');
     const successText = r.querySelector('.success-text');
     const buttons = r.querySelectorAll('.button');
+
+    // const toggleSide = () => {
+    //   if (modal.classList.contains('right')) {
+    //     modal.classList.remove('right');
+    //     modal.classList.add('left');
+    //   } else if (modal.classList.contains('left')) {
+    //     modal.classList.remove('left');
+    //     modal.classList.add('right');
+    //   }
+    // };
+
+    // toggleSide();
 
     const changeFrontStateTo = (status) => {
       (async () => {
