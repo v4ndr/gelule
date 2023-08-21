@@ -115,8 +115,8 @@ if (typeof init === 'undefined') {
                     line-height: normal;
                     opacity:0;
                     white-space: nowrap;
-                    margin-right: 20px;
-                    transition: opacity .4s linear, max-width .2s ease-out, max-height .2s ease-out, margin .2s linear;
+                    padding-right: 20px;
+                    transition: opacity .4s linear, max-width .2s ease-out, max-height .2s ease-out;
                 }
                 
                 .modal-container.inactive.hover{
@@ -172,7 +172,7 @@ if (typeof init === 'undefined') {
                 
                 .success-text {
                     display: none;
-                    padding-right:36px;
+                    padding-right:18px;
                 }
         
                 .ask-text{
@@ -287,17 +287,15 @@ if (typeof init === 'undefined') {
     const successText = r.querySelector('.success-text');
     const buttons = r.querySelectorAll('.button');
 
-    // const toggleSide = () => {
-    //   if (modal.classList.contains('right')) {
-    //     modal.classList.remove('right');
-    //     modal.classList.add('left');
-    //   } else if (modal.classList.contains('left')) {
-    //     modal.classList.remove('left');
-    //     modal.classList.add('right');
-    //   }
-    // };
-
-    // toggleSide();
+    const toggleSide = () => {
+      if (modal.classList.contains('right')) {
+        modal.classList.remove('right');
+        modal.classList.add('left');
+      } else if (modal.classList.contains('left')) {
+        modal.classList.remove('left');
+        modal.classList.add('right');
+      }
+    };
 
     const changeFrontStateTo = (status) => {
       (async () => {
@@ -452,6 +450,8 @@ if (typeof init === 'undefined') {
           });
           r.dispatchEvent(registerSuccess); // send event for landing page to transition
         }
+      } else if (type === 'MOVE') {
+        toggleSide();
       }
     });
 

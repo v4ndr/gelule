@@ -27,7 +27,8 @@
   ],
   "permissions": [
     "tabs",
-    "storage"
+    "storage",
+    "contextMenus"
   ],
   "host_permissions": [
    "<all_urls>"

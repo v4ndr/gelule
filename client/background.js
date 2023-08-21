@@ -38,6 +38,37 @@ saveLog(`background.js loaded with status ${status} and anonId ${anonId}`);
 
 chrome.runtime.onInstalled.addListener(async () => {
   chrome.tabs.create({ url: 'https://www.gelule.vandr.fr/landing.html' });
+  chrome.contextMenus.create({
+    type: 'separator',
+    contexts: ['all'],
+    id: 'gelule-menu',
+    title: 'Gélule',
+  }, (id) => {
+    chrome.contextMenus.create({
+      id: 'gelule-move',
+      contexts: ['all'],
+      parentId: id,
+      title: 'Déplacer Gélule de l\'autre côté',
+    });
+    chrome.contextMenus.create({
+      id: 'gelule-reload',
+      contexts: ['all'],
+      parentId: id,
+      title: 'En cas de problème, cliquez ici',
+    });
+  });
+});
+
+chrome.contextMenus.onClicked.addListener((info) => {
+  if (info.menuItemId === 'gelule-move') {
+    chrome.tabs.query({}, (tabs) => {
+      tabs.forEach((tab) => {
+        chrome.tabs.sendMessage(tab.id, { type: 'MOVE' });
+      });
+    });
+  } else if (info.menuItemId === 'gelule-reload') {
+    chrome.runtime.openOptionsPage();
+  }
 });
 
 chrome.runtime.onConnect.addListener(() => {});
