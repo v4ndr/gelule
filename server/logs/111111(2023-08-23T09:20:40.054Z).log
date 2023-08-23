@@ -1,0 +1,23 @@
+2023-08-23T08:55:09.967Z - background.js loaded with status unknown and anonId null
+2023-08-23T08:55:25.720Z - background.js loaded with status unknown and anonId null
+2023-08-23T09:16:52.154Z - background.js loaded with status unknown and anonId null
+2023-08-23T09:17:22.801Z - background.js loaded with status unknown and anonId null
+2023-08-23T09:17:22.801Z - anonId not found in storage, status set to REGISTER
+2023-08-23T09:17:22.889Z - status asked by content script, status <REGISTER> sent to tab
+2023-08-23T09:17:22.890Z - change front status to : REGISTER
+2023-08-23T09:17:24.087Z - Port disconnected
+2023-08-23T09:18:09.725Z - background.js loaded with status unknown and anonId null
+2023-08-23T09:18:09.732Z - anonId not found in storage, status set to REGISTER
+2023-08-23T09:18:09.810Z - status asked by content script, status <REGISTER> sent to tab
+2023-08-23T09:18:09.811Z - change front status to : REGISTER
+2023-08-23T09:18:10.993Z - click on modal
+2023-08-23T09:18:12.706Z - anonId saved in storage : 111111
+2023-08-23T09:20:21.142Z - background.js loaded with status unknown and anonId null
+2023-08-23T09:20:21.143Z - status set to INACTIVE
+2023-08-23T09:20:21.287Z - status asked by content script, status <INACTIVE> sent to tab
+2023-08-23T09:20:21.288Z - change front status to : INACTIVE
+2023-08-23T09:20:30.623Z - Port disconnected
+2023-08-23T09:20:34.266Z - background.js loaded with status unknown and anonId null
+2023-08-23T09:20:34.267Z - status set to INACTIVE
+2023-08-23T09:20:34.344Z - status asked by content script, status <INACTIVE> sent to tab
+2023-08-23T09:20:34.345Z - change front status to : INACTIVE

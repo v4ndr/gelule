@@ -1,0 +1,11 @@
+2023-08-23T09:20:40.248Z - background.js loaded with status unknown and anonId null
+2023-08-23T09:20:40.250Z - anonId not found in storage, status set to REGISTER
+2023-08-23T09:20:40.311Z - status asked by content script, status <REGISTER> sent to tab
+2023-08-23T09:20:40.316Z - change front status to : REGISTER
+2023-08-23T09:20:43.320Z - click on modal
+2023-08-23T09:20:47.395Z - click on modal
+2023-08-23T09:20:50.303Z - anonId saved in storage : 111111
+2023-08-23T09:20:50.303Z - Error while sending status to tab 1058763169 : TypeError: Error in invocation of tabs.sendMessage(integer tabId, any message, optional object options, optional function callback): No matching signature. | undefined
+2023-08-23T09:20:53.134Z - status asked by content script, status <REGISTER_SUCCESS> sent to tab
+2023-08-23T09:20:53.135Z - change front status to : REGISTER_SUCCESS
+2023-08-23T09:20:54.313Z - Error while sending status to tab 1058763174 : TypeError: Error in invocation of tabs.sendMessage(integer tabId, any message, optional object options, optional function callback): No matching signature. | undefined

@@ -1,0 +1,5 @@
+2023-08-23T09:21:18.380Z - background.js loaded with status unknown and anonId null
+2023-08-23T09:21:18.382Z - anonId not found in storage, status set to REGISTER
+2023-08-23T09:21:18.446Z - status asked by content script, status <REGISTER> sent to tab
+2023-08-23T09:21:18.452Z - change front status to : REGISTER
+2023-08-23T09:22:21.670Z - Port disconnected
