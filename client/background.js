@@ -13,6 +13,7 @@ let status = 'unknown';
 let anonId = null;
 let session = {};
 let timeoutId = null;
+let side = 'right';
 
 const whitelistDomains = whitelist
   .reduce((acc, curr) => {
@@ -47,13 +48,15 @@ chrome.runtime.onInstalled.addListener(async () => {
 
 chrome.contextMenus.onClicked.addListener(async (info) => {
   if (info.menuItemId === 'gelule-move') {
-    await sendMsgToAllTabs({ type: 'MOVE' });
+    side = side === 'right' ? 'left' : 'right';
+    await sendMsgToAllTabs({ type: 'MOVE', detail: { side } });
+    chrome.storage.local.set({ side });
   } else if (info.menuItemId === 'gelule-reload') {
     chrome.runtime.openOptionsPage();
   }
 });
 
-chrome.storage.local.get(['anonId'], (res) => {
+chrome.storage.local.get(['anonId'], async (res) => {
   if (res.hasOwnProperty('anonId')) {
     saveLog(`anonId retrieved from storage : ${res.anonId}`);
     status = res.anonId ? 'INACTIVE' : 'REGISTER';
@@ -62,6 +65,11 @@ chrome.storage.local.get(['anonId'], (res) => {
   } else {
     status = 'REGISTER';
     saveLog(`anonId not found in storage, status set to ${status}`);
+  }
+
+  const sideObj = await chrome.storage.local.get(['side']);
+  if (sideObj.hasOwnProperty('side')) {
+    side = sideObj.side;
   }
 
   chrome.tabs.onUpdated.addListener(
@@ -88,6 +96,11 @@ chrome.storage.local.get(['anonId'], (res) => {
         case 'GET_STATUS':
           port.postMessage({ type: 'STATUS', detail: { status } });
           saveLog(`status asked by content script, status <${status}> sent to tab ${tab.id}}`);
+          break;
+
+        case 'GET_SIDE':
+          port.postMessage({ type: 'MOVE', detail: { side } });
+          saveLog(`side asked by content script, side <${side}> sent to tab ${tab.id}}`);
           break;
 
         case 'SET_STATUS':
@@ -136,17 +149,11 @@ chrome.storage.local.get(['anonId'], (res) => {
 
         case 'LOG':
           saveLog(detail.log);
-          if (port.name === 'options') {
-            port.postMessage('Log received');
-          }
           break;
 
         case 'DISCONNECT':
           saveLog('Port disconnected');
           await sendMsgToAllTabs({ type: 'RESET' });
-          if (port.name === 'options') {
-            port.postMessage('All tabs disconnected');
-          }
           break;
 
         default:

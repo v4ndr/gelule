@@ -2,13 +2,16 @@
 /* eslint-disable no-undef */
 
 if (typeof init === 'undefined') {
-  const inject = () => {
+  const inject = async () => {
     const port = chrome.runtime.connect();
     // assets absolute path
     const lock = chrome.runtime.getURL('./assets/lock.png');
     const no = chrome.runtime.getURL('./assets/no.png');
     const yes = chrome.runtime.getURL('./assets/yes.png');
     const logo = chrome.runtime.getURL('./assets/logo512.png');
+
+    port.postMessage({ type: 'GET_SIDE' });
+    port.postMessage({ type: 'GET_STATUS' });
 
     // html injection
     const modal = document.createElement('div');
@@ -268,13 +271,11 @@ if (typeof init === 'undefined') {
     const successText = r.querySelector('.success-text');
     const buttons = r.querySelectorAll('.button');
 
-    const toggleSide = () => {
-      if (modal.classList.contains('right')) {
-        modal.classList.remove('right');
-        modal.classList.add('left');
-      } else if (modal.classList.contains('left')) {
-        modal.classList.remove('left');
-        modal.classList.add('right');
+    const toggleSide = (side) => {
+      if (!modal.classList.contains(side)) {
+        const otherSide = side === 'right' ? 'left' : 'right';
+        modal.classList.remove(otherSide);
+        modal.classList.add(side);
       }
     };
 
@@ -391,28 +392,26 @@ if (typeof init === 'undefined') {
     // status change handler (from background script)
     port.onMessage.addListener((msg) => {
       const { type, detail } = msg;
-      if (type === 'STATUS') {
-        port.postMessage({ type: 'LOG', detail: { log: `change status received from background script, status : ${detail.status}` } });
+      switch (type) {
+        case 'STATUS':
+          port.postMessage({ type: 'LOG', detail: { log: `change status received from background script, status : ${detail.status}` } });
+          changeFrontStateTo(detail.status);
+          if (detail.status === 'REGISTER_SUCCESS') {
+            const registerSuccess = new CustomEvent('register_success', {
+              bubbles: true,
+              composed: true,
+            });
+            r.dispatchEvent(registerSuccess); // send event for landing page to transition
+          }
+          break;
 
-        changeFrontStateTo(detail.status);
-        if (detail.status === 'REGISTER_SUCCESS') {
-          const registerSuccess = new CustomEvent('register_success', {
-            bubbles: true,
-            composed: true,
-          });
-          r.dispatchEvent(registerSuccess); // send event for landing page to transition
-        }
-      } else if (type === 'MOVE') {
-        toggleSide();
+        case 'MOVE':
+          toggleSide(detail.side);
+          break;
+
+        default:
+          break;
       }
-    });
-
-    // at injection get actual state from background script
-    port.postMessage({ type: 'GET_STATUS' });
-
-    port.onDisconnect.addListener(() => {
-      port.postMessage({ type: 'LOG', detail: { log: 'port disconnected' } });
-      sRoot.remove();
     });
 
     chrome.runtime.onMessage.addListener((msg) => {
@@ -424,7 +423,7 @@ if (typeof init === 'undefined') {
           break;
 
         case 'MOVE':
-          toggleSide();
+          toggleSide(detail.side);
           break;
 
         case 'RESET':
@@ -435,6 +434,11 @@ if (typeof init === 'undefined') {
         default:
           break;
       }
+    });
+
+    port.onDisconnect.addListener(() => {
+      port.postMessage({ type: 'LOG', detail: { log: 'port disconnected' } });
+      sRoot.remove();
     });
   };
 
