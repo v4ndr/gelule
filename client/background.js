@@ -7,7 +7,7 @@ import submitSession from './utils/submitSession.js';
 import handleEntry from './utils/handleEntry.js';
 import whitelist from './utils/whitelist.js';
 import saveLog from './utils/saveLog.js';
-import sendStatusToAllTabs from './utils/sendStatusToAllTabs.js';
+import sendMsgToAllTabs from './utils/sendMsgToAllTabs.js';
 
 let status = 'unknown';
 let anonId = null;
@@ -45,13 +45,9 @@ chrome.runtime.onInstalled.addListener(async () => {
   });
 });
 
-chrome.contextMenus.onClicked.addListener((info) => {
+chrome.contextMenus.onClicked.addListener(async (info) => {
   if (info.menuItemId === 'gelule-move') {
-    chrome.tabs.query({}, (tabs) => {
-      tabs.forEach((tab) => {
-        chrome.tabs.sendMessage(tab.id, { type: 'MOVE' });
-      });
-    });
+    await sendMsgToAllTabs({ type: 'MOVE' });
   } else if (info.menuItemId === 'gelule-reload') {
     chrome.runtime.openOptionsPage();
   }
@@ -84,17 +80,19 @@ chrome.storage.local.get(['anonId'], (res) => {
   );
 
   chrome.runtime.onConnect.addListener((port) => {
-    port.onMessage.addListener((msg) => {
+    port.onMessage.addListener(async (msg, { sender }) => {
       const { type, detail } = msg;
+      const { tab } = sender;
+
       switch (type) {
         case 'GET_STATUS':
           port.postMessage({ type: 'STATUS', detail: { status } });
-          saveLog(`status asked by content script, status <${status}> sent to tab`);
+          saveLog(`status asked by content script, status <${status}> sent to tab ${tab.id}}`);
           break;
 
         case 'SET_STATUS':
           status = detail.status;
-          sendStatusToAllTabs(status);
+          await sendMsgToAllTabs({ type: 'STATUS', detail: { status } });
           if (detail.status === 'ACTIVE') {
             timeoutId = setTimeout(() => {
               session = {};
@@ -105,9 +103,9 @@ chrome.storage.local.get(['anonId'], (res) => {
             }, 900000);
             session = initSession(anonId);
           } else if (detail.status === 'ASK_SUCCESS') {
-            setTimeout(() => {
+            setTimeout(async () => {
               status = 'INACTIVE';
-              sendStatusToAllTabs(status);
+              await sendMsgToAllTabs({ type: 'STATUS', detail: { status } });
             }, 4000);
           }
           saveLog(`SET_STATUS received from content script, status set to ${status}`);
@@ -118,10 +116,10 @@ chrome.storage.local.get(['anonId'], (res) => {
           chrome.storage.local.set({ anonId }, async () => {
             saveLog(`anonId saved in storage : ${anonId}`);
             status = 'REGISTER_SUCCESS';
-            sendStatusToAllTabs(status);
-            setTimeout(() => {
+            await sendMsgToAllTabs({ type: 'STATUS', detail: { status } });
+            setTimeout(async () => {
               status = 'INACTIVE';
-              sendStatusToAllTabs(status);
+              await sendMsgToAllTabs({ type: 'STATUS', detail: { status } });
             }, 4000);
           });
           break;
@@ -131,13 +129,24 @@ chrome.storage.local.get(['anonId'], (res) => {
             await submitSession(closeSession(session, detail.satisfaction));
           })();
           saveLog(`Session ended with satisfaction
-${detail.satisfaction} and submitted from background script`);
+                    ${detail.satisfaction} and submitted from background script`);
           clearTimeout(timeoutId);
           timeoutId = null;
           break;
 
         case 'LOG':
           saveLog(detail.log);
+          if (port.name === 'options') {
+            port.postMessage('Log received');
+          }
+          break;
+
+        case 'DISCONNECT':
+          saveLog('Port disconnected');
+          await sendMsgToAllTabs({ type: 'RESET' });
+          if (port.name === 'options') {
+            port.postMessage('All tabs disconnected');
+          }
           break;
 
         default:

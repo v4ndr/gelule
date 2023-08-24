@@ -2,7 +2,7 @@ const Logs = require('../models/Logs');
 
 exports.submitLogs = (req, res) => {
   const { logs, anonId } = req.body;
-  const dateStr = new Date().toISOString();
+  const dateStr = new Date().toLocaleString();
   try {
     const logsArray = JSON.parse(logs);
     const result = Logs.submitLogs(logsArray, anonId);

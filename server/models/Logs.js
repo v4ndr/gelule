@@ -8,7 +8,7 @@ class Logs {
     logs.forEach((log) => {
       logsString += `${log}\n`;
     });
-    fs.writeFileSync(`logs/${anonId}(${dateString}).log`, logsString);
+    fs.writeFileSync(`logs/${anonId} (${dateString}).log`, logsString);
     return { success: true };
   }
 }

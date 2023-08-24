@@ -393,6 +393,7 @@ if (typeof init === 'undefined') {
       const { type, detail } = msg;
       if (type === 'STATUS') {
         port.postMessage({ type: 'LOG', detail: { log: `change status received from background script, status : ${detail.status}` } });
+
         changeFrontStateTo(detail.status);
         if (detail.status === 'REGISTER_SUCCESS') {
           const registerSuccess = new CustomEvent('register_success', {
@@ -416,11 +417,23 @@ if (typeof init === 'undefined') {
 
     chrome.runtime.onMessage.addListener((msg) => {
       const { type, detail } = msg;
-      if (type === 'STATUS') {
-        port.postMessage({ type: 'LOG', detail: { log: `change status received from content script, status : ${detail.status}` } });
-        changeFrontStateTo(detail.status);
-      } else if (type === 'MOVE') {
-        toggleSide();
+      switch (type) {
+        case 'STATUS':
+          port.postMessage({ type: 'LOG', detail: { log: `change status received from content script, status : ${detail.status}` } });
+          changeFrontStateTo(detail.status);
+          break;
+
+        case 'MOVE':
+          toggleSide();
+          break;
+
+        case 'RESET':
+          port.postMessage({ type: 'LOG', detail: { log: 'reset received from content script' } });
+          sRoot.remove();
+          break;
+
+        default:
+          break;
       }
     });
   };

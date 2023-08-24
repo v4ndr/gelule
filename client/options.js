@@ -7,24 +7,40 @@ chrome.storage.local.get('anonId', (data) => {
 });
 const sendLogs = document.querySelector('.sendLogs');
 sendLogs.addEventListener('click', () => {
-  chrome.storage.local.get('logs', async (data) => {
-    const { logs } = data;
-    const myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
+  const port = chrome.runtime.connect({ name: 'options' });
+  const bugReport = document.querySelector('#bugReport').value;
+  port.postMessage({ type: 'LOG', detail: { log: 'Extension reset and logs sent' } });
+  port.onMessage.addListener((msg) => {
+    if (msg === 'Log received') {
+      port.postMessage({ type: 'DISCONNECT' });
+      port.onMessage.addListener((msg2) => {
+        if (msg2 === 'All tabs disconnected') {
+          chrome.storage.local.get('logs', async (data) => {
+            const { logs } = data;
+            const myHeaders = new Headers();
+            myHeaders.append('Content-Type', 'application/x-www-form-urlencoded');
 
-    const urlencoded = new URLSearchParams();
-    urlencoded.append('anonId', anonIdValue);
-    urlencoded.append('logs', JSON.stringify(logs));
+            const dateStr = new Date().toLocaleString();
+            const bugReportStr = `${dateStr} - [bug report] ${bugReport}`;
+            logs.push(bugReportStr);
 
-    const requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: urlencoded,
-      redirect: 'follow',
-    };
-    // await fetch('https://www.gelule.vandr.fr/api/logs/', requestOptions); // PROD ONLY
-    await fetch('http://localhost:3001/logs/', requestOptions); // DEV ONLY
-    chrome.storage.local.clear();
-    chrome.runtime.reload();
+            const urlencoded = new URLSearchParams();
+            urlencoded.append('anonId', anonIdValue);
+            urlencoded.append('logs', JSON.stringify(logs));
+
+            const requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: urlencoded,
+              redirect: 'follow',
+            };
+            // await fetch('https://www.gelule.vandr.fr/api/logs/', requestOptions); // PROD ONLY
+            await fetch('http://localhost:3001/logs/', requestOptions); // DEV ONLY
+            chrome.storage.local.clear();
+            chrome.runtime.reload();
+          });
+        }
+      });
+    }
   });
 });

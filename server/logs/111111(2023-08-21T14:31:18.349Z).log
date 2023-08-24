@@ -1,7 +1,0 @@
-2023-08-21T14:31:01.927Z - background.js loaded with status unknown and anonId null
-2023-08-21T14:31:01.929Z - anonId not found in storage, status set to REGISTER
-2023-08-21T14:31:01.994Z - status asked by content script, status <REGISTER> sent to tab 1058762077 and added to injectedTabs (1058762077)
-2023-08-21T14:31:03.002Z - click on modal
-2023-08-21T14:31:05.280Z - attempt to register with anonId 111111
-2023-08-21T14:31:05.281Z - change front status to : REGISTER_SUCCESS
-2023-08-21T14:31:09.294Z - change front status to : INACTIVE
