@@ -9,6 +9,65 @@ import whitelist from './utils/whitelist.js';
 import saveLog from './utils/saveLog.js';
 import sendMsgToAllTabs from './utils/sendMsgToAllTabs.js';
 
+// BEGINNING OF HIGHLANDER CODE
+
+const INTERNAL_STAYALIVE_PORT = 'CT_Internal_port_alive';
+let alivePort = null;
+
+const SECONDS = 1000;
+const lastCall = Date.now();
+let isFirstStart = true;
+let timer = 4 * SECONDS;
+// -------------------------------------------------------
+// eslint-disable-next-line no-use-before-define
+let wakeup = setInterval(Highlander, timer);
+// -------------------------------------------------------
+
+async function Highlander() {
+  const now = Date.now();
+  const age = now - lastCall;
+
+  // eslint-disable-next-line no-use-before-define
+  console.log(`(DEBUG Highlander) ------------- time elapsed from first start: ${convertNoDate(age)}`);
+  if (alivePort == null) {
+    alivePort = chrome.runtime.connect({ name: INTERNAL_STAYALIVE_PORT });
+
+    alivePort.onDisconnect.addListener(() => {
+      if (chrome.runtime.lastError) {
+        console.log('(DEBUG Highlander) Expected disconnect (on error). SW should be still running.');
+      } else {
+        console.log('(DEBUG Highlander): port disconnected');
+      }
+
+      alivePort = null;
+    });
+  }
+
+  if (alivePort) {
+    alivePort.postMessage({ content: 'ping' });
+
+    if (chrome.runtime.lastError) {
+      console.log(`(DEBUG Highlander): postMessage error: ${chrome.runtime.lastError.message}`);
+    } else {
+      console.log(`(DEBUG Highlander): "ping" sent through ${alivePort.name} port`);
+    }
+  }
+  // lastCall = Date.now();
+  if (isFirstStart) {
+    isFirstStart = false;
+    clearInterval(wakeup);
+    timer = 270 * SECONDS;
+    wakeup = setInterval(Highlander, timer);
+  }
+}
+
+function convertNoDate(long) {
+  const dt = new Date(long).toISOString();
+  return dt.slice(-13, -5); // HH:MM:SS only
+}
+
+// END OF HIGHLANDER CODE
+
 let status = 'unknown';
 let anonId = null;
 let session = {};
@@ -88,7 +147,8 @@ chrome.storage.local.get(['anonId'], async (res) => {
   );
 
   chrome.runtime.onConnect.addListener((port) => {
-    port.onMessage.addListener(async (msg, { sender }) => {
+    console.log('Port connected');
+    port.onMessage.addListener((msg, { sender }) => {
       const { type, detail } = msg;
       const { tab } = sender;
 
@@ -105,7 +165,9 @@ chrome.storage.local.get(['anonId'], async (res) => {
 
         case 'SET_STATUS':
           status = detail.status;
-          await sendMsgToAllTabs({ type: 'STATUS', detail: { status } });
+          (async () => {
+            await sendMsgToAllTabs({ type: 'STATUS', detail: { status } });
+          })();
           if (detail.status === 'ACTIVE') {
             timeoutId = setTimeout(() => {
               session = {};
@@ -153,7 +215,9 @@ chrome.storage.local.get(['anonId'], async (res) => {
 
         case 'DISCONNECT':
           saveLog('Port disconnected');
-          await sendMsgToAllTabs({ type: 'RESET' });
+          (async () => {
+            await sendMsgToAllTabs({ type: 'RESET' });
+          })();
           break;
 
         default:

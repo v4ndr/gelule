@@ -23,7 +23,7 @@ if (typeof init === 'undefined') {
             <style>   
                 @font-face {
                   font-family: "Abel";
-                  src: ${fontLocalPath}
+                  src: ${fontLocalPath};
                 }
 
                 .container {
@@ -452,6 +452,7 @@ if (typeof init === 'undefined') {
     });
 
     port.onDisconnect.addListener(() => {
+      console.log('port disconnected');
       sRoot.remove();
     });
   };
