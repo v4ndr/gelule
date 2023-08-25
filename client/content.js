@@ -9,6 +9,7 @@ if (typeof init === 'undefined') {
     const no = chrome.runtime.getURL('./assets/no.png');
     const yes = chrome.runtime.getURL('./assets/yes.png');
     const logo = chrome.runtime.getURL('./assets/logo512.png');
+    const fontLocalPath = chrome.runtime.getURL('./assets/Abel-Regular.woff');
 
     port.postMessage({ type: 'GET_SIDE' });
     port.postMessage({ type: 'GET_STATUS' });
@@ -16,12 +17,15 @@ if (typeof init === 'undefined') {
     // html injection
     const modal = document.createElement('div');
     modal.className = 'container right';
+
     modal.innerHTML = `
             <!DOCTYPE html>
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
             <style>   
+                @font-face {
+                  font-family: "Abel";
+                  src: ${fontLocalPath}
+                }
+
                 .container {
                     all: initial;
                     display: flex;
@@ -337,6 +341,15 @@ if (typeof init === 'undefined') {
     // auto input focus
     const inputs = r.querySelectorAll('.input');
     inputs.forEach((input, key) => {
+      input.addEventListener('keydown', (e) => {
+        if (input.value) {
+          if (key < 5) {
+            if (e.code !== 'ShiftRight' && e.code !== 'ShiftLeft' && e.code !== 'CapsLock') {
+              inputs[key + 1].focus();
+            }
+          }
+        }
+      });
       input.addEventListener('keyup', (e) => {
         if (input.value) {
           if (key === 5) {
@@ -345,8 +358,10 @@ if (typeof init === 'undefined') {
               port.postMessage({ type: 'REGISTER', detail: { anonId } });
               port.postMessage({ type: 'LOG', detail: { log: `attempt to register with anonId ${anonId}` } });
             }
-          } else {
-            inputs[key + 1].focus();
+          } else if (key < 5) {
+            if (e.code !== 'ShiftRight' && e.code !== 'ShiftLeft' && e.code !== 'CapsLock') {
+              inputs[key + 1].focus();
+            }
           }
         }
       });
@@ -437,7 +452,6 @@ if (typeof init === 'undefined') {
     });
 
     port.onDisconnect.addListener(() => {
-      port.postMessage({ type: 'LOG', detail: { log: 'port disconnected' } });
       sRoot.remove();
     });
   };
