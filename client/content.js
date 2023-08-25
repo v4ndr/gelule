@@ -9,7 +9,8 @@ if (typeof init === 'undefined') {
     const no = chrome.runtime.getURL('./assets/no.png');
     const yes = chrome.runtime.getURL('./assets/yes.png');
     const logo = chrome.runtime.getURL('./assets/logo512.png');
-    const fontLocalPath = chrome.runtime.getURL('./assets/Abel-Regular.woff');
+    const fontWoffPath = chrome.runtime.getURL('./assets/Abel-Regular.woff');
+    const fontTtfPath = chrome.runtime.getURL('./assets/Abel-Regular.ttf');
 
     port.postMessage({ type: 'GET_SIDE' });
     port.postMessage({ type: 'GET_STATUS' });
@@ -23,7 +24,9 @@ if (typeof init === 'undefined') {
             <style>   
                 @font-face {
                   font-family: "Abel";
-                  src: ${fontLocalPath};
+                  src: ${fontWoffPath} format("woff"),
+                        ${fontTtfPath} format("truetype");
+                       
                 }
 
                 .container {
