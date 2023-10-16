@@ -1,6 +1,6 @@
 {
   "name": "Gélule",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "manifest_version": 3,
   "description": "Gélule collecte les données de navigation de médecins volontaires à des fins de recherche.",
   "icons": {
