@@ -7,10 +7,9 @@ chrome.storage.local.get('anonId', (data) => {
 });
 const sendLogs = document.querySelector('.sendLogs');
 sendLogs.addEventListener('click', () => {
-  const port = chrome.runtime.connect({ name: 'options' });
   const bugReport = document.querySelector('#bugReport').value;
-  port.postMessage({ type: 'LOG', detail: { log: 'Extension reset and logs sent' } });
-  port.postMessage({ type: 'DISCONNECT' });
+  chrome.runtime.sendMessage({ type: 'LOG', detail: { log: 'Extension reset and logs sent' } });
+  chrome.runtime.sendMessage({ type: 'DISCONNECT' });
   chrome.storage.local.get('logs', async (data) => {
     const { logs } = data;
     const myHeaders = new Headers();
@@ -30,8 +29,8 @@ sendLogs.addEventListener('click', () => {
       body: urlencoded,
       redirect: 'follow',
     };
-    await fetch('https://www.gelule.vandr.fr/api/logs/', requestOptions); // PROD ONLY
-    // await fetch('http://localhost:3001/logs/', requestOptions); // DEV ONLY
+    // await fetch('https://www.gelule.vandr.fr/api/logs/', requestOptions); // PROD ONLY
+    await fetch('http://localhost:3001/logs/', requestOptions); // DEV ONLY
     chrome.storage.local.clear();
     chrome.runtime.reload();
   });

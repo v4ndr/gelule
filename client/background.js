@@ -9,65 +9,6 @@ import whitelist from './utils/whitelist.js';
 import saveLog from './utils/saveLog.js';
 import sendMsgToAllTabs from './utils/sendMsgToAllTabs.js';
 
-// BEGINNING OF HIGHLANDER CODE
-
-const INTERNAL_STAYALIVE_PORT = 'CT_Internal_port_alive';
-let alivePort = null;
-
-const SECONDS = 1000;
-const lastCall = Date.now();
-let isFirstStart = true;
-let timer = 4 * SECONDS;
-// -------------------------------------------------------
-// eslint-disable-next-line no-use-before-define
-let wakeup = setInterval(Highlander, timer);
-// -------------------------------------------------------
-
-async function Highlander() {
-  const now = Date.now();
-  const age = now - lastCall;
-
-  // eslint-disable-next-line no-use-before-define
-  console.log(`(DEBUG Highlander) ------------- time elapsed from first start: ${convertNoDate(age)}`);
-  if (alivePort == null) {
-    alivePort = chrome.runtime.connect({ name: INTERNAL_STAYALIVE_PORT });
-
-    alivePort.onDisconnect.addListener(() => {
-      if (chrome.runtime.lastError) {
-        console.log('(DEBUG Highlander) Expected disconnect (on error). SW should be still running.');
-      } else {
-        console.log('(DEBUG Highlander): port disconnected');
-      }
-
-      alivePort = null;
-    });
-  }
-
-  if (alivePort) {
-    alivePort.postMessage({ content: 'ping' });
-
-    if (chrome.runtime.lastError) {
-      console.log(`(DEBUG Highlander): postMessage error: ${chrome.runtime.lastError.message}`);
-    } else {
-      console.log(`(DEBUG Highlander): "ping" sent through ${alivePort.name} port`);
-    }
-  }
-  // lastCall = Date.now();
-  if (isFirstStart) {
-    isFirstStart = false;
-    clearInterval(wakeup);
-    timer = 270 * SECONDS;
-    wakeup = setInterval(Highlander, timer);
-  }
-}
-
-function convertNoDate(long) {
-  const dt = new Date(long).toISOString();
-  return dt.slice(-13, -5); // HH:MM:SS only
-}
-
-// END OF HIGHLANDER CODE
-
 let status = 'unknown';
 let anonId = null;
 let session = {};
@@ -146,87 +87,80 @@ chrome.storage.local.get(['anonId'], async (res) => {
     },
   );
 
-  chrome.runtime.onConnect.addListener((port) => {
-    console.log('Port connected');
-    port.onMessage.addListener((msg, { sender }) => {
-      const { type, detail } = msg;
-      const { tab } = sender;
+  chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+    const { type, detail } = msg;
+    const { tab } = sender;
 
-      switch (type) {
-        case 'GET_STATUS':
-          port.postMessage({ type: 'STATUS', detail: { status } });
-          saveLog(`status asked by content script, status <${status}> sent to tab ${tab.id}}`);
-          break;
+    switch (type) {
+      case 'GET_STATUS':
+        sendResponse({ type: 'STATUS', detail: { status } });
+        saveLog(`status asked by content script, status <${status}> sent to tab ${tab.id}}`);
+        break;
 
-        case 'GET_SIDE':
-          port.postMessage({ type: 'MOVE', detail: { side } });
-          saveLog(`side asked by content script, side <${side}> sent to tab ${tab.id}}`);
-          break;
+      case 'GET_SIDE':
+        sendResponse({ type: 'MOVE', detail: { side } });
+        saveLog(`side asked by content script, side <${side}> sent to tab ${tab.id}}`);
+        break;
 
-        case 'SET_STATUS':
-          status = detail.status;
-          (async () => {
+      case 'SET_STATUS':
+        status = detail.status;
+        (async () => {
+          await sendMsgToAllTabs({ type: 'STATUS', detail: { status } });
+        })();
+        if (detail.status === 'ACTIVE') {
+          timeoutId = setTimeout(() => {
+            session = {};
+            status = 'INACTIVE';
+            sendResponse({ type: 'STATUS', detail: { status } });
+            timeoutId = null;
+            saveLog(`Session ended after 15 minutes and status set to ${status}`);
+          }, 900000);
+          session = initSession(anonId);
+        } else if (detail.status === 'ASK_SUCCESS') {
+          setTimeout(async () => {
+            status = 'INACTIVE';
             await sendMsgToAllTabs({ type: 'STATUS', detail: { status } });
-          })();
-          if (detail.status === 'ACTIVE') {
-            timeoutId = setTimeout(() => {
-              session = {};
-              status = 'INACTIVE';
-              port.postMessage({ type: 'STATUS', detail: { status } });
-              timeoutId = null;
-              saveLog(`Session ended after 15 minutes and status set to ${status}`);
-            }, 900000);
-            session = initSession(anonId);
-          } else if (detail.status === 'ASK_SUCCESS') {
-            setTimeout(async () => {
-              status = 'INACTIVE';
-              await sendMsgToAllTabs({ type: 'STATUS', detail: { status } });
-            }, 4000);
-          }
-          saveLog(`SET_STATUS received from content script, status set to ${status}`);
-          break;
+          }, 4000);
+        }
+        saveLog(`SET_STATUS received from content script, status set to ${status}`);
+        break;
 
-        case 'REGISTER':
-          anonId = detail.anonId;
-          chrome.storage.local.set({ anonId }, async () => {
-            saveLog(`anonId saved in storage : ${anonId}`);
-            status = 'REGISTER_SUCCESS';
+      case 'REGISTER':
+        anonId = detail.anonId;
+        chrome.storage.local.set({ anonId }, async () => {
+          saveLog(`anonId saved in storage : ${anonId}`);
+          status = 'REGISTER_SUCCESS';
+          await sendMsgToAllTabs({ type: 'STATUS', detail: { status } });
+          setTimeout(async () => {
+            status = 'INACTIVE';
             await sendMsgToAllTabs({ type: 'STATUS', detail: { status } });
-            setTimeout(async () => {
-              status = 'INACTIVE';
-              await sendMsgToAllTabs({ type: 'STATUS', detail: { status } });
-            }, 4000);
-          });
-          break;
+          }, 4000);
+        });
+        break;
 
-        case 'END_SESSION':
-          (async () => {
-            await submitSession(closeSession(session, detail.satisfaction));
-          })();
-          saveLog(`Session ended with satisfaction
+      case 'END_SESSION':
+        (async () => {
+          await submitSession(closeSession(session, detail.satisfaction));
+        })();
+        saveLog(`Session ended with satisfaction
                     ${detail.satisfaction} and submitted from background script`);
-          clearTimeout(timeoutId);
-          timeoutId = null;
-          break;
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        break;
 
-        case 'LOG':
-          saveLog(detail.log);
-          break;
+      case 'LOG':
+        saveLog(detail.log);
+        break;
 
-        case 'DISCONNECT':
-          saveLog('Port disconnected');
-          (async () => {
-            await sendMsgToAllTabs({ type: 'RESET' });
-          })();
-          break;
+      case 'DISCONNECT':
+        saveLog('Port disconnected');
+        (async () => {
+          await sendMsgToAllTabs({ type: 'RESET' });
+        })();
+        break;
 
-        default:
-          break;
-      }
-    });
-
-    port.onDisconnect.addListener(() => {
-      saveLog('Port disconnected');
-    });
+      default:
+        break;
+    }
   });
 });

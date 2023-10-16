@@ -2,8 +2,7 @@
 /* eslint-disable no-undef */
 
 if (typeof init === 'undefined') {
-  const inject = async () => {
-    const port = chrome.runtime.connect();
+  const inject = () => {
     // assets absolute path
     const lock = chrome.runtime.getURL('./assets/lock.png');
     const no = chrome.runtime.getURL('./assets/no.png');
@@ -11,9 +10,6 @@ if (typeof init === 'undefined') {
     const logo = chrome.runtime.getURL('./assets/logo512.png');
     const fontWoffPath = chrome.runtime.getURL('./assets/Abel-Regular.woff');
     const fontTtfPath = chrome.runtime.getURL('./assets/Abel-Regular.ttf');
-
-    port.postMessage({ type: 'GET_SIDE' });
-    port.postMessage({ type: 'GET_STATUS' });
 
     // html injection
     const modal = document.createElement('div');
@@ -287,7 +283,9 @@ if (typeof init === 'undefined') {
     };
 
     const changeFrontStateTo = (status) => {
-      port.postMessage({ type: 'LOG', detail: { log: `change front status to : ${status}` } });
+      (async () => {
+        await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: `change front status to : ${status}` } });
+      })();
       logoEle.setAttribute('src', logo);
       logoEle.className = 'logo';
       modalContainer.className = 'modal-container';
@@ -341,6 +339,18 @@ if (typeof init === 'undefined') {
       }
     };
 
+    const handleStatusChange = async (status) => {
+      await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: `change status received from background script, status : ${status}` } });
+      changeFrontStateTo(status);
+      if (status === 'REGISTER_SUCCESS') {
+        const registerSuccess = new CustomEvent('register_success', {
+          bubbles: true,
+          composed: true,
+        });
+        r.dispatchEvent(registerSuccess); // send event for landing page to transition
+      }
+    };
+
     // auto input focus
     const inputs = r.querySelectorAll('.input');
     inputs.forEach((input, key) => {
@@ -353,13 +363,13 @@ if (typeof init === 'undefined') {
           }
         }
       });
-      input.addEventListener('keyup', (e) => {
+      input.addEventListener('keyup', async (e) => {
         if (input.value) {
           if (key === 5) {
             if (e.code !== 'ShiftRight' && e.code !== 'ShiftLeft' && e.code !== 'CapsLock') {
               const anonId = [...inputs].map((pin) => pin.value).join('');
-              port.postMessage({ type: 'REGISTER', detail: { anonId } });
-              port.postMessage({ type: 'LOG', detail: { log: `attempt to register with anonId ${anonId}` } });
+              await chrome.runtime.sendMessage({ type: 'REGISTER', detail: { anonId } });
+              await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: `attempt to register with anonId ${anonId}` } });
             }
           } else if (key < 5) {
             if (e.code !== 'ShiftRight' && e.code !== 'ShiftLeft' && e.code !== 'CapsLock') {
@@ -383,61 +393,36 @@ if (typeof init === 'undefined') {
     });
 
     // on click events
-    modalContainer.addEventListener('click', () => {
-      port.postMessage({ type: 'LOG', detail: { log: 'click on modal' } });
+    modalContainer.addEventListener('click', async () => {
+      await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: 'click on modal' } });
       if (modalContainer.classList.contains('inactive')) {
-        port.postMessage({ type: 'SET_STATUS', detail: { status: 'ACTIVE' } });
-        port.postMessage({ type: 'LOG', detail: { log: 'status send to background script : ACTIVE' } });
+        await chrome.runtime.sendMessage({ type: 'SET_STATUS', detail: { status: 'ACTIVE' } });
+        await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: 'status send to background script : ACTIVE' } });
       } else if (modalContainer.classList.contains('active')) {
-        port.postMessage({ type: 'SET_STATUS', detail: { status: 'ASK' } });
-        port.postMessage({ type: 'LOG', detail: { log: 'status send to background script : ASK' } });
+        await chrome.runtime.sendMessage({ type: 'SET_STATUS', detail: { status: 'ASK' } });
+        await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: 'status send to background script : ASK' } });
       }
     });
     buttons.forEach((btn, key) => {
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', async () => {
         let satisfaction;
         if (key === 0) {
           satisfaction = true;
         } else if (key === 1) {
           satisfaction = false;
         }
-        port.postMessage({ type: 'SET_STATUS', detail: { status: 'ASK_SUCCESS' } });
-        port.postMessage({ type: 'END_SESSION', detail: { satisfaction } });
-        port.postMessage({ type: 'LOG', detail: { log: 'status send to background script : ASK_SUCCESS and END_SESSION' } });
+        await chrome.runtime.sendMessage({ type: 'SET_STATUS', detail: { status: 'ASK_SUCCESS' } });
+        await chrome.runtime.sendMessage({ type: 'END_SESSION', detail: { satisfaction } });
+        await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: 'status send to background script : ASK_SUCCESS and END_SESSION' } });
       });
     });
 
     // status change handler (from background script)
-    port.onMessage.addListener((msg) => {
+    chrome.runtime.onMessage.addListener(async (msg) => {
       const { type, detail } = msg;
       switch (type) {
         case 'STATUS':
-          port.postMessage({ type: 'LOG', detail: { log: `change status received from background script, status : ${detail.status}` } });
-          changeFrontStateTo(detail.status);
-          if (detail.status === 'REGISTER_SUCCESS') {
-            const registerSuccess = new CustomEvent('register_success', {
-              bubbles: true,
-              composed: true,
-            });
-            r.dispatchEvent(registerSuccess); // send event for landing page to transition
-          }
-          break;
-
-        case 'MOVE':
-          toggleSide(detail.side);
-          break;
-
-        default:
-          break;
-      }
-    });
-
-    chrome.runtime.onMessage.addListener((msg) => {
-      const { type, detail } = msg;
-      switch (type) {
-        case 'STATUS':
-          port.postMessage({ type: 'LOG', detail: { log: `change status received from content script, status : ${detail.status}` } });
-          changeFrontStateTo(detail.status);
+          handleStatusChange(detail.status);
           break;
 
         case 'MOVE':
@@ -445,7 +430,7 @@ if (typeof init === 'undefined') {
           break;
 
         case 'RESET':
-          port.postMessage({ type: 'LOG', detail: { log: 'reset received from content script' } });
+          await chrome.runtime.sendMessage({ type: 'LOG', detail: { log: 'reset received from content script' } });
           sRoot.remove();
           break;
 
@@ -454,10 +439,17 @@ if (typeof init === 'undefined') {
       }
     });
 
-    port.onDisconnect.addListener(() => {
-      console.log('port disconnected');
-      sRoot.remove();
-    });
+    // port.onDisconnect.addListener(() => {
+    //   console.log('port disconnected');
+    //   sRoot.remove();
+    // });
+
+    (async () => {
+      const sideResponse = await chrome.runtime.sendMessage({ type: 'GET_SIDE' });
+      toggleSide(sideResponse.detail.side);
+      const statusResponse = await chrome.runtime.sendMessage({ type: 'GET_STATUS' });
+      handleStatusChange(statusResponse.detail.status);
+    })();
   };
 
   inject();
