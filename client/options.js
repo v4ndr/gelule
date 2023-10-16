@@ -29,8 +29,8 @@ sendLogs.addEventListener('click', () => {
       body: urlencoded,
       redirect: 'follow',
     };
-    // await fetch('https://www.gelule.vandr.fr/api/logs/', requestOptions); // PROD ONLY
-    await fetch('http://localhost:3001/logs/', requestOptions); // DEV ONLY
+    await fetch('https://www.gelule.vandr.fr/api/logs/', requestOptions); // PROD ONLY
+    // await fetch('http://localhost:3001/logs/', requestOptions); // DEV ONLY
     chrome.storage.local.clear();
     chrome.runtime.reload();
   });
