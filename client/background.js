@@ -9,6 +9,10 @@ import whitelist from './utils/whitelist.js';
 import saveLog from './utils/saveLog.js';
 import sendMsgToAllTabs from './utils/sendMsgToAllTabs.js';
 
+setInterval(() => {
+  console.log('heartbeat');
+}, 55000);
+
 let status = 'unknown';
 let anonId = null;
 let session = {};
@@ -139,11 +143,11 @@ chrome.storage.local.get(['anonId'], async (res) => {
         break;
 
       case 'END_SESSION':
+        saveLog('end');
+        saveLog(`Session ended with satisfaction ${detail.satisfaction} and submitted from background script`);
         (async () => {
           await submitSession(closeSession(session, detail.satisfaction));
         })();
-        saveLog(`Session ended with satisfaction
-                    ${detail.satisfaction} and submitted from background script`);
         clearTimeout(timeoutId);
         timeoutId = null;
         break;

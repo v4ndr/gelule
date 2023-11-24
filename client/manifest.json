@@ -1,6 +1,6 @@
 {
   "name": "Gélule",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "manifest_version": 3,
   "description": "Gélule collecte les données de navigation de médecins volontaires à des fins de recherche.",
   "icons": {
@@ -21,7 +21,12 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "exclude_matches": ["https://secure.weda.fr/*"],
+      "exclude_matches": [
+        "https://secure.weda.fr/*", 
+        "https://authps-espacepro.ameli.fr/*", 
+        "https://espacepro.ameli.fr/*",
+        "https://pro.doctolib.fr/*"
+      ],
       "js": ["./content.js"]
     }
   ],

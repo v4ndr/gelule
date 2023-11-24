@@ -8,22 +8,25 @@ if (typeof init === 'undefined') {
     const no = chrome.runtime.getURL('./assets/no.png');
     const yes = chrome.runtime.getURL('./assets/yes.png');
     const logo = chrome.runtime.getURL('./assets/logo512.png');
-    const fontWoffPath = chrome.runtime.getURL('./assets/Abel-Regular.woff');
-    const fontTtfPath = chrome.runtime.getURL('./assets/Abel-Regular.ttf');
+    // const fontWoffPath = chrome.runtime.getURL('./assets/Abel-Regular.woff');
+    // const fontTtfPath = chrome.runtime.getURL('./assets/Abel-Regular.ttf');
 
     // html injection
     const modal = document.createElement('div');
     modal.className = 'container right';
 
-    modal.innerHTML = `
-            <!DOCTYPE html>
-            <style>   
-                @font-face {
+    /*
+    @font-face {
                   font-family: "Abel";
                   src: ${fontWoffPath} format("woff"),
                         ${fontTtfPath} format("truetype");
-                       
+
                 }
+    */
+    modal.innerHTML = `
+            <!DOCTYPE html>
+            <style>   
+                
 
                 .container {
                     all: initial;
@@ -47,7 +50,7 @@ if (typeof init === 'undefined') {
                 
                 .title{
                     color:black;
-                    font-family: 'Abel', sans-serif;
+                    font-family: Arial, Helvetica, sans-serif;
                     font-size: 16px;
                     margin: 0px 0px 0px 0px;
                     padding: 0px 0px 0px 0px;
@@ -58,7 +61,7 @@ if (typeof init === 'undefined') {
                 
                 .subtitle{
                     color:#6B6C6E;
-                    font-family: 'Abel', sans-serif;
+                    font-family: Arial, Helvetica, sans-serif;
                     font-size: 11px;
                     margin: 0px 0px 0px 0px;
                     padding: 0px 0px 0px 0px;
@@ -107,11 +110,11 @@ if (typeof init === 'undefined') {
                 }
                 
                 .modal-container.inactive.hover{
-                    width: 210px;
+                    width: 240px;
                 }
                 
                 .modal-container.active.hover{
-                    width: 236px;
+                    width: 276px;
                 }
                 
                 .modal-container.hover > .hidden-text{
@@ -120,22 +123,22 @@ if (typeof init === 'undefined') {
                 }
                 
                 .modal-container.ask{
-                    width:318px;
+                    width:358px;
                     cursor:default;
                 }
                 
                 .modal-container.success{
-                    width:200px;
+                    width:225px;
                     cursor:default;
                 }
                 
                 .modal-container.locked{
-                    width:350px;
+                    width:368px;
                     cursor:default;
                 }
                 
                 .modal-container.unlocked{
-                    width:220px;
+                    width:240px;
                     cursor:default;
                 }      
                 
@@ -201,7 +204,7 @@ if (typeof init === 'undefined') {
                     margin: 0px 3px;
                     border: 1px solid #333;
                     text-align: center;
-                    font-family: 'Abel', sans-serif;
+                    font-family: Arial, Helvetica, sans-serif;
                     color: black;
                     font-size: 16px;
                     background-color: white;
