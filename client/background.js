@@ -28,7 +28,11 @@ const whitelistDomains = whitelist
 saveLog(`background.js loaded with status ${status} and anonId ${anonId}`);
 
 chrome.runtime.onInstalled.addListener(async () => {
-  chrome.tabs.create({ url: 'https://www.gelule.vandr.fr/landing.html' });
+  chrome.storage.local.get(['anonId'], async (res) => {
+    if (!res.hasOwnProperty('anonId')) {
+      chrome.tabs.create({ url: 'https://www.gelule.vandr.fr/landing.html' });
+    }
+  });
   chrome.contextMenus.create({
     type: 'separator',
     contexts: ['all'],
