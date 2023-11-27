@@ -123,7 +123,7 @@ if (typeof init === 'undefined') {
                 }
                 
                 .modal-container.ask{
-                    width:358px;
+                    width:423px;
                     cursor:default;
                 }
                 
@@ -242,7 +242,7 @@ if (typeof init === 'undefined') {
                     <p class="subtitle">Cliquer pour arrêter l'enregistrement.</p>
                 </div>
                 <div class="ask-text">
-                    <p class="title" >Êtes-vous satisfait de votre recherche ?</p>
+                    <p class="title" >Cette recherche change-t-elle votre prescription ?</p>
                 </div>
                 <div class="success-text">
                     <p class="title" >Recherche terminée !</p>

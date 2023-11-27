@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gélule | Votre numéro d'anonymat</title>
+        <link rel="stylesheet" href="anon.css">
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div class="container">
+            <div id="anonId">
+                Chargement ...
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+    fetch('https://www.gelule.vandr.fr/api/anonId/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        if (data.anonId) {
+            document.getElementById('anonId').innerHTML = data.anonId;
+        } else {
+            document.getElementById('anonId').innerHTML = 'Erreur : votre numéro d\'anonymat n\'a pas pu être récupéré';
+        }
+    })
+    .catch(function(error) {
+        document.getElementById('anonId').innerHTML = 'Erreur : votre numéro d\'anonymat n\'a pas pu être récupéré';
+    });
+</script>

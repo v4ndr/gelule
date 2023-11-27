@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gélule | Enrollment dashboard</title>
+        <link rel="stylesheet" href="enroll-dashboard.css">
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Liste des token d'enrollment ayant cliqué sur le lien</h1>
+            <h2 id="total"></h2>
+        </div>
+    </body>
+</html>
+
+<script>
+   fetch('https://www.gelule.vandr.fr/api/enroll/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(data) {
+        const tokens = data.tokens;
+        var totalHeader = document.getElementById('total');
+        totalHeader.textContent = 'Total : '+tokens.length;
+        var divContainer = document.querySelector('.container');
+        tokens.forEach(token => {
+            var newContent = document.createElement('div');
+            newContent.innerHTML = '<p>'+token+'</p><hr>';
+            divContainer.appendChild(newContent);
+        });
+    })
+    .catch(function(error) {
+        console.log(error)
+    });
+</script>
+
+
