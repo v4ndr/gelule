@@ -12,7 +12,7 @@ html {
 body {
     font-family: 'Abel-gel', sans-serif;
     background: white;
-    font-size: 92px;
+    font-size: 80px;
     color: black;
     margin: 0;
     padding: 0;
@@ -21,8 +21,4 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
-}
-
-.container  {
-    margin: 0 0 100px 0;
 }
