@@ -11,7 +11,7 @@ import sendMsgToAllTabs from './utils/sendMsgToAllTabs.js';
 
 setInterval(() => {
   console.log('heartbeat');
-}, 55000);
+}, 25000);
 
 let status = 'unknown';
 let anonId = null;
@@ -66,14 +66,22 @@ chrome.contextMenus.onClicked.addListener(async (info) => {
 
 chrome.storage.local.get(['anonId'], async (res) => {
   if (res.hasOwnProperty('anonId')) {
-    saveLog(`anonId retrieved from storage : ${res.anonId}`);
     status = res.anonId ? 'INACTIVE' : 'REGISTER';
+    saveLog(`anonId retrieved from storage : ${res.anonId}`);
     saveLog(`status set to ${status}`);
     anonId = res.anonId;
   } else {
     status = 'REGISTER';
     saveLog(`anonId not found in storage, status set to ${status}`);
   }
+
+  chrome.tabs.query({}, (tabs) => {
+    tabs.forEach((tab) => {
+      if (tab.url === 'chrome://newtab/') {
+        chrome.tabs.update(tab.id, { url: 'https://www.google.fr/' });
+      }
+    });
+  });
 
   const sideObj = await chrome.storage.local.get(['side']);
   if (sideObj.hasOwnProperty('side')) {
@@ -108,6 +116,10 @@ chrome.storage.local.get(['anonId'], async (res) => {
       case 'GET_SIDE':
         sendResponse({ type: 'MOVE', detail: { side } });
         saveLog(`side asked by content script, side <${side}> sent to tab ${tab.id}}`);
+        break;
+
+      case 'HEARTBEAT':
+        console.log('heartbeat received');
         break;
 
       case 'SET_STATUS':

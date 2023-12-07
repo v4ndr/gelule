@@ -1,0 +1,26 @@
+07/12/2023 14:05:15 - background.js loaded with status unknown and anonId null
+07/12/2023 14:05:15 - anonId not found in storage, status set to REGISTER
+07/12/2023 14:05:15 - side asked by content script, side <right> sent to tab 1058785131}
+07/12/2023 14:05:15 - status asked by content script, status <REGISTER> sent to tab 1058785131}
+07/12/2023 14:05:15 - change status received from background script, status : REGISTER
+07/12/2023 14:05:15 - change front status to : REGISTER
+07/12/2023 14:05:16 - click on modal
+07/12/2023 14:05:18 - attempt to register with anonId 000000
+07/12/2023 14:05:18 - Error while sending status to tab 1058785124: Could not establish connection. Receiving end does not exist.
+07/12/2023 14:05:18 - change status received from background script, status : REGISTER_SUCCESS
+07/12/2023 14:05:18 - change front status to : REGISTER_SUCCESS
+07/12/2023 14:05:18 - side asked by content script, side <right> sent to tab 1058785131}
+07/12/2023 14:05:18 - status asked by content script, status <REGISTER_SUCCESS> sent to tab 1058785131}
+07/12/2023 14:05:18 - change status received from background script, status : REGISTER_SUCCESS
+07/12/2023 14:05:18 - change front status to : REGISTER_SUCCESS
+07/12/2023 14:05:22 - Sent msg {STATUS | {"status":"INACTIVE"}} to tab 1058785131
+07/12/2023 14:05:22 - change front status to : INACTIVE
+07/12/2023 14:06:02 - background.js loaded with status unknown and anonId null
+07/12/2023 14:06:02 - status set to INACTIVE
+07/12/2023 14:06:06 - side asked by content script, side <right> sent to tab 1058785136}
+07/12/2023 14:06:06 - status asked by content script, status <INACTIVE> sent to tab 1058785136}
+07/12/2023 14:06:06 - change status received from background script, status : INACTIVE
+07/12/2023 14:06:06 - change front status to : INACTIVE
+07/12/2023 14:06:10 - background.js loaded with status unknown and anonId null
+07/12/2023 14:06:10 - status set to INACTIVE
+07/12/2023 14:06:18 - [bug report] start

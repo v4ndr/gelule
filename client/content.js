@@ -447,6 +447,10 @@ if (typeof init === 'undefined') {
     //   sRoot.remove();
     // });
 
+    setInterval(() => {
+      chrome.runtime.sendMessage({ type: 'HEARTBEAT' });
+    }, 25000);
+
     (async () => {
       const sideResponse = await chrome.runtime.sendMessage({ type: 'GET_SIDE' });
       toggleSide(sideResponse.detail.side);
