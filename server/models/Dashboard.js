@@ -7,7 +7,8 @@ class Dashboard {
     db.query('SELECT * FROM sessions', (err, res) => {
       if (err) { next(err); } else {
         const sessionsData = res.rows.filter((e) => e.raw.length > 0);
-        callback(sessionsData);
+        const voidSessionsNumber = res.rows.length - sessionsData.length;
+        callback(sessionsData, voidSessionsNumber);
       }
     });
   }

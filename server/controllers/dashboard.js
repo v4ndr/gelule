@@ -3,7 +3,7 @@ require('dotenv').config();
 const Dashboard = require('../models/Dashboard');
 
 exports.monit = (req, res, next) => {
-  Dashboard.getSessionsData((sessionsData) => {
+  Dashboard.getSessionsData((sessionsData, voidSessionsNumber) => {
     const numberOfSessions = sessionsData.length;
     Dashboard.getEnrollNumber((enrollNumber) => {
       Dashboard.getAnonNumber((anonNumber) => {
@@ -45,13 +45,6 @@ exports.monit = (req, res, next) => {
           (satisfaction.filter((e) => e).length / satisfaction.length) * 100,
         );
 
-        console.log('numberOfSessions', numberOfSessions);
-        console.log('domainsCount', domainsCount);
-        console.log('queriesCount', queriesCount);
-        console.log('enrollNumber', enrollNumber);
-        console.log('anonNumber', anonNumber);
-        console.log('satisfactionRate', satisfactionRate);
-
         res.render('dashboard', {
           numberOfSessions,
           domainsCount,
@@ -59,6 +52,7 @@ exports.monit = (req, res, next) => {
           enrollNumber,
           anonNumber,
           satisfactionRate,
+          voidSessionsNumber,
         });
       }, next);
     }, next);

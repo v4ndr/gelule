@@ -1,14 +1,13 @@
 html {
-    background-color: rgb(245, 245, 245);
+  background-color: rgb(245, 245, 245);
 }
 
 body {
-    font-family: 'Noto Sans', sans-serif;
-    text-align: center;
-    font-weight: 200;
-    padding: 40px 100px 0px 100px;
+  font-family: "Noto Sans", sans-serif;
+  text-align: center;
+  font-weight: 200;
+  padding: 40px 100px 0px 100px;
 }
-
 
 .title-container {
   width: 760px;
@@ -17,14 +16,14 @@ body {
 }
 
 @media all and (max-width: 760px) {
-    body {
-        padding: 40px 10px 10px 10px;
-    }
+  body {
+    padding: 40px 10px 10px 10px;
+  }
 }
 
 @media all and (max-width: 1015px) {
   .title-container {
-      width: 360px;
+    width: 360px;
   }
 }
 h1 {
@@ -32,129 +31,129 @@ h1 {
   font-weight: 400;
 }
 .row-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .panel {
-    background-color: white;
-    border-radius: 15px;
-    padding: 25px 35px 15px 25px;
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    width: 300px;
-    min-height: 120px;
-    max-height: 210px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 25px 35px 15px 25px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  width: 300px;
+  min-height: 120px;
+  max-height: 210px;
 }
 
 .row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .table-container {
-     overflow: scroll;
-     margin-top: 5px;
+  overflow: scroll;
+  margin-top: 5px;
 }
 
 .table-container::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .table-container {
-    -ms-overflow-style: none; 
-    scrollbar-width: none;  
-  }
-
-h2 {
-    font-size: 24px;
-    font-weight: 300;
-    margin: 0;
-    padding: 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-p.counter {
-    flex:2;
-    font-size: 50px;
-    display: flex;
-    align-items: center;
-    margin: 25px;
+h2 {
+  font-size: 24px;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  flex: 2;
+  font-size: 50px;
+  display: flex;
+  align-items: center;
+  margin: 25px;
 }
 
 .icon {
-    height: 36px;
+  height: 36px;
 }
 
 table {
-    width: 100%;
+  width: 100%;
 }
 
 tr {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0px 8px 0px;
-    border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0px 8px 0px;
+  border-bottom: 1px solid #ccc;
 }
 
 th {
-    font-size: 19px;
-    font-weight: 300;
-    padding : 8px 0px 2px 0px;
+  font-size: 19px;
+  font-weight: 300;
+  padding: 8px 0px 2px 0px;
 }
 
 .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .progress-container {
-    width: 60%;
-    margin-top: 10px;
+  width: 60%;
+  margin-top: 10px;
+}
+
+.circular-chart {
+  display: block;
+  margin: 10px auto;
+  max-width: 80%;
+  max-height: 250px;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 3.8;
+}
+
+.circle {
+  fill: none;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  animation: progress 1s ease-out forwards;
+}
+
+@keyframes progress {
+  0% {
+    stroke-dasharray: 0 100;
   }
-  
-  .circular-chart {
-    display: block;
-    margin: 10px auto;
-    max-width: 80%;
-    max-height: 250px;
-  }
-  
-  .circle-bg {
-    fill: none;
-    stroke: #eee;
-    stroke-width: 3.8;
-  }
-  
-  .circle {
-    fill: none;
-    stroke-width: 2.8;
-    stroke-linecap: round;
-    animation: progress 1s ease-out forwards;
-  }
-  
-  @keyframes progress {
-    0% {
-      stroke-dasharray: 0 100;
-    }
-  }
-  
-  .circular-chart.gray .circle {
-    stroke: #bebebe;
-  }
-  
-  .percentage {
-    fill: #666;
-    font-family: sans-serif;
-    font-size: 0.5em;
-    text-anchor: middle;
-  }
+}
+
+.circular-chart.gray .circle {
+  stroke: #bebebe;
+}
+
+.percentage {
+  fill: #666;
+  font-family: sans-serif;
+  font-size: 0.5em;
+  text-anchor: middle;
+}
