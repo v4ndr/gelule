@@ -30,6 +30,24 @@ class Dashboard {
       }
     });
   }
+
+  static submitTally(callback, next) {
+    const db = connection.getDb();
+    db.query('UPDATE tally SET total = total + 1 WHERE id=1', (err) => {
+      if (err) { next(err); } else {
+        callback();
+      }
+    });
+  }
+
+  static getTallyTotal(callback, next) {
+    const db = connection.getDb();
+    db.query('SELECT * FROM tally', (err, res) => {
+      if (err) { next(err); } else {
+        callback(res.rows[0].total);
+      }
+    });
+  }
 }
 
 module.exports = Dashboard;
